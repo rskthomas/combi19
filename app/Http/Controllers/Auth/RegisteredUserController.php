@@ -42,7 +42,11 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            //for now, isGold is always false
+            'isGold' => false,
         ]);
+
+        $user->attachRole($request -> role_id);
 
         event(new Registered($user));
 
