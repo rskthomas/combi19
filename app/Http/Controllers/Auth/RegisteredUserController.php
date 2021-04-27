@@ -69,14 +69,6 @@ class RegisteredUserController extends Controller
             //for now, isGold is always false
             'isGold' => false,
         ]);
-
-        $user->attachRole($request -> role_id);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
     }
 
 
