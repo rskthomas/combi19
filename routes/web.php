@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +24,18 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
+Route::get('/registerChofer',[RegisteredUserController::class, 'createChofer'])
+    ->name('registerChofer');
+    Route::post('/registerChofer', [RegisteredUserController::class, 'storeChofer']);
 
+
+/*
 //Routes for administrator
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
-    Route::get('/', 'AdminController@welcome');
-    Route::get('/manage', ['middleware' => ['permission:manage-admins'], 'uses' => 'AdminController@manageAdmins']);
-});
+    Route::get('/registerChofer',[RegisteredUserController::class, 'createChofer'])
+    ->name('registerChofer');
+    Route::post('/registerChofer', [RegisteredUserController::class, 'storeChofer']);
+});*/
 
 //Routes for Choferes
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 
 class RegisteredUserController extends Controller
 {
@@ -20,6 +22,12 @@ class RegisteredUserController extends Controller
     public function create()
     {
         return view('auth.register');
+    }
+
+
+    public function createChofer()
+    {
+        return view('auth.registerChofer');
     }
 
     /**
@@ -66,9 +74,15 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            //for now, isGold is always false
-            'isGold' => false,
+
         ]);
+
+        $user->attachRole('chofer');
+       event(new Registered($user));
+      /*  Auth::login($user);*/
+     return redirect(RouteServiceProvider::HOME)->with('popup','open');
+
+
     }
 
 
