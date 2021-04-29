@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,25 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
+//this line below imports routes from auth.php
 require __DIR__ . '/auth.php';
 
 
-//Routes for administrator
+Route::get('/', 'HomeController@create')
+                ->name('home');
+
+
+
+//Routes for administrator with prefix /administrator
+//example: combi19/administrator/altachofer
+
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
-    Route::get('/', 'AdminController@welcome');
-    Route::get('/manage', ['middleware' => ['permission:manage-admins'], 'uses' => 'AdminController@manageAdmins']);
+    //Route::get('/altachofer', 'AdminController@welcome');
 });
 
 //Routes for Choferes
-Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
-    Route::get('/', 'AdminController@welcome');
-    Route::get('/manage', ['middleware' => ['permission:manage-admins'], 'uses' => 'AdminController@manageAdmins']);
+Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function () {
+
+    //Route::get('/', 'AdminController@welcome');
 });
