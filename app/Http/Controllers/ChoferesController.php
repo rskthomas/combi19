@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 class ChoferesController extends Controller
 {
     public function listarChoferes()
-    {
-  //terminar
+    {   
+
+        $resultado= User::all();
+
+        return view('listarChoferes')->with('resultado',$resultado);
+        ;
     }
-
-    
-
 
    
 }

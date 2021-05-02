@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChoferesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
@@ -38,6 +39,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 });*/
 
 //Routes for Choferes
+
+Route::get('/listarChoferes',[ChoferesController::class,'listarChoferes']);
+
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
     Route::get('/', 'AdminController@welcome');
     Route::get('/manage', ['middleware' => ['permission:manage-admins'], 'uses' => 'AdminController@manageAdmins']);
