@@ -47,8 +47,8 @@
                                 type="tel"
                                 name="cellphone"
                                 :value="old('cellphone')" required
-                                placeholder="0221-406781"
-                                pattern="[0-9]{4}-[0-9]{6}"
+                                placeholder="0221-4067811"
+                                pattern="[0-9]{4}-[0-9]{7}"
                         required />
                 </div>
 

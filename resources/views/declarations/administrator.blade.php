@@ -37,7 +37,18 @@
                     {{ __('Alta chofer') }}
                 </x-dropdown-link>
             </form>
+
+            <form method="GET" action="{{ route('listarchoferes') }}">
+
+                <x-dropdown-link :href="route('listarchoferes')" onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                    {{ __('Listar choferes') }}
+                </x-dropdown-link>
+            </form>
+
         </x-slot>
+
+
 
     </x-dropdown>
 </div>

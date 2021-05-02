@@ -35,7 +35,8 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 
     Route::post('altachofer', [RegisteredUserController::class, 'storeChofer']);
 
-    Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes']);
+    Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
+                ->name('listarchoferes');
 });
 
 
