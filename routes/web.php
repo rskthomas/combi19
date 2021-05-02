@@ -1,7 +1,11 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+//this line below imports routes from auth.php
+require __DIR__ . '/auth.php';
+
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,24 +18,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//this line below imports routes from auth.php
-require __DIR__ . '/auth.php';
-
-
 Route::get('/', 'HomeController@create')
-                ->name('home');
+    ->name('home');
 
 
 
 //Routes for administrator with prefix /administrator
 //example: combi19/administrator/altachofer
 
+
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
-    //Route::get('/altachofer', 'AdminController@welcome');
+
+    Route::get('altachofer', [RegisteredUserController::class, 'createChofer'])
+        ->name('altachofer');
+
+    Route::post('altachofer', [RegisteredUserController::class, 'storeChofer']);
 });
+
+
 
 //Routes for Choferes
 Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function () {
-
-    //Route::get('/', 'AdminController@welcome');
 });
+
+
