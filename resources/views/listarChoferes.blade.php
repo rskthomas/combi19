@@ -18,6 +18,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
+
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -67,10 +68,10 @@
 
                         </tr>
                     </tbody>
-                @endforeach
-                 
-                </table>
 
+                @endforeach
+                </table>
+               
                <!--  <div class="container">
                     <nav aria-label="...">
                         <ul class="pagination pagination-lg" id="choferes-paginador">
@@ -78,10 +79,15 @@
                     </nav>
                 </div>
  -->
-            </div>
 
+            <div class= "container">
+            {{$resultado->links()}}  
+            </div>
+            </div>
+         
             
         </div>
+    
     </div>
 </x-app-layout>
 
