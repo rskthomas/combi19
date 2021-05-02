@@ -4,6 +4,7 @@
 require __DIR__ . '/auth.php';
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ChoferesController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,6 +34,8 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
         ->name('altachofer');
 
     Route::post('altachofer', [RegisteredUserController::class, 'storeChofer']);
+
+    Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes']);
 });
 
 
