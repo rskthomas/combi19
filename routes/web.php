@@ -3,9 +3,10 @@
 //this line below imports routes from auth.php
 require __DIR__ . '/auth.php';
 
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\ChoferesController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChoferesController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 
 /*
@@ -23,6 +24,16 @@ Route::get('/', 'HomeController@create')
     ->name('home');
 
 
+Route::get(
+    '/profile/{user}',
+    function (User $user) {
+
+             return view('user.profile', ['user' => $user]);
+    }
+)   ->middleware('auth')
+    ->name('profile');
+
+
 
 //Routes for administrator with prefix /administrator
 //example: combi19/administrator/altachofer
@@ -36,7 +47,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     Route::post('altachofer', [RegisteredUserController::class, 'storeChofer']);
 
     Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
-                ->name('listarchoferes');
+        ->name('listarchoferes');
 });
 
 
@@ -44,5 +55,3 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 //Routes for Choferes
 Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function () {
 });
-
-
