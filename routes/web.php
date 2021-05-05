@@ -6,6 +6,7 @@ require __DIR__ . '/auth.php';
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChoferesController;
+use App\Http\Controllers\Auth\UsuariosController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 
@@ -55,3 +56,10 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 //Routes for Choferes
 Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function () {
 });
+
+
+Route::get('editarusuario/{user}', function(User $user){
+    return view('user.modificarperfil',['user'=>$user]);
+});
+
+Route::put('editarusuarios', [UsuariosController::class ,'modificarUsuario'])-> name('editarusuarios');
