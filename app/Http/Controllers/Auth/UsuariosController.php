@@ -27,8 +27,8 @@ class UsuariosController extends Controller
         $user-> update ($request->all());
         $password=  Hash::make($request->password);
         $user-> update (['password'=>$password]);
-        echo $user;       
-
+       
+        return redirect()->to(route('profile', ['user' => $user->id]))-> with('perfilmodificado','open');
     }
 
 }

@@ -3,7 +3,9 @@
 //this line below imports routes from auth.php
 require __DIR__ . '/auth.php';
 
+use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChoferesController;
 use App\Http\Controllers\Auth\UsuariosController;
@@ -59,7 +61,12 @@ Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function (
 
 
 Route::get('editarusuario/{user}', function(User $user){
+    if (($user->id ==  Auth::user()->id) or (Auth::user()-> hasRole('administrator')) ){
     return view('user.modificarperfil',['user'=>$user]);
-});
+    }
+    else {
+        echo "NO TIENE PERMISO PARA ACCEDER A ESTA PAGINA";
+    }
+})->name ('edit');
 
 Route::put('editarusuarios', [UsuariosController::class ,'modificarUsuario'])-> name('editarusuarios');
