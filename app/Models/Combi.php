@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Combi extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'patente',
+        'asientos',
+        'isComoda',
+        'chofer_id',
+        'modelo',
+    ];
 }

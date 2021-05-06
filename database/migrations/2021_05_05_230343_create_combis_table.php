@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCombisTable extends Migration
 {
-    
+
     /**
      * Run the migrations.
      *
@@ -20,7 +20,8 @@ class CreateCombisTable extends Migration
             $table->timestamps();
             $table->String('patente');
             $table->integer('asientos');
-            $table->boolean('super_comoda');
+            $table->boolean('isComoda');
+            $table->integer('modelo');
 
             $table->foreignId('chofer_id')
                   ->nullable()

@@ -7,7 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChoferesController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-
+use App\Http\Controllers\CombiController;
+use App\Models\Combi;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::get(
 
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
 
+    //---------------------routes for chofer
     Route::get('altachofer', [RegisteredUserController::class, 'createChofer'])
         ->name('altachofer');
 
@@ -48,6 +50,12 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 
     Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
         ->name('listarchoferes');
+
+//---------------------routes for combi
+    Route::get('altacombi', [CombiController::class, 'createCombi'])
+        ->name('altacombi');
+
+    Route::post('altacombi', [CombiController::class, 'store']);
 });
 
 
