@@ -22,6 +22,8 @@ class CombiController extends Controller
 
     public function store(Request $request)
     {
+        dd($request);
+
         $request->validate([
             'patente' => 'required|string|max:255|unique:combis',
             'asientos' => 'required|integer|max:255|',

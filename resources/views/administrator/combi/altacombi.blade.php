@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-            {{ __('Alta de comb') }}
+            {{ __('Alta de combi') }}
         </h2>
     </x-slot>
 
@@ -49,16 +49,20 @@
 
                 <!--if there are no free chofer -->
                 @if ($resultado->isEmpty())
-                    <select aria-label=".form-select-sm example"
+
+                    <select aria-label=".form-select-sm example" name="chofer_id" id="chofer_id"
                         class="text-sm text-gray-500 mt-4 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         disabled>
-                        <option disabled selected>No hay chofer disponible</option>
+                        <option  value="null" selected>No hay chofer disponible  </option>
+
                     </select>
-                    <p class="mt-3 text-sm text-right text-green-800 align-middle">No te preocupes, puedes editarlo mas
-                        adelante!</p>
+
+                    <p class="mt-3 text-sm text-right text-green-800 align-middle">
+                        No te preocupes, puedes editarlo mas adelante!</p>
+
                 @else
 
-                    <select aria-label=".form-select-sm example" required
+                    <select aria-label=".form-select-sm example" name="chofer_id" id="chofer_id" required
                         class="text-sm text-gray-700 mt-4 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         <option disabled selected>Selecciona una opción</option>
                         @foreach ($resultado as $chofer)
