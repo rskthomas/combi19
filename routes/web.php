@@ -51,6 +51,13 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 
     Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
         ->name('listarchoferes');
+    
+    Route::get('eliminarchofer/{user}',function (User $user) {
+    
+        return ChoferesController::eliminarChofer($user);
+    } )   ->middleware('auth')
+->name('eliminar');
+
 });
 
 

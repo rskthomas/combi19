@@ -4,17 +4,15 @@
             {{ __('Alta de chofer') }}
         </h2>
     </x-slot>
+    @if(session()->has('popup'))
 
+<div class="alert alert-success" role="alert">
+  Se ha creado con éxito un usuario chofer
+</div>
 
+@endif
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        @if(session()->has('popup'))
-
-        <div class="alert alert-success" role="alert">
-          Se ha creado con éxito un usuario chofer
-        </div>
-
-        @endif
         <!-- Content starts -->
         <x-auth-card>
             <!-- Validation Errors -->
@@ -79,5 +77,6 @@
         </x-auth-card>
 
     </div>
+
 </x-app-layout>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
