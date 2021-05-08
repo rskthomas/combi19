@@ -23,7 +23,8 @@
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required  oninvalid="this.setCustomValidity('Por favor, ingrese un mail valido')" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required  oninvalid="this.setCustomValidity('Por favor, ingrese un mail valido')" 
+                oninput="setCustomValidity('')" />
             </div>
 
             <!-- Password -->
@@ -34,7 +35,8 @@
                                 type="password"
                                 name="password"
                                 required autocomplete="new-password" 
-                                oninvalid="this.setCustomValidity('Por favor, ingrese una contraseña')"/>
+                                oninvalid="this.setCustomValidity('Por favor, ingrese una contraseña')"
+                                 oninput="setCustomValidity('')"/>
             </div>
 
             <!-- Confirm Password -->
@@ -45,6 +47,7 @@
                                 type="password"
                                 name="password_confirmation" required 
                                 oninvalid="this.setCustomValidity('Por favor, repita la contraseña')"
+                                oninput="setCustomValidity('')"
                                 />
             </div>
 

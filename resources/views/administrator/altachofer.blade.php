@@ -34,7 +34,9 @@
                     <x-label for="email" :value="__('Email')" />
 
                     <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                        required />
+                        required 
+                        oninvalid="this.setCustomValidity('Por favor, ingrese un mail valido')"
+                        oninput="setCustomValidity('')"/>
                 </div>
 
                 <!-- Cellphone -->
@@ -47,7 +49,9 @@
                                 :value="old('cellphone')" required
                                 placeholder="0221-4067811"
                                 pattern="[0-9]{4}-[0-9]{7}"
-                        required />
+                        required 
+                        oninvalid="this.setCustomValidity(' ingrese celular  con el formato 0221-4067811')"
+                        oninput="setCustomValidity('')"/>
                 </div>
 
                 <!-- Password -->
@@ -55,7 +59,9 @@
                     <x-label for="password" :value="__('Contraseña')" />
 
                     <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                        autocomplete="new-password" />
+                        autocomplete="new-password" 
+                        oninvalid="this.setCustomValidity('Por favor, ingrese una contraseña')"
+                        oninput="setCustomValidity('')"/>
                 </div>
 
                 <!-- Confirm Password -->
@@ -63,7 +69,9 @@
                     <x-label for="password_confirmation" :value="__('Confirmar  Contraseña')" />
 
                     <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                        name="password_confirmation" required />
+                        name="password_confirmation" required 
+                        oninvalid="this.setCustomValidity('Repita la contraseña')"
+                        oninput="setCustomValidity('')"/>
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
