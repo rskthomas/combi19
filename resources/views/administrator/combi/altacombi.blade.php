@@ -47,24 +47,9 @@
                 <!-- Seleccionar chofer  -->
                 <label for="chofer_id" class="mr-2 text-sm text-gray-700">Seleccione un chofer</label>
 
-                <!--if there are no free chofer -->
-                @if ($resultado->isEmpty())
-
-                    <select aria-label=".form-select-sm example" name="chofer_id" id="chofer_id"
-                        class="text-sm text-gray-500 mt-4 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                        disabled>
-                        <option  value="null" selected>No hay chofer disponible  </option>
-
-                    </select>
-
-                    <p class="mt-3 text-sm text-right text-green-800 align-middle">
-                        No te preocupes, puedes editarlo mas adelante!</p>
-
-                @else
-
                     <select aria-label=".form-select-sm example" name="chofer_id" id="chofer_id" required
                         class="text-sm text-gray-700 mt-4 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        <option disabled selected>Selecciona una opción</option>
+                        <option selected disabled hidden>Selecciona una opción</option>
                         @foreach ($resultado as $chofer)
 
                             <option class="mr-2 text-sm text-gray-700" value="{{ $chofer->id }}">
@@ -73,22 +58,28 @@
                         @endforeach
                         <option class= "text-red-900" value="null">Ningun chofer</option>
                     </select>
+                    @if ($resultado->isEmpty())
+                    <p class="mt-3 text-sm text-left text-red-800 align-middle">
+                        No hay ningun chofer disponible, </p>
+                    <p class="mt-1 text-sm text-left text-green-800 align-middle">
+                        No te preocupes, puedes editarlo mas adelante!</p>
+
                 @endif
 
                 <!-- Tip de asiento  -->
                 <div class="mt-4">
-                    <x-label for="isComoda" :value="__('Tipo de Combi')" />
+                    <x-label for="tipo_de_combi" :value="__('Tipo de Combi')" />
                     <div class="ml-12 mt-3 mb-2 text-sm text-gray-700">
                         <div class="form-check mb-2">
-                            <input class="form-check-input" value="true" type="radio" name="isComoda"
-                                id="isComoda" checked>
+                            <input class="form-check-input" value="comoda" type="radio" name="tipo_de_combi"
+                                id="tipo_de_combi" checked>
                             <label class="form-check-label " for="flexRadioDefault2">
                                 Cómoda
                             </label>
                         </div>
                         <div class="form-check mt-3">
-                            <input class="form-check-input" value="false" type="radio" name="isComoda"
-                                id="isComoda">
+                            <input class="form-check-input" value="superComoda" type="radio" name="tipo_de_combi"
+                                id="tipo_de_combi">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Súper Cómoda
                             </label>

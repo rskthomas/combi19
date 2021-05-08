@@ -25,28 +25,30 @@ class CombiController extends Controller
         dd($request);
 
         $request->validate([
+
             'patente' => 'required|string|max:255|unique:combis',
             'asientos' => 'required|integer|max:255|',
-            'isComoda' => 'required|string|max:5|',
+            'tipo_de_combi' => 'required|string|max:15|',
             'modelo' => 'required|integer',
-            'chofer' => 'nullable',
+            'chofer_id' => 'nullable',
         ]);
-
-        if ($request -> isComoda = "superComoda"){
-            $isComoda = false;
-        }else $isComoda = true;
 
 
         $combi = Combi::create([
             'patente' => $request->patente,
             'asientos' => $request->asientos,
-            'chofer_id' => $request->chofer_id,
             'modelo' => $request->modelo,
-            'isComoda' => $isComoda,
+            'tipo_de_combi' => $request -> tipo_de_combi,
 
         ]);
 
-       event(new Registered($combi));
+       if ($request ->chofer_id != "null")
+       {
+           $combi -> chofer_id = $request->chofer_id;
+           $chofer = User::find($request -> chofer_id);
+           $combi->user()->save($chofer) -> refresh();
+
+       }
         /*  Auth::login($combi);*/
      return redirect('administrator/altacombi')->with('popup','open');
 

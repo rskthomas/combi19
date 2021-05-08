@@ -21,7 +21,7 @@ class CreateCombisTable extends Migration
             $table->String('patente')
                 -> unique();
             $table->integer('asientos');
-            $table->boolean('isComoda');
+            $table->string('tipo_de_combi');
             $table->integer('modelo');
 
             $table->foreignId('chofer_id')
