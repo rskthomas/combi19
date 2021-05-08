@@ -10,13 +10,12 @@ class Combi extends Model
         'patente',
         'asientos',
         'tipo_de_combi',
-        'chofer_id',
         'modelo',
     ];
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'combi_id');
     }
     public function isComoda()
     {

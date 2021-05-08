@@ -24,11 +24,6 @@ class CreateCombisTable extends Migration
             $table->string('tipo_de_combi');
             $table->integer('modelo');
 
-            $table->foreignId('chofer_id')
-                  ->nullable()
-                  ->onDelete('SET NULL')
-                  ->constrained('users');
-
         });
     }
 

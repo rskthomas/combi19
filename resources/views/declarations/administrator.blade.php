@@ -69,7 +69,7 @@
                         <path fill-rule="evenodd"
                             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                             clip-rule="evenodd" />
-                    </svg>  
+                    </svg>
                 </div>
             </button>
         </x-slot>
@@ -88,7 +88,7 @@
 
                 <x-dropdown-link :href="route('listarchoferes')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
-                    {{ __('Listar Combis?') }}
+                    {{ __('Listar Combis') }}
                 </x-dropdown-link>
             </form>
 
