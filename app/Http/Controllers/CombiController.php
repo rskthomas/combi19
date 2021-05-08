@@ -48,7 +48,7 @@ class CombiController extends Controller
            $chofer = User::find($request -> chofer_id);
 
            //setear la relacion 1-1 --
-           $combi->user()->save($chofer);
+           $combi->chofer()->save($chofer);
 
        }
         /*  Auth::login($combi);*/
