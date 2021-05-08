@@ -93,7 +93,7 @@
 
 
                                 <!-- BOTON VER -->
-                                <a href="{{ route('profile', ['user' => $combi]) }}">
+                                <a href="{{ route('infocombi', ['combi' => $combi]) }}">
                                     <button type="button" class="btn btn-primary" title="Ver chofer">
 
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">

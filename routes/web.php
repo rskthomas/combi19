@@ -37,6 +37,15 @@ Route::get(
 )   ->middleware('auth')
     ->name('profile');
 
+Route::get(
+        '/combi/{combi}',
+        function (Combi $combi) {
+
+                 return view('administrator.combi.info', ['combi' => $combi]);
+        }
+    )   ->middleware('auth')
+        ->name('infocombi');
+
 
 
 //Routes for administrator with prefix /administrator
