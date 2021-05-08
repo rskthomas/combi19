@@ -54,18 +54,21 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
         ->name('listarchoferes');
 
+    Route::get('eliminarchofer/{user}',function (User $user) {
+
+        return ChoferesController::eliminarChofer($user);
+    } )   ->middleware('auth')
+         ->name('eliminar');
+
+
+    //---------------------routes for combis
     Route::get('altacombi', [CombiController::class, 'createCombi'])
         ->name('altacombi');
 
     Route::post('altacombi', [CombiController::class, 'store']);
 
-    
-    Route::get('eliminarchofer/{user}',function (User $user) {
-    
-        return ChoferesController::eliminarChofer($user);
-    } )   ->middleware('auth')
-->name('eliminar');
-
+    Route::get('listarcombis', [CombiController::class, 'listarCombis'])
+    ->name('listarcombis');
 
 });
 
