@@ -3,9 +3,12 @@
 //this line below imports routes from auth.php
 require __DIR__ . '/auth.php';
 
+use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChoferesController;
+use App\Http\Controllers\Auth\UsuariosController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CombiController;
 use App\Models\Combi;
@@ -51,11 +54,19 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
         ->name('listarchoferes');
 
-//---------------------routes for combi
     Route::get('altacombi', [CombiController::class, 'createCombi'])
         ->name('altacombi');
 
     Route::post('altacombi', [CombiController::class, 'store']);
+
+    
+    Route::get('eliminarchofer/{user}',function (User $user) {
+    
+        return ChoferesController::eliminarChofer($user);
+    } )   ->middleware('auth')
+->name('eliminar');
+
+
 });
 
 
@@ -63,3 +74,15 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 //Routes for Choferes
 Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function () {
 });
+
+
+Route::get('editarusuario/{user}', function(User $user){
+    if (($user->id ==  Auth::user()->id) or (Auth::user()-> hasRole('administrator')) ){
+    return view('user.modificarperfil',['user'=>$user]);
+    }
+    else {
+        echo "NO TIENE PERMISO PARA ACCEDER A ESTA PAGINA";
+    }
+})->name ('edit');
+
+Route::put('editarusuarios', [UsuariosController::class ,'modificarUsuario'])-> name('editarusuarios');
