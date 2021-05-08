@@ -4,7 +4,8 @@
             {{ __('Alta de chofer') }}
         </h2>
     </x-slot>
-    @if(session()->has('popup'))
+
+@if(session()->has('popup'))
 
 <div class="alert alert-success" role="alert">
   Se ha creado con éxito un usuario chofer

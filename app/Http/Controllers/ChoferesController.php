@@ -19,12 +19,14 @@ class ChoferesController extends Controller
         ;
     }
 
+
     public static function  eliminarChofer(User $user){
         echo $user;
         DB::table('users')->whereId($user->id)->delete();
        return redirect()->to(route('listarchoferes'))-> with('usuarioeliminado',$user->name);
     
     }
+
 
 
 }

@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChoferesController;
 use App\Http\Controllers\Auth\UsuariosController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-
+use App\Http\Controllers\CombiController;
+use App\Models\Combi;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,15 @@ Route::get(
 )   ->middleware('auth')
     ->name('profile');
 
+Route::get(
+        '/combi/{combi}',
+        function (Combi $combi) {
+
+                 return view('administrator.combi.info', ['combi' => $combi]);
+        }
+    )   ->middleware('auth')
+        ->name('infocombi');
+
 
 
 //Routes for administrator with prefix /administrator
@@ -49,6 +59,7 @@ Route::get(
 
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
 
+    //---------------------routes for chofer
     Route::get('altachofer', [RegisteredUserController::class, 'createChofer'])
         ->name('altachofer');
 
@@ -56,12 +67,22 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 
     Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
         ->name('listarchoferes');
-    
+
     Route::get('eliminarchofer/{user}',function (User $user) {
-    
+
         return ChoferesController::eliminarChofer($user);
     } )   ->middleware('auth')
-->name('eliminar');
+         ->name('eliminar');
+
+
+    //---------------------routes for combis
+    Route::get('altacombi', [CombiController::class, 'createCombi'])
+        ->name('altacombi');
+
+    Route::post('altacombi', [CombiController::class, 'store']);
+
+    Route::get('listarcombis', [CombiController::class, 'listarCombis'])
+    ->name('listarcombis');
 
 });
 
