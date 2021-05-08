@@ -55,7 +55,12 @@
                     <div class="col-sm font-semibold ">Combi a cargo </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                            {{ '<a> a combi' }}
+                            @isset($user->combi)
+                                <a href="{{ route('profile', ['user' => $user]) }}">
+                                {{ $user->combi->patente }}
+                                @else
+                                  Libre
+                                @endisset
                         </div>
                     </div>
                 </div>
