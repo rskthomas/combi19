@@ -23,7 +23,7 @@ use App\Models\Combi;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// -------------Home----------------
 Route::get('/', 'HomeController@create')
     ->name('home');
 
@@ -33,6 +33,8 @@ Route::post('/', function () {
 } )
     ->name('homeredirect');
 
+
+//----------------Rutas para todos los usuarios--------------------
 Route::get(
     '/profile/{user}',
     function (User $user) {
@@ -41,6 +43,7 @@ Route::get(
     }
 )   ->middleware('auth')
     ->name('profile');
+
 
 Route::get(
         '/combi/{combi}',
@@ -56,10 +59,10 @@ Route::get(
 //Routes for administrator with prefix /administrator
 //example: combi19/administrator/altachofer
 
-
+//----------------------RUTAS ADMINISTRADOR------------------------------------
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
 
-    //---------------------routes for chofer
+    //--------------------- rutas para administrar choferes
     Route::get('altachofer', [RegisteredUserController::class, 'createChofer'])
         ->name('altachofer');
 
@@ -75,7 +78,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
          ->name('eliminar');
 
 
-    //---------------------routes for combis
+    //---------------------rutas para administrar combis
     Route::get('altacombi', [CombiController::class, 'createCombi'])
         ->name('altacombi');
 
@@ -88,7 +91,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 
 
 
-//Routes for Choferes
+//-----------------------Routes for Choferes--------------------------
 Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function () {
 });
 
