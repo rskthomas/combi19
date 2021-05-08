@@ -49,6 +49,6 @@ class User extends Authenticatable
 
     public function combi()
     {
-        return $this->belongsTo(Combi::class, 'chofer_id');
+        return $this->belongsTo(Combi::class);
     }
 }

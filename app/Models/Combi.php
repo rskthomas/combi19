@@ -13,7 +13,7 @@ class Combi extends Model
         'modelo',
     ];
 
-    public function user()
+    public function chofer()
     {
         return $this->hasOne(User::class, 'combi_id');
     }

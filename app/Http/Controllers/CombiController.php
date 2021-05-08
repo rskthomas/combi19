@@ -54,6 +54,14 @@ class CombiController extends Controller
         /*  Auth::login($combi);*/
      return redirect('administrator/altacombi')->with('popup','open');
 
+    }
 
+    public function listarCombis()
+    {
+
+        $resultado= Combi::paginate(10);
+
+        return view('administrator.combi.listarcombis')->with('resultado',$resultado);
+        ;
     }
 }

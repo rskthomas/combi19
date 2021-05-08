@@ -84,9 +84,9 @@
                 </x-dropdown-link>
             </form>
 
-            <form method="GET" action="{{ route('listarchoferes') }}">
+            <form method="GET" action="{{ route('listarcombis') }}">
 
-                <x-dropdown-link :href="route('listarchoferes')" onclick="event.preventDefault();
+                <x-dropdown-link :href="route('listarcombis')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Listar Combis') }}
                 </x-dropdown-link>
