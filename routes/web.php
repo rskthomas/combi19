@@ -26,6 +26,11 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 Route::get('/', 'HomeController@create')
     ->name('home');
 
+Route::post('/', function () {
+    
+    return view('user.search',['popup' => 'true']);
+} )
+    ->name('homeredirect');
 
 Route::get(
     '/profile/{user}',
