@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-            {{ __('Ruta- ') }} {{ $ruta ->lugar_salida }} -{{ $ruta ->lugar_llegada }}
+            {{ __('Ruta- ') }} {{ $ruta ->salida->nombre}} -{{ $ruta ->llegada->nombre}}
         </h2>
     </x-slot>
     @if(session()->has('rutamodificada'))
