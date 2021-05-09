@@ -5,7 +5,13 @@
         </h2>
     </x-slot>
 
+    @if(session()->has('combimodificado'))
 
+    <div class="alert alert-success" role="alert">
+        Se ha modificado el perfil con exito
+    </div>
+
+    @endif
     <div class="py-8 col-md-5 mx-auto ">
         <div class="bg-white border-b border-gray-200 ">
 

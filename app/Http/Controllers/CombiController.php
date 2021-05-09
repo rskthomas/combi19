@@ -72,9 +72,9 @@ class CombiController extends Controller
         return view('administrator.combi.editar', ['combi' => $combi,'resultado' => User::choferesLibres() ]);
     }
 
-    public function update(Request $request, Combi $combi){
+    public function update(Combi $combi){
 
-        $request->validate([
+        request()->validate([
 
             'patente' => 'string|max:255|unique:combis|nullable',
             'asientos' => 'integer|max:255|nullable',
@@ -83,20 +83,21 @@ class CombiController extends Controller
             'chofer_id' => 'nullable',
         ]);
 
+        $input = array_filter(request()->all());
+
         $combi=Combi::findOrFail($combi->id);
 
-        if ($request ->chofer_id != "null")
+        if ( (request() ->chofer_id != "null") && (User::find (request() ->chofer_id) != $combi -> chofer ) )
        {
-           $combi -> chofer_id = $request->chofer_id;
-           $chofer = User::find($request -> chofer_id);
+           $combi -> chofer_id = request()->chofer_id;
+           $chofer = User::find(request() -> chofer_id);
 
            //setear la relacion 1-1 --
            $combi->chofer()->save($chofer);
        }
+        $combi->update($input);
 
-        $combi->update(request()->intersect('patente', 'asientos', 'tipo_de_combi', 'modelo'));
-
-        return redirect()->route('combi.edit')->with('popup','open');
+        return redirect()->to(route('combi.info', ['combi' => $combi]))-> with('combimodificado','open');
     }
 
 

@@ -19,7 +19,7 @@
                 <div class="">
                     <x-label for="modelo" :value="__('Modelo')" />
 
-                    <x-input id="modelo" class="block mt-1 w-full" type="number" name="modelo"
+                    <x-input id="modelo" class="block mt-1 w-full" type="number" name="modelo" 
                         :max="2100" min="1950" placeholder="{{$combi -> modelo}}" />
                 </div>
 
