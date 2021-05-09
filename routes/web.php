@@ -83,6 +83,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 
     Route::get('altaruta', [RutaController::class, 'create'])->name('altaruta');
     Route::post('altaruta', [RutaController::class, 'store']);
+    
+    Route::get('listarrutas', [RutaController::class, 'show'])
+    ->name('listarrutas');
 
     //---------------------rutas para administrar combis
     Route::get('altacombi', [CombiController::class, 'createCombi'])

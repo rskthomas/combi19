@@ -53,6 +53,7 @@ class RutaController extends Controller
             'lugar_salida' => $request->salida,
             'kms' => $request->kms,
             'tiempo' => $request -> tiempo,
+            'combi_id'=> $request -> combi
 
         ]);
 
@@ -68,7 +69,9 @@ class RutaController extends Controller
      */
     public function show(ruta $ruta)
     {
-        //
+        $resultado= Ruta::paginate(10);
+
+        return view('rutas.listarRuta')->with('resultado',$resultado);
     }
 
     /**
