@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ruta extends Model
 {
     use HasFactory;
+
+
+    protected $fillable = [
+        "lugar_salida","lugar_llegada","combi_id","tiempo","kms"
+    ];
 }

@@ -5,13 +5,15 @@ require __DIR__ . '/auth.php';
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Combi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RutaController;
+use App\Http\Controllers\CombiController;
+use App\Http\Controllers\LugarController;
 use App\Http\Controllers\ChoferesController;
 use App\Http\Controllers\Auth\UsuariosController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\CombiController;
-use App\Models\Combi;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +79,10 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     } )   ->middleware('auth')
          ->name('eliminar');
 
+    //----------------rutas para administrar Rutas-----
+
+    Route::get('altaruta', [RutaController::class, 'create'])->name('altaruta');
+    Route::post('altaruta', [RutaController::class, 'store']);
 
     //---------------------rutas para administrar combis
     Route::get('altacombi', [CombiController::class, 'createCombi'])
@@ -106,3 +112,10 @@ Route::get('editarusuario/{user}', function(User $user){
 })->name ('edit');
 
 Route::put('editarusuarios', [UsuariosController::class ,'modificarUsuario'])-> name('editarusuarios');
+
+
+
+
+//BORAR LO SIG 
+
+Route::get('altalugaresagus', [LugarController::class, 'storeAgus']);

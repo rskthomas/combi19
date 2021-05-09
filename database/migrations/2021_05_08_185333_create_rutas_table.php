@@ -15,7 +15,23 @@ class CreateRutasTable extends Migration
     {
         Schema::create('rutas', function (Blueprint $table) {
             $table->id();
-            $table->foreing('combi')->references('id')->on('combis')->unsigned()->nullable()->onDelete('set null');
+            $table->string("tiempo");
+            $table->string("kms");
+            $table->foreignId('lugar_salida')
+            ->nullable()
+            ->onDelete('SET NULL')
+            ->constrained('combis');
+            $table->foreignId('lugar_llegada')
+            ->nullable()
+            ->onDelete('SET NULL')
+            ->constrained('combis');
+            
+            
+            $table->foreignId('combi_id')
+            ->nullable()
+            ->onDelete('SET NULL')
+            ->constrained('combis');
+
             $table->timestamps();
         });
     }

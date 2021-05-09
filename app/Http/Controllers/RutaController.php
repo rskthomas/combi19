@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ruta;
+use App\Models\Combi;
+use App\Models\Lugar;
 use Illuminate\Http\Request;
 
 class RutaController extends Controller
@@ -24,7 +26,11 @@ class RutaController extends Controller
      */
     public function create()
     {
-        //
+        //$combi = Combi::all();
+        $combis=Combi::all();
+        $lugares = Lugar::all();
+
+        return view('rutas.agregarRuta',['lugares' => $lugares, 'combis'=>$combis]);
     }
 
     /**
@@ -34,8 +40,24 @@ class RutaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+      
+        $request->validate([
+
+            'salida' => 'required|string|max:255|unique:combis',
+            'llegada' => 'required',
+            'combi' => 'required',
+        ]);
+        $ruta = Ruta::create([
+            'lugar_llegada' => $request->llegada,
+            'lugar_salida' => $request->salida,
+            'kms' => $request->kms,
+            'tiempo' => $request -> tiempo,
+
+        ]);
+
+       // return view('rutas.listarRutas')->with('resultado',$ruta);
+    
     }
 
     /**
