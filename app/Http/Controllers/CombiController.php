@@ -13,11 +13,7 @@ class CombiController extends Controller
     public function createCombi()
     {
 
-        $resultado = User::whereRoleIs('chofer')
-                ->whereNull('combi_id')
-                ->get();
-
-        return view('administrator.combi.altacombi', ['resultado' => $resultado]);
+        return view('administrator.combi.altacombi', ['resultado' => User::choferesLibres()]);
     }
 
     public function store(Request $request)
@@ -64,4 +60,44 @@ class CombiController extends Controller
         return view('administrator.combi.listarcombis')->with('resultado',$resultado);
         ;
     }
+
+    public function get(Combi $combi){
+        return view('administrator.combi.info', ['combi' => $combi]);
+    }
+
+
+    public function edit(Combi $combi)
+    {
+
+        return view('administrator.combi.editar', ['combi' => $combi,'resultado' => User::choferesLibres() ]);
+    }
+
+    public function update(Request $request, Combi $combi){
+
+        $request->validate([
+
+            'patente' => 'string|max:255|unique:combis|nullable',
+            'asientos' => 'integer|max:255|nullable',
+            'tipo_de_combi' => 'string|max:15|nullable',
+            'modelo' => 'integer|nullable',
+            'chofer_id' => 'nullable',
+        ]);
+
+        $combi=Combi::findOrFail($combi->id);
+
+        if ($request ->chofer_id != "null")
+       {
+           $combi -> chofer_id = $request->chofer_id;
+           $chofer = User::find($request -> chofer_id);
+
+           //setear la relacion 1-1 --
+           $combi->chofer()->save($chofer);
+       }
+
+        $combi->update(request()->intersect('patente', 'asientos', 'tipo_de_combi', 'modelo'));
+
+        return redirect()->route('combi.edit')->with('popup','open');
+    }
+
+
 }

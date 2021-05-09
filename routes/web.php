@@ -32,19 +32,35 @@ Route::get(
     '/profile/{user}',
     function (User $user) {
 
-             return view('user.profile', ['user' => $user]);
+        return view('user.profile', ['user' => $user]);
     }
-)   ->middleware('auth')
+)->middleware('auth')
     ->name('profile');
 
-Route::get(
-        '/combi/{combi}',
-        function (Combi $combi) {
 
-                 return view('administrator.combi.info', ['combi' => $combi]);
-        }
-    )   ->middleware('auth')
-        ->name('infocombi');
+
+
+Route::name('combi.')
+     ->prefix('/combi/{combi}')
+     ->middleware('role:administrator')
+     ->group(function () {
+
+        //-----------------------------------------------------//
+        Route::get('/','CombiController@get')
+        ->name('info')
+        ->withoutMiddleware('role:administrator');
+
+        //-----------------------------------------------------//
+        Route::get('/edit','CombiController@edit')
+        ->name('edit');
+        //-----------------------------------------------------//
+
+        Route::put('/update', 'CombiController@update')
+        ->name('update');
+
+
+    });
+
 
 
 
@@ -54,7 +70,7 @@ Route::get(
 
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
 
-    //---------------------routes for chofer
+    //---------------------routes for altachofer
     Route::get('altachofer', [RegisteredUserController::class, 'createChofer'])
         ->name('altachofer');
 
@@ -63,12 +79,11 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
         ->name('listarchoferes');
 
-    Route::get('eliminarchofer/{user}',function (User $user) {
+    Route::get('eliminarchofer/{user}', function (User $user) {
 
         return ChoferesController::eliminarChofer($user);
-    } )   ->middleware('auth')
-         ->name('eliminar');
-
+    })->middleware('auth')
+        ->name('eliminar');
 
     //---------------------routes for combis
     Route::get('altacombi', [CombiController::class, 'createCombi'])
@@ -77,10 +92,10 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     Route::post('altacombi', [CombiController::class, 'store']);
 
     Route::get('listarcombis', [CombiController::class, 'listarCombis'])
-    ->name('listarcombis');
+        ->name('listarcombis');
+
 
 });
-
 
 
 //Routes for Choferes
@@ -88,13 +103,12 @@ Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function (
 });
 
 
-Route::get('editarusuario/{user}', function(User $user){
-    if (($user->id ==  Auth::user()->id) or (Auth::user()-> hasRole('administrator')) ){
-    return view('user.modificarperfil',['user'=>$user]);
-    }
-    else {
+Route::get('editarusuario/{user}', function (User $user) {
+    if (($user->id ==  Auth::user()->id) or (Auth::user()->hasRole('administrator'))) {
+        return view('user.modificarperfil', ['user' => $user]);
+    } else {
         echo "NO TIENE PERMISO PARA ACCEDER A ESTA PAGINA";
     }
-})->name ('edit');
+})->name('edit');
 
-Route::put('editarusuarios', [UsuariosController::class ,'modificarUsuario'])-> name('editarusuarios');
+Route::put('editarusuarios', [UsuariosController::class, 'modificarUsuario'])->name('editarusuarios');
