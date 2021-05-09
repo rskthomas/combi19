@@ -103,8 +103,12 @@ class RutaController extends Controller
      * @param  \App\Models\ruta  $ruta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ruta $ruta)
+    public static function destroy(ruta $ruta)
     {
         //
+        $ruta-> delete();
+
+        return redirect()->to(route('listarrutas'))-> with('rutaeliminada',$ruta);
+  
     }
 }

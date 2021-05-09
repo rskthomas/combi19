@@ -97,8 +97,11 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
         ->name('inforuta');
 
 
+        Route::get('eliminarruta/{ruta}',function (ruta $ruta) {
 
-
+            return RutaController::destroy($ruta);
+        } )   ->middleware('auth')
+             ->name('eliminarruta');
 
 
     //---------------------rutas para administrar combis
