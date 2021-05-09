@@ -15,17 +15,18 @@
                     <div class="col-sm font-semibold ">Lugar de salida </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                            {{ $ruta-> lugar_salida}}
+                            {{ $ruta->salida}}
                         </div>
                     </div>
                 </div>
+
                 <hr />
                 <!-- a row -->
                 <div class="row p-4 ">
                     <div class="col-sm font-semibold ">Lugar de llegada </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                            {{ $ruta-> lugar_llegada }}
+                            {{ $ruta }}
                         </div>
                     </div>
                 </div>
@@ -44,7 +45,7 @@
                     <div class="col-sm font-semibold ">Combi Asignada </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                            {{ $ruta->combi_id}}<!-- ponerle un link -->
+                        {{ $ruta->combi->patente  }}<!-- ponerle un link -->
                         </div>
                     </div>
                 </div>

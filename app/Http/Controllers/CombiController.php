@@ -41,16 +41,16 @@ class CombiController extends Controller
             'tipo_de_combi' => $request -> tipo_de_combi,
 
         ]);
-
-       if ($request ->chofer_id != "null")
+       //dd($request);
+       if ($request ->chofer_id != "null" and $request ->chofer_id != null)
        {
            $combi -> chofer_id = $request->chofer_id;
            $chofer = User::find($request -> chofer_id);
 
            //setear la relacion 1-1 --
            $combi->chofer()->save($chofer);
-
-       }
+        
+         }
         /*  Auth::login($combi);*/
      return redirect('administrator/altacombi')->with('popup','open');
 

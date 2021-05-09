@@ -57,7 +57,7 @@ class RutaController extends Controller
 
         ]);
 
-       // return view('rutas.listarRutas')->with('resultado',$ruta);
+        return redirect()->to(route('altaruta'))-> with('rutaagregada',$ruta);
     
     }
 
@@ -72,6 +72,7 @@ class RutaController extends Controller
         $resultado= Ruta::paginate(10);
 
         return view('rutas.listarRuta')->with('resultado',$resultado);
+
     }
 
     /**

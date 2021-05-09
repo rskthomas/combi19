@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ruta;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Lugar extends Model
 {
@@ -11,5 +12,10 @@ class Lugar extends Model
     protected $fillable = [
         'nombre','provincia'
     ];
+  
+    public function ruta()
+    {
+        return $this->hasMany(ruta::class,'lugar_salida','lugar_salida');
+    }
 
 }

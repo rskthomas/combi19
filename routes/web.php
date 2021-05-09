@@ -87,8 +87,11 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     
     Route::get('listarrutas', [RutaController::class, 'show'])
     ->name('listarrutas');
+
+    
+    
     Route::get(
-        '/combi/{ruta}',
+        '/inforuta/{ruta}',
         function (ruta $ruta) {
 
                  return view('rutas.info', ['ruta' => $ruta]);

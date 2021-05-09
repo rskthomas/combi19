@@ -19,17 +19,17 @@ class CreateRutasTable extends Migration
             $table->string("kms");
             $table->foreignId('lugar_salida')
             ->nullable()
-            ->onDelete('SET NULL')
-            ->constrained('combis');
+            ->onDelete('set null')
+            ->constrained('lugars');
             $table->foreignId('lugar_llegada')
             ->nullable()
-            ->onDelete('SET NULL')
-            ->constrained('combis');
+            ->onDelete('set null')
+            ->constrained('lugars');
             
             
             $table->foreignId('combi_id')
             ->nullable()
-            ->onDelete('SET NULL')
+            ->onDelete('set null')
             ->constrained('combis');
 
             $table->timestamps();

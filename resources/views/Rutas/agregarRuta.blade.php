@@ -4,6 +4,14 @@
             {{ __('Crear Ruta') }}
         </h2>
     </x-slot>
+
+    @if(session()->has('rutaagregada'))
+
+<div class="alert alert-success" role="alert">
+    <span>Se ha creado la ruta</span>
+</div>
+
+@endif
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Content starts -->
         <x-auth-card>
