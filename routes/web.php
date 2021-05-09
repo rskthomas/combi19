@@ -4,6 +4,7 @@
 require __DIR__ . '/auth.php';
 
 use App\Models\Role;
+use App\Models\ruta;
 use App\Models\User;
 use App\Models\Combi;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +87,19 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     
     Route::get('listarrutas', [RutaController::class, 'show'])
     ->name('listarrutas');
+    Route::get(
+        '/combi/{ruta}',
+        function (ruta $ruta) {
+
+                 return view('rutas.info', ['ruta' => $ruta]);
+        }
+    )   ->middleware('auth')
+        ->name('inforuta');
+
+
+
+
+
 
     //---------------------rutas para administrar combis
     Route::get('altacombi', [CombiController::class, 'createCombi'])

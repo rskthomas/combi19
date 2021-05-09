@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-            {{ __('Listar choferes') }}
+            {{ __('Listar Rutas ') }}
         </h2>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
@@ -10,23 +10,24 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </x-slot>
-@if(session()->has('rutaEliminada'))
+    @if(session()->has('rutaEliminada'))
 
-<div class="alert alert-success" role="alert">
-<span>Se ha eliminado la ruta {{session()->get('usuarioeliminado')}}</span>
-</div>
+    <div class="alert alert-success" role="alert">
+        <span>Se ha eliminado la ruta {{session()->get('usuarioeliminado')}}</span>
+    </div>
 
-@endif
+    @endif
 
     <div class="mt-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-3 ">
 
+                @if($resultado)
 
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                        <th scope="col"> Id ruta            </th>
+                            <th scope="col"> Id ruta </th>
                             <th scope="col">Lugar de salida</th>
                             <th scope="col">Lugar de llegada</th>
                             <th scope="col">Tiempo estimado de viaje</th>
@@ -94,7 +95,7 @@
 
 
                                 <!-- BOTON VER -->
-                                <a href="">
+                                <a href="{{ route('inforuta', ['ruta' => $ruta]) }}">
                                     <button type="button" class="btn btn-primary" title="Ver chofer">
 
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
@@ -116,6 +117,13 @@
                     {{ $resultado->links() }}
                 </div>
             </div>
+            @else
+
+
+            <div class="alert alert-success" role="alert">
+                <span>No se han creado rutas. Pruebe agregando una </span>
+            </div>
+            @endif
 
 
         </div>
