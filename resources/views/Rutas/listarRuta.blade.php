@@ -42,8 +42,8 @@
                     <tbody id='rutas'>
                         <tr>
                             <td>{{$ruta->id}}</td>
-                            <td>{{ $ruta->lugar_salida}}</td>
-                            <td>{{ $ruta->lugar_llegada }}</td>
+                            <td>{{ $ruta->salida->nombre}}</td>
+                            <td>{{ $ruta->llegada->nombre }}</td>
                             <td>{{ $ruta->tiempo }}</td>
                             <td>{{ $ruta->kms }}</td>
                             <td>{{ $ruta->combi->patente }}</td>

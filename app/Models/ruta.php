@@ -17,11 +17,11 @@ class ruta extends Model
 
     public function salida()
     {
-        return $this->belongsTo(Lugar::class,"id","lugar_llegada");
+        return $this->belongsTo(Lugar::class,"lugar_salida","id");
     }
     public function llegada()
     {
-        return $this->belongsTo(Lugar::class,"id","lugar_llegada");
+        return $this->belongsTo(Lugar::class,"lugar_llegada","id");
     }
     public function combi()
     {

@@ -15,7 +15,7 @@
                     <div class="col-sm font-semibold ">Lugar de salida </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                            {{ $ruta->salida}}
+                            {{ $ruta->salida->nombre}}
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                     <div class="col-sm font-semibold ">Lugar de llegada </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                            {{ $ruta }}
+                            {{$ruta->llegada->nombre}}
                         </div>
                     </div>
                 </div>
