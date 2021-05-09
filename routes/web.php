@@ -31,9 +31,9 @@ Route::get('/', 'HomeController@create')
     ->name('home');
 
 Route::post('/', function () {
-    
-    return view('user.search',['popup' => 'true']);
-} )
+
+    return view('user.search', ['popup' => 'true']);
+})
     ->name('homeredirect');
 
 
@@ -42,20 +42,20 @@ Route::get(
     '/profile/{user}',
     function (User $user) {
 
-             return view('user.profile', ['user' => $user]);
+        return view('user.profile', ['user' => $user]);
     }
-)   ->middleware('auth')
+)->middleware('auth')
     ->name('profile');
 
 
 Route::get(
-        '/combi/{combi}',
-        function (Combi $combi) {
+    '/combi/{combi}',
+    function (Combi $combi) {
 
-                 return view('administrator.combi.info', ['combi' => $combi]);
-        }
-    )   ->middleware('auth')
-        ->name('infocombi');
+        return view('administrator.combi.info', ['combi' => $combi]);
+    }
+)->middleware('auth')
+    ->name('infocombi');
 
 
 
@@ -74,37 +74,44 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
         ->name('listarchoferes');
 
-    Route::get('eliminarchofer/{user}',function (User $user) {
+    Route::get('eliminarchofer/{user}', function (User $user) {
 
         return ChoferesController::eliminarChofer($user);
-    } )   ->middleware('auth')
-         ->name('eliminar');
+    })->middleware('auth')
+        ->name('eliminar');
 
     //----------------rutas para administrar Rutas-----
 
     Route::get('altaruta', [RutaController::class, 'create'])->name('altaruta');
     Route::post('altaruta', [RutaController::class, 'store']);
-    
-    Route::get('listarrutas', [RutaController::class, 'show'])
-    ->name('listarrutas');
 
-    
-    
+    Route::get('listarrutas', [RutaController::class, 'show'])
+        ->name('listarrutas');
+
+
+
     Route::get(
         '/inforuta/{ruta}',
         function (ruta $ruta) {
 
-                 return view('rutas.info', ['ruta' => $ruta]);
+            return view('rutas.info', ['ruta' => $ruta]);
         }
-    )   ->middleware('auth')
+    )->middleware('auth')
         ->name('inforuta');
 
 
-        Route::get('eliminarruta/{ruta}',function (ruta $ruta) {
+    Route::get('eliminarruta/{ruta}', function (ruta $ruta) {
 
-            return RutaController::destroy($ruta);
-        } )   ->middleware('auth')
-             ->name('eliminarruta');
+        return RutaController::destroy($ruta);
+    })->middleware('auth')
+        ->name('eliminarruta');
+
+    Route::get('editarruta/{ruta}', function (ruta $ruta) {
+        return RutaController::edit($ruta);
+        
+    })->name('editarruta');
+
+    Route::put('editarruta', [RutaController::class, 'update'])->name('updateruta');
 
 
     //---------------------rutas para administrar combis
@@ -114,8 +121,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     Route::post('altacombi', [CombiController::class, 'store']);
 
     Route::get('listarcombis', [CombiController::class, 'listarCombis'])
-    ->name('listarcombis');
-
+        ->name('listarcombis');
 });
 
 
@@ -125,16 +131,15 @@ Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function (
 });
 
 
-Route::get('editarusuario/{user}', function(User $user){
-    if (($user->id ==  Auth::user()->id) or (Auth::user()-> hasRole('administrator')) ){
-    return view('user.modificarperfil',['user'=>$user]);
-    }
-    else {
+Route::get('editarusuario/{user}', function (User $user) {
+    if (($user->id ==  Auth::user()->id) or (Auth::user()->hasRole('administrator'))) {
+        return view('user.modificarperfil', ['user' => $user]);
+    } else {
         echo "NO TIENE PERMISO PARA ACCEDER A ESTA PAGINA";
     }
-})->name ('edit');
+})->name('edit');
 
-Route::put('editarusuarios', [UsuariosController::class ,'modificarUsuario'])-> name('editarusuarios');
+Route::put('editarusuarios', [UsuariosController::class, 'modificarUsuario'])->name('editarusuarios');
 
 
 

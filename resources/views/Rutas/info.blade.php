@@ -4,6 +4,13 @@
             {{ __('Ruta- ') }} {{ $ruta ->lugar_salida }} -{{ $ruta ->lugar_llegada }}
         </h2>
     </x-slot>
+    @if(session()->has('rutamodificada'))
+
+<div class="alert alert-success" role="alert">
+    Se ha modificado el perfil con exito
+</div>
+
+@endif
 
 
     <div class="py-8 col-md-5 mx-auto ">
@@ -31,16 +38,6 @@
                     </div>
                 </div>
                 <hr />
-                <!-- a row -->
-                <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">kilometros aproximados</div>
-                    <div class="col-sm ">
-                        <div class="col-sm-9 text-secondary text-left">
-                            {{ $ruta->kms}}
-                        </div>
-                    </div>
-                </div>
-                <hr />
                 <div class="row p-4 ">
                     <div class="col-sm font-semibold ">Combi Asignada </div>
                     <div class="col-sm ">
@@ -51,6 +48,28 @@
                 </div>
                 <hr />
 
+                  <!-- a row -->
+                  <div class="row p-4 ">
+                    <div class="col-sm font-semibold ">Tiempo estimado de viaje</div>
+                    <div class="col-sm ">
+                        <div class="col-sm-9 text-secondary text-left">
+                            {{ $ruta->tiempo}}
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                
+                <!-- a row -->
+                <div class="row p-4 ">
+                    <div class="col-sm font-semibold ">kilometros aproximados</div>
+                    <div class="col-sm ">
+                        <div class="col-sm-9 text-secondary text-left">
+                            {{ $ruta->kms}}
+                        </div>
+                    </div>
+                </div>
+                <hr />
+               
 
 
 

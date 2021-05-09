@@ -44,7 +44,7 @@ class RutaController extends Controller
       
         $request->validate([
 
-            'salida' => 'required|string|max:255|unique:combis',
+            'salida' => 'required',
             'llegada' => 'required',
             'combi' => 'required',
         ]);
@@ -81,9 +81,16 @@ class RutaController extends Controller
      * @param  \App\Models\ruta  $ruta
      * @return \Illuminate\Http\Response
      */
-    public function edit(ruta $ruta)
+    public static function edit(ruta $ruta)
     {
         //
+        $combis=Combi::all();
+        $lugares = Lugar::all();
+
+        return view('rutas.editarRuta',['ruta'=> $ruta,'lugares' => $lugares, 'combis'=>$combis]);
+
+
+
     }
 
     /**
@@ -96,6 +103,18 @@ class RutaController extends Controller
     public function update(Request $request, ruta $ruta)
     {
         //
+        $request->validate([
+            'salida' => 'required',
+            'llegada' => 'required',
+            'combi' => 'required',
+        ]);
+        $ruta=ruta::findOrFail($request->id);
+
+        $ruta-> update ($request->all());
+
+        return redirect()->to(route('inforuta', ['ruta' => $ruta->id]))-> with('rutamodificada','open');
+
+     
     }
 
     /**
