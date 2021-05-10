@@ -15,7 +15,12 @@ class Lugar extends Model
   
     public function ruta()
     {
-        return $this->hasMany(ruta::class);
+        return $this->hasMany(ruta::class,"lugar_salida","id");
+    }
+    
+    public function ruta2()
+    {
+        return $this->hasMany(ruta::class,"lugar_llegada","id");
     }
 
 }

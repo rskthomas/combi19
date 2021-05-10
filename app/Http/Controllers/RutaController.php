@@ -107,13 +107,20 @@ class RutaController extends Controller
     {
         //
         $request->validate([
-            'salida' => 'required',
-            'llegada' => 'required',
-            'combi' => 'required',
+            'lugar_salida' => 'required',
+            'lugar_llegada' => 'required',
+            'combi_id' => 'required',
         ]);
+
+
         $ruta=ruta::findOrFail($request->id);
 
+    
+
         $ruta-> update ($request->all());
+        
+       // $salida=Lugar::findOrFail($request->salida);
+
 
         return redirect()->to(route('inforuta', ['ruta' => $ruta->id]))-> with('rutamodificada','open');
 

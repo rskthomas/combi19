@@ -30,6 +30,7 @@ class CreateRutasTable extends Migration
             $table->foreignId('combi_id')
             ->nullable()
             ->onDelete('set null')
+            ->cascadeOnUpdate()
             ->constrained('combis');
 
             $table->timestamps();

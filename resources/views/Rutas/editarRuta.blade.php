@@ -17,8 +17,8 @@
                         <label for="llegada" class="form-label">Salida</label>
                     </div>
                     <div class="col-md-8">
-                        <select aria-label=".form-select-sm example" name="salida" id="salida" required class="form-select  rounded border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mt-1 w-full">
-                            <option selected hidden> {{$ruta->salida->nombre}}</option>
+                        <select aria-label=".form-select-sm example" name="lugar_salida" id="lugar_salida" required class="form-select  rounded border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mt-1 w-full">
+                            <option selected hidden value="{{$ruta->salida->id}} "> {{$ruta->salida->nombre}}</option>
                             @foreach ($lugares as $lugar)
                             <option value="{{$lugar->id}}" class="mr-2 text-sm text-gray-700">{{$lugar-> nombre}}</option>
                             @endforeach
@@ -30,8 +30,8 @@
                         <label for="llegada" class="form-label">LLegada</label>
                     </div>
                     <div class="col-md-8">
-                        <select aria-label=".form-select-sm example" name="llegada" id="llegada" required class="form-select  rounded border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mt-1 w-full">
-                        <option selected hidden> {{$ruta->llegada->nombre}}</option>
+                        <select aria-label=".form-select-sm example" name="lugar_llegada" id="lugar_llegada" required class="form-select  rounded border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mt-1 w-full">
+                        <option selected hidden value="{{$ruta->llegada->id}} "> {{$ruta->llegada->nombre}}</option>
                             @foreach ($lugares as $lugar)
                             <option value="{{$lugar->id}}" class="mr-2 text-sm text-gray-700">{{$lugar-> nombre}}</option>
                             @endforeach
@@ -43,9 +43,9 @@
                         <label for="combi" class="form-label">Combi Asignada</label>
                     </div>
                     <div class="col-md-8">
-                        <select aria-label=".form-select-sm example" name="combi" id="combi" required class="form-select  rounded border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mt-1 w-full">
+                        <select aria-label=".form-select-sm example" name="combi_id" id="combi_id" required class="form-select  rounded border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mt-1 w-full">
 
-                            <option selected hidden> {{$ruta->combi->patente}}</option>
+                            <option selected hidden value="{{$ruta->combi->id}} "> {{$ruta->combi->patente}}</option>
                             @foreach ($combis as $combi)
 
                             <option class="mr-2 text-sm text-gray-700" value="{{ $combi->id }}">
