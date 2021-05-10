@@ -80,6 +80,14 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     })->middleware('auth')
         ->name('eliminar');
 
+
+    //-------------------rutas para administrar lugares-----------------
+    Route::get('altalugar', [LugarController::class, 'create'])->name('altalugar');
+    Route::post('altalugar', [LugarController::class, 'store']);
+
+
+
+
     //----------------rutas para administrar Rutas-----
 
     Route::get('altaruta', [RutaController::class, 'create'])->name('altaruta');

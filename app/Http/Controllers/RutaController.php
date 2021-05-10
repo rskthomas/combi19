@@ -48,6 +48,7 @@ class RutaController extends Controller
             'llegada' => 'required',
             'combi' => 'required',
         ]);
+        
         $ruta = Ruta::create([
             'lugar_llegada' => $request->llegada,
             'lugar_salida' => $request->salida,
@@ -56,6 +57,8 @@ class RutaController extends Controller
             'combi_id'=> $request -> combi
 
         ]);
+
+        
 
         return redirect()->to(route('altaruta'))-> with('rutaagregada',$ruta);
     

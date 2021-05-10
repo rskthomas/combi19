@@ -14,7 +14,9 @@
 @endif
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Content starts -->
-        <x-auth-card>
+        <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0 bg-gray-100">
+            
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
             <form method="POST" action="{{ route('altaruta') }}">
@@ -77,7 +79,8 @@
 
 
     </form>
-    </x-auth-card>
+</div>
+</div>
 
     </div>
 

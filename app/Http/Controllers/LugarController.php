@@ -26,7 +26,7 @@ class LugarController extends Controller
     
     public function create()
     {
-        //
+        return view('lugar.agregarLugar');
     }
 
     /**
@@ -35,14 +35,17 @@ class LugarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeAgus(Request $request)
+    public function store(Request $request)
     {
         //
         $combi = Lugar::create([
-            'nombre' => "lugar1",
-            'provincia' => "BS AS"
+            'nombre' => $request->nombre,
+            'provincia' =>$request->provincia
 
         ]);
+        return redirect()->to(route('altalugar'))-> with('popup','ok');
+
+
     }
 
     /**
