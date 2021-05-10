@@ -74,6 +74,7 @@ class CombiController extends Controller
 
     public function update(Combi $combi){
 
+
         request()->validate([
 
             'patente' => 'string|max:255|unique:combis|nullable',
@@ -83,18 +84,23 @@ class CombiController extends Controller
             'chofer_id' => 'nullable',
         ]);
 
-        $input = array_filter(request()->all());
 
         $combi=Combi::findOrFail($combi->id);
 
-        if ( (request() ->chofer_id != "null") && (User::find (request() ->chofer_id) != $combi -> chofer ) )
+
+        //si es null -> chofer no re vimo
+        //si es "old" -> chofer sigue igual
+        //si es diferente -> nuevo chofer
+
+        if (request() ->chofer_id != null  )
        {
-           $combi -> chofer_id = request()->chofer_id;
            $chofer = User::find(request() -> chofer_id);
 
            //setear la relacion 1-1 --
            $combi->chofer()->save($chofer);
        }
+
+       $input = array_filter(request()->all());
         $combi->update($input);
 
         return redirect()->to(route('combi.info', ['combi' => $combi]))-> with('combimodificado','open');

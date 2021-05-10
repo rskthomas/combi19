@@ -19,7 +19,7 @@
                 <div class="">
                     <x-label for="modelo" :value="__('Modelo')" />
 
-                    <x-input id="modelo" class="block mt-1 w-full" type="number" name="modelo" 
+                    <x-input id="modelo" class="block mt-1 w-full" type="number" name="modelo"
                         :max="2100" min="1950" placeholder="{{$combi -> modelo}}" />
                 </div>
 
@@ -43,11 +43,11 @@
                 <!-- Seleccionar chofer  -->
                 <label for="chofer_id" class="mr-2 text-sm text-gray-700">Seleccione un chofer</label>
 
-                    <select aria-label=".form-select-sm example" name="chofer_id" id="chofer_id" :value= "old('chofer',$combi->chofer)"
+                    <select aria-label=".form-select-sm example" name="chofer_id" id="chofer_id"
                         class="text-sm text-gray-700 mt-4 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 
                         @isset($combi->chofer)
-                        <option selected >{{$combi->chofer->name}}</option>
+                        <option value="{{$combi->chofer->id}}" selected >{{$combi->chofer->name}} - Actual</option>
                         @else
                         <option selected disabled hidden>Seleccione un Chofer</option>
                         @endisset
@@ -59,7 +59,7 @@
                                 {{ $chofer->name }}</option>
 
                         @endforeach
-                        <option class= "text-red-900" value="null">Ningun chofer</option>
+                        <option class= "text-red-900" value="" >Ningun chofer</option>
                     </select>
                     @if ($resultado->isEmpty())
                     <p class="mt-3 text-sm text-left text-red-800 align-middle">
