@@ -41,23 +41,34 @@ Route::get(
 
 
 Route::name('combi.')
-     ->prefix('/combi/{combi}')
+     ->prefix('/combi')
      ->middleware('role:administrator')
      ->group(function () {
 
         //-----------------------------------------------------//
-        Route::get('/','CombiController@get')
+        Route::get('/alta', 'CombiController@createCombi')
+        ->name('new');
+
+        //-----------------------------------------------------//
+        Route::post('/alta/store', 'CombiController@store')
+            ->name('store');;
+
+        //-----------------------------------------------------//
+        Route::get('/listar', 'CombiController@listarCombis')
+        ->name('listar');
+
+        //-----------------------------------------------------//
+        Route::get('/{combi}','CombiController@get')
         ->name('info')
         ->withoutMiddleware('role:administrator');
 
         //-----------------------------------------------------//
-        Route::get('/edit','CombiController@edit')
+        Route::get('/{combi}/edit','CombiController@edit')
         ->name('edit');
+
         //-----------------------------------------------------//
-
-        Route::put('/update', 'CombiController@update')
+        Route::put('/{combi}/update', 'CombiController@update')
         ->name('update');
-
 
     });
 
@@ -84,16 +95,6 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
         return ChoferesController::eliminarChofer($user);
     })->middleware('auth')
         ->name('eliminar');
-
-    //---------------------routes for combis
-    Route::get('altacombi', [CombiController::class, 'createCombi'])
-        ->name('altacombi');
-
-    Route::post('altacombi', [CombiController::class, 'store']);
-
-    Route::get('listarcombis', [CombiController::class, 'listarCombis'])
-        ->name('listarcombis');
-
 
 });
 

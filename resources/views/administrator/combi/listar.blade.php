@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-            {{ __('Listar choferes') }}
+            {{ __('Listar combis') }}
         </h2>
     </x-slot>
 
 @if(session()->has('usuarioeliminado'))
 
-<div class="alert alert-success" role="alert">
+<div class="alert alert-success text-center" role="alert">
 <span>Se ha eliminado el usuario {{session()->get('usuarioeliminado')}}</span>
 </div>
 

@@ -10,7 +10,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         @if (session()->has('popup'))
 
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success text-center" role="alert">
                 Se ha creado con éxito la combi
             </div>
 
@@ -18,7 +18,7 @@
         <!-- Content starts -->
         <x-auth-card>
 
-            <form method="POST" action="{{ route('altacombi') }}">
+            <form method="POST" action="{{ route('combi.store') }}">
                 @csrf
 
                 <div class="">
@@ -48,23 +48,23 @@
                 <label for="chofer_id" class="mr-2 text-sm text-gray-700">Seleccione un chofer</label>
 
                     <select aria-label=".form-select-sm example" name="chofer_id" id="chofer_id" required
-                        class="text-sm text-gray-700 mt-4 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        <option selected disabled hidden>Selecciona una opción</option>
+                        class="text-sm text-gray-700 mt-4 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                        <option value="" selected disabled hidden>Selecciona una opción</option>
                         @foreach ($resultado as $chofer)
 
                             <option class="mr-2 text-sm text-gray-700" value="{{ $chofer->id }}">
                                 {{ $chofer->name }}</option>
 
                         @endforeach
-                        <option class= "text-red-900" value="null">Ningun chofer</option>
+                        <option class= "text-red-900" value="">Ningun chofer</option>
                     </select>
+
                     @if ($resultado->isEmpty())
                     <p class="mt-3 text-sm text-left text-red-800 align-middle">
                         No hay ningun chofer disponible, </p>
                     <p class="mt-1 text-sm text-left text-green-800 align-middle">
                         No te preocupes, puedes editarlo mas adelante!</p>
-
-                @endif
+                    @endif
 
                 <!-- Tip de asiento  -->
                 <div class="mt-4">

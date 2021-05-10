@@ -7,7 +7,7 @@
 
 @if(session()->has('popup'))
 
-<div class="alert alert-success" role="alert">
+<div class="alert alert-success text-center" role="alert">
   Se ha creado con éxito un usuario chofer
 </div>
 
@@ -34,7 +34,7 @@
                 <div class="mt-4">
                     <x-label for="email" :value="__('Email')" />
 
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="ejemplo@hotmail.com"
                         required />
                 </div>
 
