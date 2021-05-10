@@ -92,15 +92,27 @@ class CombiController extends Controller
         //si es "old" -> chofer sigue igual
         //si es diferente -> nuevo chofer
 
+
+
+        if(isSet($combi ->chofer) ){
+            $chofer_viejo =User::find( $combi->chofer->id);
+            $chofer_viejo->combi()->dissociate();
+            $chofer_viejo-> save();
+        }
+
+
+
         if (request() ->chofer_id != null  )
        {
-           $chofer = User::find(request() -> chofer_id);
-
-           //setear la relacion 1-1 --
-           $combi->chofer()->save($chofer);
+            $chofer = User::find(request() -> chofer_id);
+             //setear la relacion 1-1 --
+            $combi->chofer()->save( $chofer);
        }
 
-       $input = array_filter(request()->all());
+       $combi -> refresh();
+
+
+        $input = array_filter(request()->all());
         $combi->update($input);
 
         return redirect()->to(route('combi.info', ['combi' => $combi]))-> with('combimodificado','open');

@@ -47,7 +47,7 @@
                         class="text-sm text-gray-700 mt-4 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 
                         @isset($combi->chofer)
-                        <option value="{{$combi->chofer->id}}" selected >{{$combi->chofer->name}} - Actual</option>
+                        <option value="{{$combi->chofer->id}}" class=" text-blue-600"  selected >{{$combi->chofer->name}} - Chofer actual</option>
                         @else
                         <option selected disabled hidden>Seleccione un Chofer</option>
                         @endisset
