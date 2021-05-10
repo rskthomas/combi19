@@ -40,6 +40,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('lugars');
         Schema::dropIfExists('users');
+        Schema::dropIfExists('combis');
     }
 }

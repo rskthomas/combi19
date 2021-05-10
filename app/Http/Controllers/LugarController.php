@@ -22,9 +22,11 @@ class LugarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    
     public function create()
     {
-        //
+        return view('lugar.agregarLugar');
     }
 
     /**
@@ -36,6 +38,14 @@ class LugarController extends Controller
     public function store(Request $request)
     {
         //
+        $combi = Lugar::create([
+            'nombre' => $request->nombre,
+            'provincia' =>$request->provincia
+
+        ]);
+        return redirect()->to(route('altalugar'))-> with('popup','ok');
+
+
     }
 
     /**
@@ -46,7 +56,9 @@ class LugarController extends Controller
      */
     public function show(Lugar $lugar)
     {
-        //
+        $resultado= Lugar::paginate(10);
+
+        return view('lugar.listarLugares')->with('resultado',$resultado);
     }
 
     /**

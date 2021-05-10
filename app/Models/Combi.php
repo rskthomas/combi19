@@ -23,6 +23,8 @@ class Combi extends Model
     {
         return ( $this->tipo_de_combi == "comoda" );
     }
-
-
+    public function ruta()
+    {
+        return $this->hasOne(ruta::class, 'combi_id',"id");
+    }
 }

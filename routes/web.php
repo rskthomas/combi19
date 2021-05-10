@@ -4,14 +4,17 @@
 require __DIR__ . '/auth.php';
 
 use App\Models\Role;
+use App\Models\ruta;
 use App\Models\User;
+use App\Models\Combi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RutaController;
+use App\Http\Controllers\CombiController;
+use App\Http\Controllers\LugarController;
 use App\Http\Controllers\ChoferesController;
 use App\Http\Controllers\Auth\UsuariosController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\CombiController;
-use App\Models\Combi;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +26,18 @@ use App\Models\Combi;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// -------------Home----------------
 Route::get('/', 'HomeController@create')
     ->name('home');
 
+Route::post('/', function () {
 
+    return view('user.search', ['popup' => 'true']);
+})
+    ->name('homeredirect');
+
+
+//----------------Rutas para todos los usuarios--------------------
 Route::get(
     '/profile/{user}',
     function (User $user) {
@@ -78,10 +88,10 @@ Route::name('combi.')
 //Routes for administrator with prefix /administrator
 //example: combi19/administrator/altachofer
 
-
+//----------------------RUTAS ADMINISTRADOR------------------------------------
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
 
-    //---------------------routes for altachofer
+    //--------------------- rutas para administrar choferes
     Route::get('altachofer', [RegisteredUserController::class, 'createChofer'])
         ->name('altachofer');
 
@@ -96,10 +106,64 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     })->middleware('auth')
         ->name('eliminar');
 
+
+    //-------------------rutas para administrar lugares-----------------
+    Route::get('altalugar', [LugarController::class, 'create'])->name('altalugar');
+    Route::post('altalugar', [LugarController::class, 'store']);
+    Route::get('listarlugares', [LugarController::class, 'show'])
+    ->name('listarlugares');
+
+
+
+
+
+    //----------------rutas para administrar Rutas-----
+
+    Route::get('altaruta', [RutaController::class, 'create'])->name('altaruta');
+    Route::post('altaruta', [RutaController::class, 'store']);
+
+    Route::get('listarrutas', [RutaController::class, 'show'])
+        ->name('listarrutas');
+
+
+
+    Route::get(
+        '/inforuta/{ruta}',
+        function (ruta $ruta) {
+
+            return view('rutas.info', ['ruta' => $ruta]);
+        }
+    )->middleware('auth')
+        ->name('inforuta');
+
+
+    Route::get('eliminarruta/{ruta}', function (ruta $ruta) {
+
+        return RutaController::destroy($ruta);
+    })->middleware('auth')
+        ->name('eliminarruta');
+
+    Route::get('editarruta/{ruta}', function (ruta $ruta) {
+        return RutaController::edit($ruta);
+
+    })->name('editarruta');
+
+    Route::put('editarruta', [RutaController::class, 'update'])->name('updateruta');
+
+
+    //---------------------rutas para administrar combis
+    Route::get('altacombi', [CombiController::class, 'createCombi'])
+        ->name('altacombi');
+
+    Route::post('altacombi', [CombiController::class, 'store']);
+
+    Route::get('listarcombis', [CombiController::class, 'listarCombis'])
+        ->name('listarcombis');
 });
 
 
-//Routes for Choferes
+
+//-----------------------Routes for Choferes--------------------------
 Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function () {
 });
 

@@ -4,8 +4,13 @@
             {{ __('Alta de combi') }}
         </h2>
     </x-slot>
+ @if (session()->has('popup'))
 
+<div class="alert alert-success" role="alert">
+    Se ha creado con éxito la combi
+</div>
 
+@endif
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         @if (session()->has('popup'))
@@ -14,7 +19,8 @@
                 Se ha creado con éxito la combi
             </div>
 
-        @endif
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
         <!-- Content starts -->
         <x-auth-card>
 
