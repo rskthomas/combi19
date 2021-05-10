@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -12,7 +13,7 @@ class HomeController extends Controller
 
     public function create()
     {
-
+        App::setLocale('es');
         if (Auth::check() ) {
 
             //A user can have many roles, in this case just one
