@@ -56,7 +56,9 @@ class LugarController extends Controller
      */
     public function show(Lugar $lugar)
     {
-        //
+        $resultado= Lugar::paginate(10);
+
+        return view('lugar.listarLugares')->with('resultado',$resultado);
     }
 
     /**

@@ -84,6 +84,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     //-------------------rutas para administrar lugares-----------------
     Route::get('altalugar', [LugarController::class, 'create'])->name('altalugar');
     Route::post('altalugar', [LugarController::class, 'store']);
+    Route::get('listarlugares', [LugarController::class, 'show'])
+    ->name('listarlugares');
+
 
 
 
