@@ -13,11 +13,7 @@ class CombiController extends Controller
     public function createCombi()
     {
 
-        $resultado = User::whereRoleIs('chofer')
-                ->whereNull('combi_id')
-                ->get();
-
-        return view('administrator.combi.altacombi', ['resultado' => $resultado]);
+        return view('administrator.combi.altacombi', ['resultado' => User::choferesLibres()]);
     }
 
     public function store(Request $request)
@@ -64,4 +60,63 @@ class CombiController extends Controller
         return view('administrator.combi.listarcombis')->with('resultado',$resultado);
         ;
     }
+
+    public function get(Combi $combi){
+        return view('administrator.combi.info', ['combi' => $combi]);
+    }
+
+
+    public function edit(Combi $combi)
+    {
+
+        return view('administrator.combi.editar', ['combi' => $combi,'resultado' => User::choferesLibres() ]);
+    }
+
+    public function update(Combi $combi){
+
+
+        request()->validate([
+
+            'patente' => 'string|max:255|unique:combis|nullable',
+            'asientos' => 'integer|max:255|nullable',
+            'tipo_de_combi' => 'string|max:15|nullable',
+            'modelo' => 'integer|nullable',
+            'chofer_id' => 'nullable',
+        ]);
+
+
+        $combi=Combi::findOrFail($combi->id);
+
+
+        //si es null -> chofer no re vimo
+        //si es "old" -> chofer sigue igual
+        //si es diferente -> nuevo chofer
+
+
+
+        if(isSet($combi ->chofer) ){
+            $chofer_viejo =User::find( $combi->chofer->id);
+            $chofer_viejo->combi()->dissociate();
+            $chofer_viejo-> save();
+        }
+
+
+
+        if (request() ->chofer_id != null  )
+       {
+            $chofer = User::find(request() -> chofer_id);
+             //setear la relacion 1-1 --
+            $combi->chofer()->save( $chofer);
+       }
+
+       $combi -> refresh();
+
+
+        $input = array_filter(request()->all());
+        $combi->update($input);
+
+        return redirect()->to(route('combi.info', ['combi' => $combi]))-> with('combimodificado','open');
+    }
+
+
 }

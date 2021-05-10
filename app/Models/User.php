@@ -51,4 +51,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Combi::class);
     }
+
+    public static function choferesLibres()
+    {
+
+        $resultado = User::whereRoleIs('chofer')
+                ->whereNull('combi_id')
+                ->get();
+
+        return $resultado;
+    }
 }
