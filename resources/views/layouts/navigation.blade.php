@@ -11,7 +11,7 @@
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center">
                         <a href="{{ route('home') }}">
-                            <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                            <x-application-logo class="block h-14 w-auto fill-current text-gray-600" />
                         </a>
                     </div>
 
@@ -130,7 +130,7 @@
     @else
         <div class="flex-shrink-0 flex items-center">
             <a href="{{ route('home') }}">
-                <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                <x-application-logo class="block h-14 w-auto fill-current text-gray-600" />
             </a>
         </div>
         <div class="flex-shrink-0 flex items-center font-semibold text-xl text-gray-800 leading-tight pl-10">
