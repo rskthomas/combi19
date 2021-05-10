@@ -13,13 +13,15 @@ class Combi extends Model
         'modelo',
     ];
 
+
+
     public function chofer()
     {
         return $this->hasOne(User::class, 'combi_id');
     }
     public function isComoda()
     {
-        return ( $this->tipo_de_combi = 'comoda' );
+        return ( $this->tipo_de_combi == "comoda" );
     }
     public function ruta()
     {

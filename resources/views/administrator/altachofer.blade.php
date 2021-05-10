@@ -7,7 +7,7 @@
 
 @if(session()->has('popup'))
 
-<div class="alert alert-success" role="alert">
+<div class="alert alert-success text-center" role="alert">
   Se ha creado con éxito un usuario chofer
 </div>
 
@@ -27,7 +27,7 @@
                     <x-label for="name" :value="__('Nombre del chofer')" />
 
                     <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
-                        autofocus 
+                        autofocus
                         oninvalid="this.setCustomValidity('Por favor, ingrese un nombre')"
                         oninput="setCustomValidity('')"/>
                 </div>
@@ -37,7 +37,7 @@
                     <x-label for="email" :value="__('Email')" />
 
                     <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                        required 
+                        required
                         oninvalid="this.setCustomValidity('Por favor, ingrese un mail valido')"
                         oninput="setCustomValidity('')"/>
                 </div>
@@ -52,7 +52,7 @@
                                 :value="old('cellphone')" required
                                 placeholder="0221-4067811"
                                 pattern="[0-9]{4}-[0-9]{7}"
-                        required 
+                        required
                         oninvalid="this.setCustomValidity(' ingrese celular  con el formato 0221-4067811')"
                         oninput="setCustomValidity('')"/>
                 </div>
@@ -62,7 +62,7 @@
                     <x-label for="password" :value="__('Contraseña')" />
 
                     <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                        autocomplete="new-password" 
+                        autocomplete="new-password"
                         oninvalid="this.setCustomValidity('Por favor, ingrese una contraseña')"
                         oninput="setCustomValidity('')"/>
                 </div>
@@ -72,7 +72,7 @@
                     <x-label for="password_confirmation" :value="__('Confirmar  Contraseña')" />
 
                     <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                        name="password_confirmation" required 
+                        name="password_confirmation" required
                         oninvalid="this.setCustomValidity('Repita la contraseña')"
                         oninput="setCustomValidity('')"/>
                 </div>

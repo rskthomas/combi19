@@ -67,17 +67,17 @@
 
         <x-slot name="content">
 
-            <form method="GET" action="{{ route('altacombi') }}">
+            <form method="GET" action="{{ route('combi.new') }}">
 
-                <x-dropdown-link :href="route('altacombi')" onclick="event.preventDefault();
+                <x-dropdown-link :href="route('combi.new')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Alta Combi') }}
                 </x-dropdown-link>
             </form>
 
-            <form method="GET" action="{{ route('listarcombis') }}">
+            <form method="GET" action="{{ route('combi.listar') }}">
 
-                <x-dropdown-link :href="route('listarcombis')" onclick="event.preventDefault();
+                <x-dropdown-link :href="route('combi.listar')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Listar Combis') }}
                 </x-dropdown-link>

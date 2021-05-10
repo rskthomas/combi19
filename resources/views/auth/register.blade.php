@@ -2,7 +2,7 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <x-application-logo class="w-30 h-20 text-gray-500" />
             </a>
         </x-slot>
 
@@ -16,14 +16,14 @@
             <div>
                 <x-label for="name" :value="__('Name')" />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus oninvalid="this.setCustomValidity('Por favor, ingrese un nombre valido') "/>
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Por favor, ingrese un nombre valido') "/>
             </div>
 
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required  oninvalid="this.setCustomValidity('Por favor, ingrese un mail valido')" 
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required  oninvalid="this.setCustomValidity('Por favor, ingrese un mail valido')"
                 oninput="setCustomValidity('')" />
             </div>
 
@@ -34,7 +34,7 @@
                 <x-input id="password" class="block mt-1 w-full"
                                 type="password"
                                 name="password"
-                                required autocomplete="new-password" 
+                                required autocomplete="new-password"
                                 oninvalid="this.setCustomValidity('Por favor, ingrese una contraseña')"
                                  oninput="setCustomValidity('')"/>
             </div>
@@ -45,7 +45,7 @@
 
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                                 type="password"
-                                name="password_confirmation" required 
+                                name="password_confirmation" required
                                 oninvalid="this.setCustomValidity('Por favor, repita la contraseña')"
                                 oninput="setCustomValidity('')"
                                 />

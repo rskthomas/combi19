@@ -48,14 +48,40 @@ Route::get(
     ->name('profile');
 
 
-Route::get(
-    '/combi/{combi}',
-    function (Combi $combi) {
 
-        return view('administrator.combi.info', ['combi' => $combi]);
-    }
-)->middleware('auth')
-    ->name('infocombi');
+
+Route::name('combi.')
+     ->prefix('/combi')
+     ->middleware('role:administrator')
+     ->group(function () {
+
+        //-----------------------------------------------------//
+        Route::get('/alta', 'CombiController@createCombi')
+        ->name('new');
+
+        //-----------------------------------------------------//
+        Route::post('/alta/store', 'CombiController@store')
+            ->name('store');;
+
+        //-----------------------------------------------------//
+        Route::get('/listar', 'CombiController@listarCombis')
+        ->name('listar');
+
+        //-----------------------------------------------------//
+        Route::get('/{combi}','CombiController@get')
+        ->name('info')
+        ->withoutMiddleware('role:administrator');
+
+        //-----------------------------------------------------//
+        Route::get('/{combi}/edit','CombiController@edit')
+        ->name('edit');
+
+        //-----------------------------------------------------//
+        Route::put('/{combi}/update', 'CombiController@update')
+        ->name('update');
+
+    });
+
 
 
 
@@ -119,7 +145,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 
     Route::get('editarruta/{ruta}', function (ruta $ruta) {
         return RutaController::edit($ruta);
-        
+
     })->name('editarruta');
 
     Route::put('editarruta', [RutaController::class, 'update'])->name('updateruta');
@@ -151,10 +177,3 @@ Route::get('editarusuario/{user}', function (User $user) {
 })->name('edit');
 
 Route::put('editarusuarios', [UsuariosController::class, 'modificarUsuario'])->name('editarusuarios');
-
-
-
-
-//BORAR LO SIG 
-
-Route::get('altalugaresagus', [LugarController::class, 'storeAgus']);
