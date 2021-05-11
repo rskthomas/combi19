@@ -14,7 +14,13 @@
         <div class="bg-white border-b border-gray-200 ">
 
 
+@if(session()->has('tienecombi'))
 
+<div class="alert alert-warning text-center" role="alert">
+<span> No se puede eliminar el chofer; tiene combi asignada</span>
+</div>
+
+@endif
 
 
 

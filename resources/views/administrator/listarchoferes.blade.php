@@ -12,9 +12,10 @@
 </div>
 
 @endif
+
 @if($resultado->isEmpty())
-    <div class="alert alert-success text-center" role="alert">
-        <span>No hay choferes disponibles, pruebe agregando una </span>
+    <div class="alert alert-warning text-center" role="alert">
+        <span>No hay choferes disponibles, pruebe agregando uno </span>
     </div>
 
     @else
