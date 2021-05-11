@@ -108,8 +108,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    ¿Esta seguro que desea eliminar la combi ?
-                    {{ $combi->patente }}
+                    ¿Esta seguro que desea eliminar el lugar ?
+                    {{ $lugar->patente }}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
