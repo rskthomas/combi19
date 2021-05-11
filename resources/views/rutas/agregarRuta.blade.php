@@ -7,7 +7,7 @@
 
     @if(session()->has('rutaagregada'))
 
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-success text-center" role="alert">
         <span>Se ha creado la ruta</span>
     </div>
 
@@ -48,7 +48,7 @@
                         <div class="col-12">
                     <hr class="mt-4">
                     <select aria-label=".form-select-sm example" name="combi" id="combi" required class=" btn-lg btn-block text-sm text-gray-700 mt-2  justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    
+
                         <option selected disabled hidden>Seleccione una combi </option>
                         @foreach ($combis as $combi)
 

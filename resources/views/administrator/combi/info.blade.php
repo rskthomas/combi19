@@ -9,7 +9,15 @@
 @if(session()->has('bajaerronea'))
 
 <div class="alert alert-warning text-center" role="alert">
-<span>Antes de eliminar la combi debe desasignar el chofer</span>
+<span>Antes de eliminar la combi debe desasignar la ruta</span>
+</div>
+
+@endif
+
+@if(session()->has('tieneRuta'))
+
+<div class="alert alert-warning text-center" role="alert">
+<span>Antes de eliminar la combi debe eliminar la ruta</span>
 </div>
 
 @endif
@@ -74,6 +82,21 @@
                             {{ $combi->chofer->name }}</a>
                             @else
                               Libre
+                            @endisset
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <!-- a row -->
+                <div class="row p-4 ">
+                    <div class="col-sm font-semibold ">Ruta asignada</div>
+                    <div class="col-sm ">
+                        <div class="col-sm-9 text-secondary text-left">
+                            @isset($combi->ruta)
+                            <a href="{{ route('inforuta', ['ruta' => $combi->ruta]) }}">
+                            {{ $combi->ruta->id}}</a>
+                            @else
+                              <p>No hay ruta asiganada</p>
                             @endisset
                         </div>
                     </div>
