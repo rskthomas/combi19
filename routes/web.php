@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\ruta;
 use App\Models\User;
 use App\Models\Combi;
+use App\Models\Lugar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RutaController;
@@ -114,8 +115,11 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     Route::get('listarlugares', [LugarController::class, 'show'])
     ->name('listarlugares');
 
-    Route::get('infolugar', [LugarController::class, 'create'])->name('altalugar');
 
+    Route::get('infolugar/{lugar}', function (Lugar $lugar) {
+
+        return view('lugar.infoLugar',['lugar' => $lugar]);
+    })->name('infolugar');
 
 
 
