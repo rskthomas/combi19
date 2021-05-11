@@ -22,10 +22,18 @@
 
 @endif
 
-@if(session()->has('choferAnclado'))
+@if(session()->has('choferanclado'))
 
 <div class="alert alert-warning text-center" role="alert">
 <span>No se puede cambiar el chofer - tiene una ruta asignada</span>
+</div>
+
+@endif
+
+@if(session()->has('tienechofer'))
+
+<div class="alert alert-warning text-center" role="alert">
+<span>No se puede eliminar la combi, tiene un chofer asignado</span>
 </div>
 
 @endif
