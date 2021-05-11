@@ -14,7 +14,7 @@
 
 @endif
 
-@if(session()->has('tieneRuta'))
+@if(session()->has('tieneruta'))
 
 <div class="alert alert-warning text-center" role="alert">
 <span>Antes de eliminar la combi debe eliminar la ruta</span>
@@ -140,7 +140,7 @@
                     <!-- Eliminar-->
                     <div class="text-center p-4 ">
                     <a href="#ventanaModal" style="text-decoration:none" data-toggle="modal">
-                        <button type="button" class="btn btn-primary" title="Eliminar chofer">
+                        <button type="button" class="btn btn-primary" title="Eliminar combi">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash" viewBox="0 0 16 16">
                                 <path

@@ -92,12 +92,12 @@ class CombiController extends Controller
             $chofer = User::find(request()->chofer_id);
             //setear la relacion 1-1 --
             $combi->chofer()->save($chofer);
-        }else{
+        }
 
-            if(isSet($combi->ruta)){
+            if(   (isSet($combi->ruta) )&& (request()->chofer_id == null) ){
                 return redirect()->to(route('combi.info', ['combi' => $combi]))-> with('choferAnclado',$combi);
             }
-        }
+
 
         $combi->refresh();
 
@@ -125,7 +125,7 @@ class CombiController extends Controller
         }
 
 
-        DB::table('combis')->whereId($combi->id)->delete();
+        $combi->delete();
 
         return redirect()->to(route('combi.listar'))-> with('combieliminada',$combi);
 
