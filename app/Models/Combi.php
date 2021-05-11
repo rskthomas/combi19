@@ -27,4 +27,6 @@ class Combi extends Model
     {
         return $this->hasOne(ruta::class, 'combi_id',"id");
     }
+
+
 }

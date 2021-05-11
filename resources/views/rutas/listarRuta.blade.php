@@ -7,7 +7,7 @@
     </x-slot>
     @if(session()->has('rutaeliminada'))
 
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-success text-center" role="alert">
         <span>Se ha eliminado la ruta </span>
     </div>
 
@@ -28,12 +28,11 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col"> Id ruta </th>
                             <th scope="col">Lugar de salida</th>
                             <th scope="col">Lugar de llegada</th>
                             <th scope="col">Tiempo estimado de viaje</th>
                             <th scope="col">kms</th>
-                            <th scope="col"> Patente CombiAsignada</th>
+                            <th scope="col">Combi Asignada</th>
                             <th scope="col">Acciones </th>
 
                         </tr>
@@ -42,12 +41,13 @@
 
                     <tbody id='rutas'>
                         <tr>
-                            <td>{{$ruta->id}}</td>
                             <td>{{ $ruta->salida->nombre}}</td>
                             <td>{{ $ruta->llegada->nombre }}</td>
                             <td>{{ $ruta->tiempo }}</td>
                             <td>{{ $ruta->kms }}</td>
-                            <td>{{ $ruta->combi->patente }}</td>
+                            <td>
+                            <a href="{{ route('combi.info', ['combi'=>$ruta->combi ]) }}"">
+                            {{ $ruta->combi->patente }}</a></td>
 
 
                             <!-- BOTON MODIFICAR -->
