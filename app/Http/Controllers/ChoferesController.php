@@ -13,7 +13,7 @@ class ChoferesController extends Controller
     {
 
         $resultado= User::whereRoleIs('chofer')
-            ->paginate(10);
+            ->paginate(6);
 
         return view('administrator.listarchoferes')->with('resultado',$resultado);
         ;
@@ -27,6 +27,6 @@ class ChoferesController extends Controller
 
     }
 
-   
+
 
 }

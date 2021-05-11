@@ -103,8 +103,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     Route::get('eliminarchofer/{user}', function (User $user) {
 
         return ChoferesController::eliminarChofer($user);
-    })->middleware('auth')
-        ->name('eliminar');
+    })->name('eliminar');
 
 
     //-------------------rutas para administrar lugares-----------------

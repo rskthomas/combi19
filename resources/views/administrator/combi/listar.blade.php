@@ -13,6 +13,13 @@
 
 @endif
 
+@if($resultado->isEmpty())
+    <div class="alert alert-success text-center" role="alert">
+        <span>No hay combis disponibles, pruebe agregando una </span>
+    </div>
+
+    @else
+
     <div class="mt-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 ">
@@ -120,4 +127,5 @@
         </div>
 
     </div>
+    @endif
 </x-app-layout>

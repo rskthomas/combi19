@@ -7,7 +7,7 @@
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('Olvidaste tu contraseña? No hay problema. Solo dejanos tu casilla de correo y te enviaremos una nueva ') }}
+            {{ __('Olvidaste tu contraseña? No hay problema. Solo dejanos tu direccion de correo y te enviaremos una nueva ') }}
         </div>
 
         <!-- Session Status -->
@@ -18,7 +18,7 @@
 
         <form method="POST" action="{{ route('homeredirect') }}">
             @csrf
-           
+
             <!-- Email Address -->
 
             <div>

@@ -27,7 +27,10 @@ class RutaController extends Controller
     public function create()
     {
         //$combi = Combi::all();
-        $combis=Combi::all();
+        $combis=Combi::doesntHave('ruta')
+                    ->wherehas('chofer')
+                       ->get();;
+
         $lugares = Lugar::all();
 
         return view('rutas.agregarRuta',['lugares' => $lugares, 'combis'=>$combis]);
@@ -40,15 +43,15 @@ class RutaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-      
+    {
+
         $request->validate([
 
             'salida' => 'required',
             'llegada' => 'required',
             'combi' => 'required',
         ]);
-        
+
         $ruta = Ruta::create([
             'lugar_llegada' => $request->llegada,
             'lugar_salida' => $request->salida,
@@ -58,10 +61,10 @@ class RutaController extends Controller
 
         ]);
 
-        
+
 
         return redirect()->to(route('altaruta'))-> with('rutaagregada',$ruta);
-    
+
     }
 
     /**
@@ -115,16 +118,16 @@ class RutaController extends Controller
 
         $ruta=ruta::findOrFail($request->id);
 
-    
+
 
         $ruta-> update ($request->all());
-        
+
        // $salida=Lugar::findOrFail($request->salida);
 
 
         return redirect()->to(route('inforuta', ['ruta' => $ruta->id]))-> with('rutamodificada','open');
 
-     
+
     }
 
     /**
@@ -139,6 +142,6 @@ class RutaController extends Controller
         $ruta-> delete();
 
         return redirect()->to(route('listarrutas'))-> with('rutaeliminada',$ruta);
-  
+
     }
 }

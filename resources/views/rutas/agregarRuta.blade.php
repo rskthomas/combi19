@@ -15,31 +15,34 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Content starts -->
         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0 bg-gray-100">
-            
+
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
             <form method="POST" action="{{ route('altaruta') }}">
                 @csrf
+
+                <div class=" text-sm text-gray-700"> Seleccione los campos</div>
+
                 <select aria-label=".form-select-sm example" name="salida" id="salida" required
-                        class="text-sm text-gray-700 mt-4 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option selected disabled hidden>Salida</option>
+                        class="text-sm text-gray-700 mt-2 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option selected disabled hidden> Salida </option>
                     @foreach ($lugares as $lugar)
                     <option value="{{$lugar->id}}" class="mr-2 text-sm text-gray-700">{{$lugar-> nombre}}</option>
                     @endforeach
                 </select>
 
                 <select aria-label=".form-select-sm example" name="llegada" id="llegada" required
-                        class="text-sm text-gray-700 mt-4 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option selected disabled hidden>LLegada </option>
+                        class="text-sm text-gray-700 mt-4 ml-5 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option selected disabled hidden> Llegada </option>
                     @foreach ($lugares as $lugar)
                     <option value="{{$lugar->id}}" class="mr-2 text-sm text-gray-700" >{{$lugar-> nombre}}</option>
                     @endforeach
                 </select>
 
 
-              
 
+                    <hr class="mt-4">
                     <select aria-label=".form-select-sm example" name="combi" id="combi" required
                         class="text-sm text-gray-700 mt-4 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         <option selected disabled hidden>Seleccione una combi </option>
@@ -49,8 +52,11 @@
                                 {{ $combi->patente }}</option>
 
                         @endforeach
-
                     </select>
+
+                    @if($combis->isEmpty())
+                        <p class="text-sm text-red-700 mt-2" > No hay ninguna combi disponible </p>
+                        @endif
 
                 <div class="mt-4">
                     <x-label for="tiempo" :value="__('Tiempo estimado de viaje')" />

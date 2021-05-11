@@ -14,9 +14,9 @@
 
             <!-- Name -->
             <div>
-                <x-label for="name" :value="__('Name')" />
+                <x-label for="name" :value="__('Nombre y Apellido')" />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Por favor, ingrese un nombre valido') "/>
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocusoninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Por favor, ingrese un nombre valido') "/>
             </div>
 
             <!-- Email Address -->
@@ -57,7 +57,7 @@
                 </a>
 
                 <x-button class="ml-4">
-                    {{ __('Register') }}
+                    {{ __('Registrar') }}
                 </x-button>
             </div>
 

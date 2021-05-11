@@ -23,7 +23,7 @@ class LugarController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    
+
     public function create()
     {
         return view('lugar.agregarLugar');
@@ -37,6 +37,7 @@ class LugarController extends Controller
      */
     public function store(Request $request)
     {
+        
         //
         $combi = Lugar::create([
             'nombre' => $request->nombre,

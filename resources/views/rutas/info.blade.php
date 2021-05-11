@@ -42,7 +42,9 @@
                     <div class="col-sm font-semibold ">Combi Asignada </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                        {{ $ruta->combi->patente  }}<!-- ponerle un link -->
+                            <a href="{{ route('combi.info', ['combi' => $ruta->combi]) }}">
+
+                        {{ $ruta->combi->patente  }} </a><!-- ponerle un link -->
                         </div>
                     </div>
                 </div>
@@ -58,7 +60,7 @@
                     </div>
                 </div>
                 <hr />
-                
+
                 <!-- a row -->
                 <div class="row p-4 ">
                     <div class="col-sm font-semibold ">kilometros aproximados</div>
@@ -69,7 +71,7 @@
                     </div>
                 </div>
                 <hr />
-               
+
 
 
 
