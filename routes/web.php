@@ -78,6 +78,10 @@ Route::name('combi.')
         Route::put('/{combi}/update', 'CombiController@update')
         ->name('update');
 
+        //-----------------------------------------------------//
+        Route::delete('/{combi}/delete', 'CombiController@destroy')
+        ->name('delete');
+
     });
 
 
@@ -174,3 +178,4 @@ Route::get('editarusuario/{user}', function (User $user) {
 })->name('edit');
 
 Route::put('editarusuarios', [UsuariosController::class, 'modificarUsuario'])->name('editarusuarios');
+

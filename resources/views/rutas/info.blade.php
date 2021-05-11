@@ -6,8 +6,8 @@
     </x-slot>
     @if(session()->has('rutamodificada'))
 
-<div class="alert alert-success" role="alert">
-    Se ha modificado el perfil con exito
+<div class="alert alert-success text-center" role="alert">
+    Se ha modificado la ruta con exito
 </div>
 
 @endif
@@ -84,9 +84,9 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
+
+
 </x-app-layout>

@@ -102,4 +102,17 @@ class CombiController extends Controller
 
         return redirect()->to(route('combi.info', ['combi' => $combi]))->with('combimodificado', 'open');
     }
+    public static function destroy(Combi $combi)
+    {
+
+        if(isSet($combi->chofer)){
+
+            return redirect()->to(route('combi.info', ['combi' => $combi]))-> with('bajaerronea',$combi);
+        }
+        DB::table('combis')->whereId($combi->id)->delete();
+
+        return redirect()->to(route('combi.listar'))-> with('combieliminada',$combi);
+
+    }
+
 }

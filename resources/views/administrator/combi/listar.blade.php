@@ -5,10 +5,10 @@
         </h2>
     </x-slot>
 
-@if(session()->has('usuarioeliminado'))
+@if(session()->has('combieliminada'))
 
 <div class="alert alert-success text-center" role="alert">
-<span>Se ha eliminado el usuario {{session()->get('usuarioeliminado')}}</span>
+<span>Se ha eliminado la combi {{session()->get('combieliminada')->name}}</span>
 </div>
 
 @endif
@@ -64,39 +64,6 @@
                                     </button>
                                 </a>
                                 <!-- Eliminar-->
-
-                                <a href="#ventanaModal" data-toggle="modal">
-                                    <button type="button" class="btn btn-primary" title="Eliminar combi">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                        </svg>
-                                    </button>
-                                </a>
-
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="ventanaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Usuario</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                ¿Esta seguro que desea eliminar ?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <a href="{{ route('eliminar',['user' => $combi]) }}">
-                                                    <button type="button" class="btn btn-danger">Eliminar</button>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
 
                                 <!-- BOTON VER -->
