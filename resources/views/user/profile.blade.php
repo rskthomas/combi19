@@ -87,6 +87,20 @@
                 </div>
                 <hr />
 
+                 <!-- a row -->
+                 <div class="row p-4 ">
+                    <div class="col-sm font-semibold ">
+                        Fecha de nacimiento</h4>
+                    </div>
+                    <div class="col-sm ">
+                        <div class="col-sm-9 text-secondary text-left">
+                            {{$user->birthdate}}
+
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
                 @endif
 
                 <!-- a row -->
@@ -94,7 +108,7 @@
                     <div class="col-sm "> Cuenta creada el </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                            {{ $user->created_at ->format('Y-m-d') }}
+                            {{ $user->created_at ->format('d-m-Y') }}
                         </div>
                     </div>
                 </div>

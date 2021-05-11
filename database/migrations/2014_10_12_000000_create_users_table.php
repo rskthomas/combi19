@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->boolean('isGold')-> nullable();
             /* solo del usuario chofer*/
             $table->integer('cellphone') -> nullable();
+            $table->date('birthdate');
 
             $table->foreignId('combi_id')
             ->nullable()

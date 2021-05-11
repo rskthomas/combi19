@@ -174,3 +174,15 @@ Route::get('editarusuario/{user}', function (User $user) {
 })->name('edit');
 
 Route::put('editarusuarios', [UsuariosController::class, 'modificarUsuario'])->name('editarusuarios');
+
+
+
+Route::get('/test/datepicker', function () {
+    return view('components.datepicker');
+});
+
+Route::post('/test/save', ['as' => 'save-date',
+                           'uses' => 'DateController@showDate',
+                            function () {
+                                return '';
+                            }]);
