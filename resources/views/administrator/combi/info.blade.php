@@ -22,6 +22,14 @@
 
 @endif
 
+@if(session()->has('choferAnclado'))
+
+<div class="alert alert-warning text-center" role="alert">
+<span>No se puede cambiar el chofer - tiene una ruta asignada</span>
+</div>
+
+@endif
+
     @if(session()->has('combimodificado'))
 
     <div class="alert alert-success text-center" role="alert">

@@ -95,7 +95,7 @@ class CombiController extends Controller
         }else{
 
             if(isSet($combi->ruta)){
-                return redirect()->to(route('combi.info', ['combi' => $combi]))-> with('tieneRuta',$combi);
+                return redirect()->to(route('combi.info', ['combi' => $combi]))-> with('choferAnclado',$combi);
             }
         }
 
