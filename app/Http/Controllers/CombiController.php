@@ -83,17 +83,20 @@ class CombiController extends Controller
             $chofer_viejo->save();
         }
 
+
         /*  en caso de que no se seleccione la opcion 'ningun chofer'
         se le asigna el chofer del $request (puede ser el viejo)    */
         if (request()->chofer_id != null) {
 
-            if(isSet($combi->ruta)){
-                return redirect()->to(route('combi.info', ['combi' => $combi]))-> with('tieneRuta',$combi);
-            }
 
             $chofer = User::find(request()->chofer_id);
             //setear la relacion 1-1 --
             $combi->chofer()->save($chofer);
+        }else{
+
+            if(isSet($combi->ruta)){
+                return redirect()->to(route('combi.info', ['combi' => $combi]))-> with('tieneRuta',$combi);
+            }
         }
 
         $combi->refresh();

@@ -114,6 +114,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     Route::get('listarlugares', [LugarController::class, 'show'])
     ->name('listarlugares');
 
+    Route::get('infolugar', [LugarController::class, 'create'])->name('altalugar');
 
 
 

@@ -46,7 +46,7 @@ class LugarController extends Controller
              ]);
 
 
-        
+
         $lugar= Lugar::create([
             'nombre' => $request->nombre,
             'provincia' =>$request->provincia
@@ -64,8 +64,8 @@ class LugarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Lugar $lugar)
-    {   
-        
+    {
+
         $resultado= Lugar::paginate(10);
 
         return view('lugar.listarLugares')->with('resultado',$resultado);
@@ -102,6 +102,12 @@ class LugarController extends Controller
      */
     public function destroy(Lugar $lugar)
     {
-        //
+        if(isSet($lugar->ruta)){
+
+            return redirect()->to(route('infougar', ['lugar' => $lugar]))-> with('bajaerronea',$lugar);
+        }
+
+        $lugar->delete();
+        return redirect()->to(route('listarlugares'))-> with('bajaerronea',$lugar);
     }
 }

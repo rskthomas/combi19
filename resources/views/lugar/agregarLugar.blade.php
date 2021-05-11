@@ -6,19 +6,19 @@
     </x-slot>
  @if (session()->has('popup'))
 
-<div class="alert alert-success" role="alert">
+<div class="alert alert-success text-center" role="alert">
     Se ha creado con éxito el lugar
 </div>
 
 @endif
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      
+
         <!-- Content starts -->
         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0 bg-gray-100">
-            
+
     <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-       
+
             <form method="POST" action="{{ route('altalugar') }}">
                 @csrf
 
@@ -36,7 +36,7 @@
                         placeholder="Ej.: Buenos Aires"  required autofocus oninvalid="this.setCustomValidity('Por favor, ingrese una provincia')" oninput="setCustomValidity('')" />
                 </div>
 
-               
+
                 <div class="flex items-center justify-end mt-4">
 
                     <x-button class="ml-4">
