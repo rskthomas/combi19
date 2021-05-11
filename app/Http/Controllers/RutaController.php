@@ -6,6 +6,8 @@ use App\Models\ruta;
 use App\Models\Combi;
 use App\Models\Lugar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class RutaController extends Controller
 {
@@ -44,13 +46,21 @@ class RutaController extends Controller
      */
     public function store(Request $request)
     {
-
+        $messages=[];
+        //lo siguiente esta feo, buscar una forma mejor de hacerlo 
+        if($request->salida==$request->llegada){
+            return redirect()->back()->withErrors('Las terminales de salida y llegada no pueden ser las mismas');
+        }
         $request->validate([
 
-            'salida' => 'required',
+            'salida' => 'required|numeric',
             'llegada' => 'required',
             'combi' => 'required',
         ]);
+
+
+
+
 
         $ruta = Ruta::create([
             'lugar_llegada' => $request->llegada,

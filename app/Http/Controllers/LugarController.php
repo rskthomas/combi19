@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lugar;
 use Illuminate\Http\Request;
+use PHPUnit\Util\Xml\Validator;
 
 class LugarController extends Controller
 {
@@ -37,9 +38,16 @@ class LugarController extends Controller
      */
     public function store(Request $request)
     {
+        $request["nombre"] = strtoupper($request->nombre);
+        $request["provincia"] = strtoupper($request->provincia);
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:lugars',
+            'provincia'=> 'required|string'
+             ]);
+
+
         
-        //
-        $combi = Lugar::create([
+        $lugar= Lugar::create([
             'nombre' => $request->nombre,
             'provincia' =>$request->provincia
 
@@ -56,7 +64,8 @@ class LugarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Lugar $lugar)
-    {
+    {   
+        
         $resultado= Lugar::paginate(10);
 
         return view('lugar.listarLugares')->with('resultado',$resultado);
