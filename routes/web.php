@@ -85,6 +85,9 @@ Route::name('combi.')
 
     });
 
+    //Rutas para los choferes
+
+
 
 
 
@@ -95,17 +98,17 @@ Route::name('combi.')
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
 
     //--------------------- rutas para administrar choferes
-    Route::get('altachofer', [RegisteredUserController::class, 'createChofer'])
+    Route::get('altachofer', [ChoferesController::class, 'create'])
         ->name('altachofer');
 
-    Route::post('altachofer', [RegisteredUserController::class, 'storeChofer']);
+    Route::post('altachofer', [ChoferesController::class, 'store']);
 
-    Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
+    Route::get('listarchoferes', [ChoferesController::class, 'index'])
         ->name('listarchoferes');
 
     Route::get('eliminarchofer/{user}', function (User $user) {
 
-        return ChoferesController::eliminarChofer($user);
+        return ChoferesController::destroy($user);
     })->name('eliminar');
 
 
@@ -182,5 +185,5 @@ Route::get('editarusuario/{user}', function (User $user) {
     }
 })->name('edit');
 
-Route::put('editarusuarios', [UsuariosController::class, 'modificarUsuario'])->name('editarusuarios');
+Route::put('editarusuarios', [UsuariosController::class, 'update'])->name('editarusuarios');
 

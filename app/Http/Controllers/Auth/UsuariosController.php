@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UsuariosController extends Controller
 {
-    public function modificarUsuario( Request $request){
+    public function update( Request $request){
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'password' => 'required|string|confirmed|min:8'
@@ -20,15 +21,16 @@ class UsuariosController extends Controller
         if ($request->email != $user->email){
             $request->validate([
                 'email' => 'required|string|email|max:255|unique:users',
-                
+
             ]);
         }
 
         $user-> update ($request->all());
-        $password=  Hash::make($request->password);
+        $password = Hash::make($request->password);
         $user-> update (['password'=>$password]);
-       
-        return redirect()->to(route('profile', ['user' => $user->id]))-> with('perfilmodificado','open');
+
+        return redirect()->to(route('profile', ['user' => $user->id]))
+                         -> with('perfilmodificado','open');
     }
 
 }

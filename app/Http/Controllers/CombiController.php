@@ -47,7 +47,7 @@ class CombiController extends Controller
         $combi->save();
 
         return redirect()->to(route('combi.new'))
-            ->with('popup', 'open');
+                         ->with('popup', 'open');
     }
 
     public function show(Combi $combi)
@@ -74,6 +74,7 @@ class CombiController extends Controller
         de esa manera solo guarda aquellos que fueron modificados */
         $input = array_filter(request()->all());
         $combi->update($input);
+
 
         if ((isset($combi->ruta)) &&
             (is_null(request()->chofer_id))
