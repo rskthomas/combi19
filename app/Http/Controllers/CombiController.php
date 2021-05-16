@@ -86,7 +86,7 @@ class CombiController extends Controller
         }
 
         return redirect()->to(route('combi.info', ['combi' => $combi]))
-            ->with($key, 'open');
+                         ->with($key, 'open');
     }
 
 
@@ -102,6 +102,7 @@ class CombiController extends Controller
             $key = 'combimodificada';
         }
 
-        return redirect()->to(route('combi.listar'))->with('$key', $combi);
+        return redirect()->to(route('combi.listar'))
+                         ->with($key, $combi);
     }
 }
