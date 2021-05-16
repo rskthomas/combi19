@@ -55,7 +55,7 @@ Route::name('combi.')
      ->group(function () {
 
         //-----------------------------------------------------//
-        Route::get('/alta', 'CombiController@createCombi')
+        Route::get('/alta', 'CombiController@create')
         ->name('new');
 
         //-----------------------------------------------------//
@@ -63,11 +63,11 @@ Route::name('combi.')
             ->name('store');;
 
         //-----------------------------------------------------//
-        Route::get('/listar', 'CombiController@listarCombis')
+        Route::get('/listar', 'CombiController@index')
         ->name('listar');
 
         //-----------------------------------------------------//
-        Route::get('/{combi}','CombiController@get')
+        Route::get('/{combi}','CombiController@show')
         ->name('info')
         ->withoutMiddleware('role:administrator');
 
