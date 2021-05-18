@@ -1,135 +1,93 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-            {{ __('Combi - ') }} {{ $combi ->patente }}
+            {{ __('Chofer - ') }} {{ $user->name }}
         </h2>
     </x-slot>
+    @if (session()->has('perfilmodificado'))
 
-
-@if(session()->has('bajaerronea'))
-
-<div class="alert alert-warning text-center" role="alert">
-<span>Antes de eliminar la combi debe desasignar la ruta</span>
-</div>
-
-@endif
-
-@if(session()->has('tieneruta'))
-
-<div class="alert alert-warning text-center" role="alert">
-<span>Antes de eliminar la combi debe eliminar la ruta</span>
-</div>
-
-@endif
-
-@if(session()->has('choferanclado'))
-
-<div class="alert alert-warning text-center" role="alert">
-<span>No se puede cambiar el chofer - tiene una ruta asignada</span>
-</div>
-
-@endif
-
-@if(session()->has('tienechofer'))
-
-<div class="alert alert-warning text-center" role="alert">
-<span>No se puede eliminar la combi, tiene un chofer asignado</span>
-</div>
-
-@endif
-
-    @if(session()->has('combimodificado'))
-
-    <div class="alert alert-success text-center" role="alert">
-        Se ha modificado la combi con exito
-    </div>
-
+        <div class="alert alert-success text-center" role="alert">
+            Se ha modificado el perfil con exito
+        </div>
     @endif
     <div class="py-8 col-md-5 mx-auto ">
         <div class="bg-white border-b border-gray-200 ">
 
+
+@if(session()->has('tienecombi'))
+
+<div class="alert alert-warning text-center" role="alert">
+<span> No se puede eliminar el chofer; tiene combi asignada</span>
+</div>
+
+@endif
+
+
             <div class="container p-2 ">
+
                 <!-- a row -->
                 <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">Patente </div>
+                    <div class="col-sm font-semibold ">Nombre </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                            {{ $combi->patente }}
-                        </div>
-                    </div>
-                </div>
-                <hr />
-                <!-- a row -->
-                <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">Modelo </div>
-                    <div class="col-sm ">
-                        <div class="col-sm-9 text-secondary text-left">
-                            {{ $combi->modelo }}
+                            {{ $user->name }}
                         </div>
                     </div>
                 </div>
                 <hr />
                 <!-- a row -->
                 <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">Cantidad de asientos </div>
+                    <div class="col-sm font-semibold ">Email </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                            {{ $combi->asientos }}
+                            {{ $user->email }}
                         </div>
                     </div>
                 </div>
                 <hr />
-                <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">Tipo de combi </div>
-                    <div class="col-sm ">
-                        <div class="col-sm-9 text-secondary text-left">
-                            {{ $combi->tipo_de_combi }}
+
+                    <!-- a row -->
+                    <div class="row p-4 ">
+                        <div class="col-sm font-semibold ">Celular </div>
+                        <div class="col-sm ">
+                            <div class="col-sm-9 text-secondary text-left">
+                                {{ $user->cellphone }}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <hr />
-                <!-- a row -->
-                <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">Chofer</div>
-                    <div class="col-sm ">
-                        <div class="col-sm-9 text-secondary text-left">
-                            @isset($combi->chofer)
-                            <a href="{{ route('profile', ['user' => $combi->chofer]) }}">
-                            {{ $combi->chofer->name }}</a>
-                            @else
-                              Libre
-                            @endisset
+                    <hr />
+
+                    <!-- a row -->
+                    <div class="row p-4 ">
+                        <div class="col-sm font-semibold ">Combi a cargo </div>
+                        <div class="col-sm ">
+                            <div class="col-sm-9 text-secondary text-left">
+                                @isset($user->combi)
+                                    <a href="{{ route('combi.info', ['combi' => $user->combi]) }}">
+                                        {{ $user->combi->patente }}
+                                    </a>
+                                @else
+                                    Libre
+                                @endisset
+                            </div>
                         </div>
                     </div>
-                </div>
-                <hr />
-                <!-- a row -->
-                <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">Ruta asignada</div>
-                    <div class="col-sm ">
-                        <div class="col-sm-9 text-secondary text-left">
-                            @isset($combi->ruta)
-                            <a href="{{ route('inforuta', ['ruta' => $combi->ruta]) }}">
-                            {{ $combi->ruta->id}}</a>
-                            @else
-                              <p>No hay ruta asiganada</p>
-                            @endisset
-                        </div>
-                    </div>
-                </div>
-                <hr />
+                    <hr />
+
+
                 <!-- a row -->
                 <div class="row p-3 mt-3">
-                    <div class="col-sm "> Combi registrada el </div>
+                    <div class="col-sm "> Cuenta creada el </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                            {{ $combi->created_at ->format('Y-m-d') }}
+                            {{ $user->created_at->format('d-m-Y') }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     @if (Auth::user()->hasRole('administrator'))
 
@@ -140,7 +98,7 @@
                     <!-- Eliminar-->
                     <div class="text-center p-4 ">
                     <a href="#ventanaModal" style="text-decoration:none" data-toggle="modal">
-                        <button type="button" class="btn btn-primary" title="Eliminar combi">
+                        <button type="button" class="btn btn-primary" title="Eliminar chofer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash" viewBox="0 0 16 16">
                                 <path
@@ -149,22 +107,22 @@
                                     d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                             </svg>
                         </button>
-                        <p class="font-semibold text-sm text-gray-700">Eliminar Combi </p>
+                        <p class="font-semibold text-sm text-gray-700">Eliminar Usuario </p>
                     </a>
                 </div>
                 </th>
 
                 <th scope="col">
                     <div class="text-center p-4 ">
-                        <a style="text-decoration:none" href="{{ route('combi.edit', ['combi' => $combi]) }}">
-                            <button type="button" class="btn btn-primary" title="Editar combis">
+                        <a style="text-decoration:none" href="{{ route('chofer.edit', ['chofer' => $user]) }}">
+                            <button type="button" class="btn btn-primary" title="Editar chofer">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-pencil" viewBox="0 0 16 16">
                                     <path
                                         d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                 </svg>
                             </button>
-                            <p class="font-semibold text-sm text-gray-700">Editar Combi </p>
+                            <p class="font-semibold text-sm text-gray-700">Editar Usuario </p>
                         </a>
                     </div>
 
@@ -185,14 +143,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    ¿Esta seguro que desea eliminar la combi ?
-                    {{ $combi->patente }}
+                    ¿Esta seguro que desea eliminar el chofer?
+                    {{ $user->name }}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                    <form action="{{ route('combi.delete', ['combi' => $combi]) }}" method="POST">
-                        @method('DELETE')
+                    <form method="POST" action="{{ route('chofer.delete', ['chofer' => $user]) }}">
                         @csrf
+                        @method('delete')
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </div>
@@ -200,4 +158,5 @@
         </div>
     </div>
 @endif
+
 </x-app-layout>

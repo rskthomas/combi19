@@ -85,8 +85,7 @@ Route::name('combi.')
 
     });
 
-    //Rutas para los choferes
-
+//Rutas para los choferes
 
     Route::name('chofer.')
      ->prefix('/chofer')
@@ -132,12 +131,7 @@ Route::name('combi.')
 //----------------------RUTAS ADMINISTRADOR------------------------------------
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
 
-    //--------------------- rutas para administrar choferes
 
-    Route::get('eliminarchofer/{user}', function (User $user) {
-
-        return ChoferesController::destroy($user);
-    })->name('eliminar');
 
 
     //-------------------rutas para administrar lugares-----------------
