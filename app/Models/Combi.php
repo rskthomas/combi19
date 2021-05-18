@@ -29,4 +29,28 @@ class Combi extends Model
     }
 
 
+    /*Borra el chofer asingnado a la combi, si este existe */
+    public function desasignarChofer(){
+
+        if (isset($this->chofer)) {
+            $chofer_viejo = User::find($this->chofer->id);
+            $chofer_viejo->combi()->dissociate();
+            $chofer_viejo->save();
+        }
+
+    }
+
+    /*asigna de forma segura el chofer a la combi */
+    public function asignarChofer(int $chofer_id){
+
+        if (isset($chofer_id)) {
+
+            $chofer = User::find($chofer_id);
+            //setear la relacion 1-1 --
+            $this->chofer()->save($chofer);
+        }
+    }
+
+
+
 }

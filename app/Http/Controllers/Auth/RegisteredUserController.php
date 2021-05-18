@@ -23,10 +23,6 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
-    public function createChofer()
-    {
-        return view('administrator.altachofer');
-    }
     /**
      * Handle an incoming registration request.
      *
@@ -63,29 +59,6 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
-    public function storeChofer(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|confirmed|min:8',
-        ]);
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'cellphone' => $request->cellphone,
-            'combi_id' => 'null'
-
-        ]);
-
-        $user->attachRole('chofer');
-       event(new Registered($user));
-        /*  Auth::login($user);*/
-     return redirect('administrator/altachofer')->with('popup','open');
-
-
-    }
 
 
 

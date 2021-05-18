@@ -55,7 +55,7 @@ Route::name('combi.')
      ->group(function () {
 
         //-----------------------------------------------------//
-        Route::get('/alta', 'CombiController@createCombi')
+        Route::get('/alta', 'CombiController@create')
         ->name('new');
 
         //-----------------------------------------------------//
@@ -63,11 +63,11 @@ Route::name('combi.')
             ->name('store');;
 
         //-----------------------------------------------------//
-        Route::get('/listar', 'CombiController@listarCombis')
+        Route::get('/listar', 'CombiController@index')
         ->name('listar');
 
         //-----------------------------------------------------//
-        Route::get('/{combi}','CombiController@get')
+        Route::get('/{combi}','CombiController@show')
         ->name('info')
         ->withoutMiddleware('role:administrator');
 
@@ -85,6 +85,44 @@ Route::name('combi.')
 
     });
 
+    //Rutas para los choferes
+
+
+    Route::name('chofer.')
+     ->prefix('/chofer')
+     ->middleware('role:administrator')
+     ->group(function () {
+
+        //-----------------------------------------------------//
+        Route::get('/alta', 'ChoferesController@create')
+        ->name('create');
+
+        //-----------------------------------------------------//
+        Route::post('/alta/store', 'ChoferesController@store')
+        ->name('store');;
+
+        //-----------------------------------------------------//
+        Route::get('/listar', 'ChoferesController@index')
+        ->name('index');
+
+        //-----------------------------------------------------//
+        Route::get('/{chofer}','ChoferesController@show')
+        ->name('info')
+        ->withoutMiddleware('role:administrator');
+
+        //-----------------------------------------------------//
+        Route::get('/{chofer}/edit','ChoferesController@edit')
+        ->name('edit');
+
+        //-----------------------------------------------------//
+        Route::put('/{chofer}/update', 'UsuariosController@update')
+        ->name('update');
+
+        //-----------------------------------------------------//
+        Route::delete('/{chofer}/delete', 'ChoferesController@destroy')
+        ->name('delete');
+
+    });
 
 
 
@@ -95,17 +133,10 @@ Route::name('combi.')
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
 
     //--------------------- rutas para administrar choferes
-    Route::get('altachofer', [RegisteredUserController::class, 'createChofer'])
-        ->name('altachofer');
-
-    Route::post('altachofer', [RegisteredUserController::class, 'storeChofer']);
-
-    Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
-        ->name('listarchoferes');
 
     Route::get('eliminarchofer/{user}', function (User $user) {
 
-        return ChoferesController::eliminarChofer($user);
+        return ChoferesController::destroy($user);
     })->name('eliminar');
 
 
@@ -173,14 +204,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function () {
 });
 
+Route::get('editarusuario/{user}', [UsuariosController::class, 'edit'])
+        ->name('user.edit');
 
-Route::get('editarusuario/{user}', function (User $user) {
-    if (($user->id ==  Auth::user()->id) or (Auth::user()->hasRole('administrator'))) {
-        return view('user.modificarperfil', ['user' => $user]);
-    } else {
-        echo "NO TIENE PERMISO PARA ACCEDER A ESTA PAGINA";
-    }
-})->name('edit');
 
-Route::put('editarusuarios', [UsuariosController::class, 'modificarUsuario'])->name('editarusuarios');
+Route::put('editarusuarios', [UsuariosController::class, 'update'])->name('editarusuarios');
 

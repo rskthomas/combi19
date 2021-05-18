@@ -25,17 +25,17 @@
 
         <x-slot name="content">
 
-            <form method="GET" action="{{ route('altachofer') }}">
+            <form method="GET" action="{{ route('chofer.create') }}">
 
-                <x-dropdown-link :href="route('altachofer')" onclick="event.preventDefault();
+                <x-dropdown-link :href="route('chofer.create')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Alta chofer') }}
                 </x-dropdown-link>
             </form>
 
-            <form method="GET" action="{{ route('listarchoferes') }}">
+            <form method="GET" action="{{ route('chofer.index') }}">
 
-                <x-dropdown-link :href="route('listarchoferes')" onclick="event.preventDefault();
+                <x-dropdown-link :href="route('chofer.index')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Listar choferes') }}
                 </x-dropdown-link>
@@ -92,7 +92,7 @@
 </div>
 
 
-    
+
 <!-- Admin Ruta  -->
 <div class="hidden sm:flex sm:items-center sm:ml-6">
     <x-dropdown align="right" width="48">
