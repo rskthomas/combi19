@@ -38,7 +38,7 @@ class ChoferesController extends Controller
                 ->delete();
             $key = 'usuarioeliminado';
         }
-        return redirect()->to(route('listarchoferes'))
+        return redirect()->to(route('chofer.index'))
             ->with($key, $user->name);
     }
 
@@ -61,7 +61,7 @@ class ChoferesController extends Controller
         $user->attachRole('chofer');
         event(new Registered($user));
 
-        return redirect('administrator/altachofer')->with('popup','open');
+        return redirect('chofer/alta')->with('popup','open');
     }
-    
+
 }
