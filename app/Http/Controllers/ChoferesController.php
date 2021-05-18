@@ -64,4 +64,9 @@ class ChoferesController extends Controller
         return redirect('chofer/alta')->with('popup','open');
     }
 
+    public function edit(User $chofer)
+    {
+        return view('user.modificarperfil', ['user' => $chofer]);
+
+    }
 }

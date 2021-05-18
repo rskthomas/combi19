@@ -111,9 +111,8 @@ Route::name('combi.')
         ->withoutMiddleware('role:administrator');
 
         //-----------------------------------------------------//
-        Route::get('/{chofer}/edit','UsuariosController@edit')
-        ->name('edit')
-        ->withoutMiddleware('role:administrator');
+        Route::get('/{chofer}/edit','ChoferesController@edit')
+        ->name('edit');
 
         //-----------------------------------------------------//
         Route::put('/{chofer}/update', 'UsuariosController@update')
@@ -205,14 +204,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function () {
 });
 
+Route::get('editarusuario/{user}', [UsuariosController::class, 'edit'])
+        ->name('user.edit');
 
-Route::get('editarusuario/{user}', function (User $user) {
-    if (($user->id ==  Auth::user()->id) or (Auth::user()->hasRole('administrator'))) {
-        return view('user.modificarperfil', ['user' => $user]);
-    } else {
-        echo "NO TIENE PERMISO PARA ACCEDER A ESTA PAGINA";
-    }
-})->name('edit');
 
 Route::put('editarusuarios', [UsuariosController::class, 'update'])->name('editarusuarios');
 
