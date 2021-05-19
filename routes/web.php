@@ -87,8 +87,7 @@ Route::name('combi.')
 
     });
 
-   
-//-----------------------CHOFERES------------------
+//Rutas para los choferes
 
     Route::name('chofer.')
      ->prefix('/chofer')

@@ -23,23 +23,23 @@ class ChoferesController extends Controller
         $resultado = User::whereRoleIs('chofer')
             ->paginate(6);
         return view('administrator.listarchoferes')
-                    ->with('resultado', $resultado);;
+            ->with('resultado', $resultado);
     }
 
 
-    public static function destroy(User $user)
+    public function destroy(User $chofer)
     {
 
-        if (isset($user->combi)) {
+        if (isset($chofer->combi)) {
             $key = 'tienencombi';
         } else {
 
-            DB::table('users')->whereId($user->id)
+            DB::table('users')->whereId($chofer->id)
                 ->delete();
             $key = 'usuarioeliminado';
         }
         return redirect()->to(route('chofer.index'))
-            ->with($key, $user->name);
+            ->with($key, $chofer->name);
     }
 
     public function store(Request $request)
@@ -61,12 +61,16 @@ class ChoferesController extends Controller
         $user->attachRole('chofer');
         event(new Registered($user));
 
-        return redirect('chofer/alta')->with('popup','open');
+        return redirect('chofer/alta')->with('popup', 'open');
     }
 
     public function edit(User $chofer)
     {
         return view('user.modificarperfil', ['user' => $chofer]);
+    }
 
+    public function show(User $chofer)
+    {
+        return view('chofer.profile', ['user' => $chofer]);
     }
 }
