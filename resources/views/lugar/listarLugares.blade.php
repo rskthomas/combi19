@@ -59,7 +59,7 @@
 
 
                                 <!-- BOTON VER NO ANDA-->
-                                <!--{{ route('infolugar', ['lugar' => $lugar]) }} -->
+                                <!--{{ route('lugar.infolugar', ['lugar' => $lugar]) }} -->
                                 <a href="#">
                                     <button type="button" class="btn btn-primary" title="Ver Lugar">
 

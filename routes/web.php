@@ -130,7 +130,7 @@ Route::name('combi.')
 //Routes for administrator with prefix /administrator
 //example: combi19/administrator/altachofer
 
-
+//----------------LUGARES---------------------
 Route::name('lugar.')
 ->prefix('/lugar')
 ->middleware('role:administrator')
@@ -151,7 +151,7 @@ Route::name('lugar.')
     ->name('index');
 
     //-------------------------------------------------------------//
-    Route::get('listar', 'LugarController@show')
+    Route::get('/info', 'LugarController@show')
    ->name('infolugar');
 
 });

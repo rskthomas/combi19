@@ -106,10 +106,10 @@ class LugarController extends Controller
     {
         if(isSet($lugar->ruta)){
 
-            return redirect()->to(route('infougar', ['lugar' => $lugar]))-> with('bajaerronea',$lugar);
+            return redirect()->to(route('lugar.infolugar', ['lugar' => $lugar]))-> with('bajaerronea',$lugar);
         }
 
         $lugar->delete();
-        return redirect()->to(route('listarlugares'))-> with('bajaerronea',$lugar);
+        return redirect()->to(route('lugar.infolugar'))-> with('bajaerronea',$lugar);
     }
 }

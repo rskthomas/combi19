@@ -161,7 +161,7 @@
                     {{ __('Alta Lugar') }}
                 </x-dropdown-link>
             </form>
-            <form method="GET" action="{{ route('listarlugares') }}">
+            <form method="GET" action="{{ route('lugar.index') }}">
 
 <x-dropdown-link :href="route('lugar.create')" onclick="event.preventDefault();
                     this.closest('form').submit();">
