@@ -49,6 +49,8 @@ Route::get(
     ->name('profile');
 
 
+
+//-----------------------COMBI-------------------------------
 Route::name('combi.')
      ->prefix('/combi')
      ->middleware('role:administrator')
@@ -85,8 +87,8 @@ Route::name('combi.')
 
     });
 
-    //Rutas para los choferes
-
+   
+//-----------------------CHOFERES------------------
 
     Route::name('chofer.')
      ->prefix('/chofer')
@@ -129,6 +131,43 @@ Route::name('combi.')
 //Routes for administrator with prefix /administrator
 //example: combi19/administrator/altachofer
 
+
+Route::name('lugar.')
+->prefix('/lugar')
+->middleware('role:administrator')
+->group(function () {
+    
+    //-------------------------------------------------------------//
+    Route::get('/alta', 'LugarController@create')
+    ->name('create');
+
+    //------------------------------------------------------------//
+
+    Route::post('/alta/store', 'LugarController@store')    
+    ->name('store');
+
+
+    //------------------------------------------------------------//
+    Route::get('/listar', 'LugarController@index')
+    ->name('index');
+
+    //-------------------------------------------------------------//
+    Route::get('listar', 'LugarController@show')
+   ->name('infolugar');
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
 //----------------------RUTAS ADMINISTRADOR------------------------------------
 Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
 
@@ -138,20 +177,6 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 
         return ChoferesController::destroy($user);
     })->name('eliminar');
-
-
-    //-------------------rutas para administrar lugares-----------------
-    Route::get('altalugar', [LugarController::class, 'create'])->name('altalugar');
-    Route::post('altalugar', [LugarController::class, 'store']);
-    Route::get('listarlugares', [LugarController::class, 'show'])
-    ->name('listarlugares');
-
-
-    Route::get('infolugar/{lugar}', function (Lugar $lugar) {
-
-        return view('lugar.infoLugar',['lugar' => $lugar]);
-    })->name('infolugar');
-
 
 
     //----------------rutas para administrar Rutas-----
@@ -200,9 +225,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
 
 
 
-//-----------------------Routes for Choferes--------------------------
-Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function () {
-});
+
 
 Route::get('editarusuario/{user}', [UsuariosController::class, 'edit'])
         ->name('user.edit');

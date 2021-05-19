@@ -154,16 +154,16 @@
 
         <x-slot name="content">
 
-            <form method="GET" action="{{ route('altalugar') }}">
+            <form method="GET" action="{{ route('lugar.create') }}">
 
-                <x-dropdown-link :href="route('altalugar')" onclick="event.preventDefault();
+                <x-dropdown-link :href="route('lugar.create')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Alta Lugar') }}
                 </x-dropdown-link>
             </form>
             <form method="GET" action="{{ route('listarlugares') }}">
 
-<x-dropdown-link :href="route('altalugar')" onclick="event.preventDefault();
+<x-dropdown-link :href="route('lugar.create')" onclick="event.preventDefault();
                     this.closest('form').submit();">
     {{ __('Listar lugares') }}
 </x-dropdown-link>
