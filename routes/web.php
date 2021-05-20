@@ -159,10 +159,54 @@ Route::name('lugar.')
 
 
 
+//-----------------RUTAS------------------------
+Route::name('ruta.')
+->prefix('/ruta')
+->middleware('role:administrator')
+->group(function () {
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('/alta', [RutaController::class, 'create'])
+    ->name('create');
+    
+    
+    //-------------------------------------------------------------------------------------//
+    Route::post('/alta/store', [RutaController::class, 'store'])
+    ->name('store');
+
+
+    
+    //-------------------------------------------------------------------------------------//
+    Route::get('/listar', [RutaController::class, 'index'])
+        ->name('index');
 
 
 
+    //-------------------------------------------------------------------------------------//
+    Route::get( '/{ruta}', 'RutaController@show')
+        ->name('info');
 
+
+    
+    //-------------------------------------------------------------------------------------//
+    Route::get('{ruta}/delete', 'RutaController@destroy')
+        ->name('delete');
+
+
+    
+    //-------------------------------------------------------------------------------------//
+    Route::get('{ruta}/edit', 'RutaController@edit')
+    ->name('edit');
+
+
+    
+    //-------------------------------------------------------------------------------------//
+    Route::put('{ruta}/update', [RutaController::class, 'update'])->name('update');
+
+
+
+});
 
 
 
@@ -178,38 +222,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator'
     })->name('eliminar');
 
 
-    //----------------rutas para administrar Rutas-----
-
-    Route::get('altaruta', [RutaController::class, 'create'])->name('altaruta');
-    Route::post('altaruta', [RutaController::class, 'store']);
-
-    Route::get('listarrutas', [RutaController::class, 'show'])
-        ->name('listarrutas');
+//----------------rutas para administrar Rutas-----
 
 
-
-    Route::get(
-        '/inforuta/{ruta}',
-        function (ruta $ruta) {
-
-            return view('rutas.info', ['ruta' => $ruta]);
-        }
-    )->middleware('auth')
-        ->name('inforuta');
-
-
-    Route::get('eliminarruta/{ruta}', function (ruta $ruta) {
-
-        return RutaController::destroy($ruta);
-    })->middleware('auth')
-        ->name('eliminarruta');
-
-    Route::get('editarruta/{ruta}', function (ruta $ruta) {
-        return RutaController::edit($ruta);
-
-    })->name('editarruta');
-
-    Route::put('editarruta', [RutaController::class, 'update'])->name('updateruta');
 
 
     //---------------------rutas para administrar combis

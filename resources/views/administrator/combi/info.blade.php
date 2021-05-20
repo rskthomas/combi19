@@ -109,7 +109,7 @@
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
                             @isset($combi->ruta)
-                            <a href="{{ route('inforuta', ['ruta' => $combi->ruta]) }}">
+                            <a href="{{ route('ruta.info', ['ruta' => $combi->ruta]) }}">
                             {{ $combi->ruta->id}}</a>
                             @else
                               <p>No hay ruta asiganada</p>

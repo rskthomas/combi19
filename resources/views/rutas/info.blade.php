@@ -113,7 +113,7 @@
 
                 <th scope="col">
                     <div class="text-center p-4 ">
-                        <a style="text-decoration:none" href="{{ route('editarruta', ['ruta' => $ruta->id])  }}">
+                        <a style="text-decoration:none" href="{{ route('ruta.edit', ['ruta' => $ruta->id])  }}">
                             <button type="button" class="btn btn-primary" title="Editar ruta">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-pencil" viewBox="0 0 16 16">
@@ -147,7 +147,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                    <a href="{{ route('eliminarruta',['ruta' => $ruta]) }}">
+                    <a href="{{ route('ruta.delete',['ruta' => $ruta]) }}">
                         <button type="button" class="btn btn-danger">Eliminar</button>
                     </a>
                 </div>
