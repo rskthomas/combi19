@@ -167,18 +167,18 @@ Route::name('ruta.')
 
 
     //-------------------------------------------------------------------------------------//
-    Route::get('/alta', [RutaController::class, 'create'])
+    Route::get('/alta', 'RutaController@create')
     ->name('create');
     
     
     //-------------------------------------------------------------------------------------//
-    Route::post('/alta/store', [RutaController::class, 'store'])
+    Route::post('/alta/store', 'RutaController@store')
     ->name('store');
 
 
     
     //-------------------------------------------------------------------------------------//
-    Route::get('/listar', [RutaController::class, 'index'])
+    Route::get('/listar', 'RutaController@index')
         ->name('index');
 
 
@@ -211,31 +211,9 @@ Route::name('ruta.')
 
 
 
-//----------------------RUTAS ADMINISTRADOR------------------------------------
-Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
-
-    //--------------------- rutas para administrar choferes
-
-    Route::get('eliminarchofer/{user}', function (User $user) {
-
-        return ChoferesController::destroy($user);
-    })->name('eliminar');
+ 
 
 
-//----------------rutas para administrar Rutas-----
-
-
-
-
-    //---------------------rutas para administrar combis
-    Route::get('altacombi', [CombiController::class, 'createCombi'])
-        ->name('altacombi');
-
-    Route::post('altacombi', [CombiController::class, 'store']);
-
-    Route::get('listarcombis', [CombiController::class, 'listarCombis'])
-        ->name('listarcombis');
-});
 
 
 
