@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ruta;
+use App\Models\Ruta;
 use App\Models\Combi;
 use App\Models\Lugar;
 use Illuminate\Http\Request;
@@ -80,7 +80,7 @@ class RutaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ruta  $ruta
+     * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
     public function show(ruta $ruta)
@@ -92,7 +92,7 @@ class RutaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ruta  $ruta
+     * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
     public static function edit(ruta $ruta)
@@ -111,7 +111,7 @@ class RutaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ruta  $ruta
+     * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ruta $ruta)
@@ -140,7 +140,7 @@ class RutaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ruta  $ruta
+     * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
     public static function destroy(ruta $ruta)

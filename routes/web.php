@@ -4,7 +4,7 @@
 require __DIR__ . '/auth.php';
 
 use App\Models\Role;
-use App\Models\ruta;
+use App\Models\Ruta;
 use App\Models\User;
 use App\Models\Combi;
 use App\Models\Lugar;

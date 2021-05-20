@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\ruta;
+use App\Models\Ruta;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RutaFactory extends Factory
