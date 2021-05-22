@@ -135,14 +135,14 @@ Route::name('lugar.')
 ->prefix('/lugar')
 ->middleware('role:administrator')
 ->group(function () {
-    
+
     //-------------------------------------------------------------//
     Route::get('/alta', 'LugarController@create')
     ->name('create');
 
     //------------------------------------------------------------//
 
-    Route::post('/alta/store', 'LugarController@store')    
+    Route::post('/alta/store', 'LugarController@store')
     ->name('store');
 
 
@@ -169,14 +169,14 @@ Route::name('ruta.')
     //-------------------------------------------------------------------------------------//
     Route::get('/alta', 'RutaController@create')
     ->name('create');
-    
-    
+
+
     //-------------------------------------------------------------------------------------//
     Route::post('/alta/store', 'RutaController@store')
     ->name('store');
 
 
-    
+
     //-------------------------------------------------------------------------------------//
     Route::get('/listar', 'RutaController@index')
         ->name('index');
@@ -188,19 +188,19 @@ Route::name('ruta.')
         ->name('info');
 
 
-    
+
     //-------------------------------------------------------------------------------------//
-    Route::get('{ruta}/delete', 'RutaController@destroy')
+    Route::delete('{ruta}/delete', 'RutaController@destroy')
         ->name('delete');
 
 
-    
+
     //-------------------------------------------------------------------------------------//
     Route::get('{ruta}/edit', 'RutaController@edit')
     ->name('edit');
 
 
-    
+
     //-------------------------------------------------------------------------------------//
     Route::put('{ruta}/update', [RutaController::class, 'update'])->name('update');
 
@@ -211,7 +211,7 @@ Route::name('ruta.')
 
 
 
- 
+
 
 
 
