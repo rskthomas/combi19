@@ -25,7 +25,7 @@ class Combi extends Model
     }
     public function ruta()
     {
-        return $this->hasOne(ruta::class, 'combi_id',"id");
+        return $this->hasOne(Ruta::class, 'combi_id',"id");
     }
 
 

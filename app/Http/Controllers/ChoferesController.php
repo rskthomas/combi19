@@ -31,7 +31,7 @@ class ChoferesController extends Controller
     {
 
         if (isset($chofer->combi)) {
-            $key = 'tienencombi';
+            $key = 'tienecombi';
         } else {
 
             DB::table('users')->whereId($chofer->id)
@@ -61,7 +61,7 @@ class ChoferesController extends Controller
         $user->attachRole('chofer');
         event(new Registered($user));
 
-        return redirect('chofer/alta')->with('popup', 'open');
+        return redirect('chofer/alta')->with('exito', 'open');
     }
 
     public function edit(User $chofer)

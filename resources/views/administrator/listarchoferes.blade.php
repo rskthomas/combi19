@@ -13,6 +13,14 @@
 
 @endif
 
+@if(session()->has('tienecombi'))
+
+<div class="alert alert-warning text-center" role="alert">
+<span> No se puede eliminar el chofer; tiene combi asignada</span>
+</div>
+
+@endif
+
 @if($resultado->isEmpty())
     <div class="alert alert-warning text-center" role="alert">
         <span>No hay choferes disponibles, pruebe agregando uno </span>

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-@if(session()->has('popup'))
+@if(session()->has('exito'))
 
 <div class="alert alert-success text-center" role="alert">
   Se ha creado con éxito un usuario chofer

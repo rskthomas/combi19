@@ -4,7 +4,8 @@
             {{ __('Ruta - ') }} {{ $ruta ->salida->nombre}} - {{ $ruta ->llegada->nombre}}
         </h2>
     </x-slot>
-    @if(session()->has('rutamodificada'))
+
+@if(session()->has('rutamodificada'))
 
 <div class="alert alert-success text-center" role="alert">
     Se ha modificado la ruta con exito
@@ -18,72 +19,55 @@
 
             <div class="container p-2 ">
                 <!-- a row -->
-                <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">Lugar de salida </div>
-                    <div class="col-sm ">
-                        <div class="col-sm-9 text-secondary text-left">
-                            {{ $ruta->salida->nombre}}
-                        </div>
-                    </div>
-                </div>
-
+                <x-row>
+                    <x-slot name="type">
+                        Lugar de salida
+                    </x-slot>
+                    {{ $ruta->salida->nombre}}
+                </x-row>
+                <hr />
+                 <!-- a row -->
+                <x-row>
+                    <x-slot name="type">
+                        Lugar de llegada
+                    </x-slot>
+                    {{$ruta->llegada->nombre}}
+                </x-row>
                 <hr />
                 <!-- a row -->
-                <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">Lugar de llegada </div>
-                    <div class="col-sm ">
-                        <div class="col-sm-9 text-secondary text-left">
-                            {{$ruta->llegada->nombre}}
-                        </div>
-                    </div>
-                </div>
-                <hr />
-                <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">Combi Asignada </div>
-                    <div class="col-sm ">
-                        <div class="col-sm-9 text-secondary text-left">
-                            <a href="{{ route('combi.info', ['combi' => $ruta->combi]) }}">
+                <x-row>
+                    <x-slot name="type">
+                        Combi Asignada
+                    </x-slot>
+                    <a href="{{ route('combi.info', ['combi' => $ruta->combi]) }}">
 
-                        {{ $ruta->combi->patente  }} </a><!-- ponerle un link -->
-                        </div>
-                    </div>
-                </div>
+                        {{ $ruta->combi->patente  }} </a>
+                </x-row>
                 <hr />
-
-                  <!-- a row -->
-                  <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">Tiempo estimado de viaje</div>
-                    <div class="col-sm ">
-                        <div class="col-sm-9 text-secondary text-left">
-                            {{ $ruta->tiempo}}
-                        </div>
-                    </div>
-                </div>
-                <hr />
-
                 <!-- a row -->
-                <div class="row p-4 ">
-                    <div class="col-sm font-semibold ">kilometros aproximados</div>
-                    <div class="col-sm ">
-                        <div class="col-sm-9 text-secondary text-left">
-                            {{ $ruta->kms}}
-                        </div>
-                    </div>
-                </div>
+                <x-row>
+                    <x-slot name="type">
+                        Tiempo estimado de viaje
+                    </x-slot>
+                    {{ $ruta->tiempo}}
+                </x-row>
+                <hr />
+                <!-- a row -->
+                <x-row>
+                    <x-slot name="type">
+                        kilometros aproximados
+                    </x-slot>
+                    {{ $ruta->kms}}
+                </x-row>
                 <hr />
 
-
-
-
-                <!-- a row -->
-                <div class="row p-3 mt-3">
-                    <div class="col-sm "> Ruta registrada el  </div>
-                    <div class="col-sm ">
-                        <div class="col-sm-9 text-secondary text-left">
-                            {{ $ruta->created_at ->format('Y-m-d') }}
-                        </div>
-                    </div>
-                </div>
+                <x-row>
+                    <x-slot name="type">
+                        Ruta registrada el
+                    </x-slot>
+                    {{ $ruta->created_at ->format('Y-m-d') }}
+                </x-row>
+                <hr />
             </div>
         </div>
     </div>
@@ -92,5 +76,6 @@
 
     <x-options-bar :item="$ruta" :tipo="'ruta'" />
 
-@endif
+    @endif
+
 </x-app-layout>
