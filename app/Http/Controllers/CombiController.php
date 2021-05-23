@@ -63,12 +63,15 @@ class CombiController extends Controller
 
     public function update(Combi $combi)
     {
-        request()->validate(self::RULES);
+        request()->validate([
+            'patente' => 'string|max:255|unique:combis|nullable',
+            'asientos' => 'integer|max:255|nullable',
+            'tipo_de_combi' => 'string|max:15|nullable',
+            'modelo' => 'integer|nullable',
+            'chofer_id' => 'nullable',
+        ]);
 
         $combi = Combi::findOrFail($combi->id);
-        $combi->desasignarchofer();
-        $combi->asignarChofer(request()->chofer_id);
-
 
         /*array_filter() filtra aquellos campos que sean null en $ request
         de esa manera solo guarda aquellos que fueron modificados */
@@ -79,9 +82,10 @@ class CombiController extends Controller
         if ((isset($combi->ruta)) &&
             (is_null(request()->chofer_id))
         ) {
-            $key = 'choferAnclado';
+            $key = 'choferanclado';
         } else{
-
+            $combi->desasignarchofer();
+            $combi->asignarChofer(request()->chofer_id);
             $key = 'combimodificado';
             $combi->save();
         }
@@ -94,11 +98,10 @@ class CombiController extends Controller
     /* Chequea las dependencias y setea el nombre de los mensajes de acuerdo a eso */
     public function destroy(Combi $combi)
     {
-        if (isset($combi->chofer)) {
-            $key = 'tienechofer';
-        } else if (isset($combi->ruta)) {
+        if (isset($combi->ruta)) {
             $key = 'tieneruta';
         } else {
+            $combi->desasignarChofer();
             $combi->delete();
             $key = 'combimodificada';
         }

@@ -21,7 +21,7 @@ return [
     'alpha_dash'           => 'El campo :attribute solo puede contener letras, números, guiones y guiones bajos.',
     'alpha_num'            => 'El campo :attribute solo puede contener letras y números.',
     'array'                => 'El campo :attribute debe ser un array.',
-    'before'               => 'El campo :attribute debe ser una fecha anterior a :date.',
+    'before'               => 'El usuario debe ser mayor de 18 años.',
     'before_or_equal'      => 'El campo :attribute debe ser una fecha anterior o igual a :date.',
     'between'              => [
         'numeric' => 'El campo :attribute debe ser un valor entre :min y :max.',

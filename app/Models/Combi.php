@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use function PHPUnit\Framework\isNull;
+
 class Combi extends Model
 {
     protected $fillable = [
@@ -41,9 +43,9 @@ class Combi extends Model
     }
 
     /*asigna de forma segura el chofer a la combi */
-    public function asignarChofer(int $chofer_id){
+    public function asignarChofer($chofer_id){
 
-        if (isset($chofer_id)) {
+        if (isset($chofer_id) && (! is_null($chofer_id)) ) {
 
             $chofer = User::find($chofer_id);
             //setear la relacion 1-1 --

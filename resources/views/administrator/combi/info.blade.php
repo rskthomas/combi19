@@ -14,18 +14,11 @@
 
     @endif
 
-    @if(session()->has('tieneruta'))
-
-    <div class="alert alert-warning text-center" role="alert">
-        <span>Antes de eliminar la combi debe eliminar la ruta</span>
-    </div>
-
-    @endif
-
+ 
     @if(session()->has('choferanclado'))
 
     <div class="alert alert-warning text-center" role="alert">
-        <span>No se puede cambiar el chofer - tiene una ruta asignada</span>
+        <span>La combi no puede quedar sin un chofer; tiene una ruta asignada</span>
     </div>
 
     @endif
@@ -87,7 +80,7 @@
                         Chofer
                     </x-slot>
                     @isset($combi->chofer)
-                    <a href="{{ route('profile', ['user' => $combi->chofer]) }}">
+                    <a href="{{ route('chofer.info', ['chofer' => $combi->chofer]) }}">
                         {{ $combi->chofer->name }}</a>
                     @else
                     Libre

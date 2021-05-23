@@ -5,12 +5,16 @@
         </h2>
     </x-slot>
 
-    @if(session()->has('combieliminada'))
+    @if(session()->has('tieneruta'))
+    <div class="alert alert-warning text-center" role="alert">
+        <span>No es posible eliminar la combi, tiene una ruta asignada</span>
+    </div>
+    @endif
 
+    @if(session()->has('combieliminada'))
     <div class="alert alert-success text-center" role="alert">
         <span>Se ha eliminado la combi {{session()->get('combieliminada')->name}}</span>
     </div>
-
     @endif
 
     @if($resultado->isEmpty())
