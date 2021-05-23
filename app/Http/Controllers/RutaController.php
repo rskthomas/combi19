@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ruta;
+use App\Models\Ruta;
 use App\Models\Combi;
 use App\Models\Lugar;
 use Illuminate\Http\Request;
@@ -18,7 +18,9 @@ class RutaController extends Controller
      */
     public function index()
     {
-        //
+        $resultado= Ruta::paginate(10);
+
+        return view('rutas.listarRuta')->with('resultado',$resultado);
     }
 
     /**
@@ -46,18 +48,16 @@ class RutaController extends Controller
      */
     public function store(Request $request)
     {
-        $messages=[];
-        //lo siguiente esta feo, buscar una forma mejor de hacerlo 
-        if($request->salida==$request->llegada){
-            return redirect()->back()->withErrors('Las terminales de salida y llegada no pueden ser las mismas');
-        }
+       
         $request->validate([
 
             'salida' => 'required|numeric',
             'llegada' => 'required',
             'combi' => 'required',
         ]);
-
+        if($request->salida==$request->llegada){
+            return redirect()->back()->withErrors('Las terminales de salida y llegada no pueden ser las mismas');
+        }
 
 
 
@@ -73,28 +73,26 @@ class RutaController extends Controller
 
 
 
-        return redirect()->to(route('altaruta'))-> with('rutaagregada',$ruta);
+        return redirect()->to(route('ruta.create'))-> with('rutaagregada',$ruta);
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ruta  $ruta
+     * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
     public function show(ruta $ruta)
     {
-        $resultado= Ruta::paginate(10);
-
-        return view('rutas.listarRuta')->with('resultado',$resultado);
+        return view('rutas.info', ['ruta' => $ruta]);
 
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ruta  $ruta
+     * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
     public static function edit(ruta $ruta)
@@ -113,29 +111,28 @@ class RutaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ruta  $ruta
+     * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ruta $ruta)
     {
         //
+
+       
         $request->validate([
             'lugar_salida' => 'required',
             'lugar_llegada' => 'required',
             'combi_id' => 'required',
         ]);
 
-
+        if($request->lugar_salida == $request->lugar_llegada){
+            return redirect()->back()->withErrors('Las terminales de salida y llegada no pueden ser las mismas');
+        }
         $ruta=ruta::findOrFail($request->id);
-
-
 
         $ruta-> update ($request->all());
 
-       // $salida=Lugar::findOrFail($request->salida);
-
-
-        return redirect()->to(route('inforuta', ['ruta' => $ruta->id]))-> with('rutamodificada','open');
+        return redirect()->to(route('ruta.info', ['ruta' => $ruta->id]))-> with('rutamodificada','open');
 
 
     }
@@ -143,7 +140,7 @@ class RutaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ruta  $ruta
+     * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
     public static function destroy(ruta $ruta)
@@ -151,7 +148,7 @@ class RutaController extends Controller
         //
         $ruta-> delete();
 
-        return redirect()->to(route('listarrutas'))-> with('rutaeliminada',$ruta);
+        return redirect()->to(route('ruta.index'))-> with('rutaeliminada',$ruta);
 
     }
 }

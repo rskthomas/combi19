@@ -15,7 +15,9 @@ class LugarController extends Controller
      */
     public function index()
     {
-        //
+        $resultado= Lugar::paginate(10);
+
+        return view('lugar.listarLugares')->with('resultado',$resultado);
     }
 
     /**
@@ -52,7 +54,7 @@ class LugarController extends Controller
             'provincia' =>$request->provincia
 
         ]);
-        return redirect()->to(route('altalugar'))-> with('popup','ok');
+        return redirect()->to(route('lugar.create'))-> with('popup','ok');
 
 
     }
@@ -64,11 +66,11 @@ class LugarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Lugar $lugar)
-    {
+   { 
+    
+      return view('lugar.infoLugar',['lugar' => $lugar]);
 
-        $resultado= Lugar::paginate(10);
-
-        return view('lugar.listarLugares')->with('resultado',$resultado);
+       
     }
 
     /**
@@ -104,10 +106,10 @@ class LugarController extends Controller
     {
         if(isSet($lugar->ruta)){
 
-            return redirect()->to(route('infougar', ['lugar' => $lugar]))-> with('bajaerronea',$lugar);
+            return redirect()->to(route('lugar.infolugar', ['lugar' => $lugar]))-> with('bajaerronea',$lugar);
         }
 
         $lugar->delete();
-        return redirect()->to(route('listarlugares'))-> with('bajaerronea',$lugar);
+        return redirect()->to(route('lugar.infolugar'))-> with('bajaerronea',$lugar);
     }
 }

@@ -1,0 +1,17 @@
+vista           ruta            controlador
+----------------------------------------------------------------------------------------------
+combi.index     combi.index     index()          ->listar //GET
+
+combi.alta      combi.create    create()         ->mostrar vista registro/alta //GET
+
+//PUT           combi.store     store()          ->guardar //PUT
+
+combi.info      combi.show      show()            ->mostrar perfil//una combi sola  //GET
+
+combi.editar    combi.edit      edit()            ->mostrar vista editar de una combi sola  //GET
+
+//UPDATE        combi.update    update()          -> update del modelo //UPDATE
+
+//DELETE        combi.destroy   destroy()         -> update del modelo //DELETE
+
+

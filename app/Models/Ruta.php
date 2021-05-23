@@ -6,7 +6,7 @@ use App\Models\Lugar;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ruta extends Model
+class Ruta extends Model
 {
     use HasFactory;
 

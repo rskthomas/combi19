@@ -4,7 +4,7 @@
 require __DIR__ . '/auth.php';
 
 use App\Models\Role;
-use App\Models\ruta;
+use App\Models\Ruta;
 use App\Models\User;
 use App\Models\Combi;
 use App\Models\Lugar;
@@ -49,13 +49,15 @@ Route::get(
     ->name('profile');
 
 
+
+//-----------------------COMBI-------------------------------
 Route::name('combi.')
      ->prefix('/combi')
      ->middleware('role:administrator')
      ->group(function () {
 
         //-----------------------------------------------------//
-        Route::get('/alta', 'CombiController@createCombi')
+        Route::get('/alta', 'CombiController@create')
         ->name('new');
 
         //-----------------------------------------------------//
@@ -63,11 +65,11 @@ Route::name('combi.')
             ->name('store');;
 
         //-----------------------------------------------------//
-        Route::get('/listar', 'CombiController@listarCombis')
+        Route::get('/listar', 'CombiController@index')
         ->name('listar');
 
         //-----------------------------------------------------//
-        Route::get('/{combi}','CombiController@get')
+        Route::get('/{combi}','CombiController@show')
         ->name('info')
         ->withoutMiddleware('role:administrator');
 
@@ -85,102 +87,141 @@ Route::name('combi.')
 
     });
 
+//Rutas para los choferes
+
+    Route::name('chofer.')
+     ->prefix('/chofer')
+     ->middleware('role:administrator')
+     ->group(function () {
+
+        //-----------------------------------------------------//
+        Route::get('/alta', 'ChoferesController@create')
+        ->name('create');
+
+        //-----------------------------------------------------//
+        Route::post('/alta/store', 'ChoferesController@store')
+        ->name('store');;
+
+        //-----------------------------------------------------//
+        Route::get('/listar', 'ChoferesController@index')
+        ->name('index');
+
+        //-----------------------------------------------------//
+        Route::get('/{chofer}','ChoferesController@show')
+        ->name('info')
+        ->withoutMiddleware('role:administrator');
+
+        //-----------------------------------------------------//
+        Route::get('/{chofer}/edit','ChoferesController@edit')
+        ->name('edit');
+
+        //-----------------------------------------------------//
+        Route::put('/{chofer}/update', 'UsuariosController@update')
+        ->name('update');
+
+        //-----------------------------------------------------//
+        Route::delete('/{chofer}/delete', 'ChoferesController@destroy')
+        ->name('delete');
+
+    });
 
 
 
 //Routes for administrator with prefix /administrator
 //example: combi19/administrator/altachofer
 
-//----------------------RUTAS ADMINISTRADOR------------------------------------
-Route::group(['prefix' => 'administrator', 'middleware' => ['role:administrator']], function () {
+//----------------LUGARES---------------------
+Route::name('lugar.')
+->prefix('/lugar')
+->middleware('role:administrator')
+->group(function () {
 
-    //--------------------- rutas para administrar choferes
-    Route::get('altachofer', [RegisteredUserController::class, 'createChofer'])
-        ->name('altachofer');
+    //-------------------------------------------------------------//
+    Route::get('/alta', 'LugarController@create')
+    ->name('create');
 
-    Route::post('altachofer', [RegisteredUserController::class, 'storeChofer']);
+    //------------------------------------------------------------//
 
-    Route::get('listarchoferes', [ChoferesController::class, 'listarChoferes'])
-        ->name('listarchoferes');
-
-    Route::get('eliminarchofer/{user}', function (User $user) {
-
-        return ChoferesController::eliminarChofer($user);
-    })->name('eliminar');
+    Route::post('/alta/store', 'LugarController@store')
+    ->name('store');
 
 
-    //-------------------rutas para administrar lugares-----------------
-    Route::get('altalugar', [LugarController::class, 'create'])->name('altalugar');
-    Route::post('altalugar', [LugarController::class, 'store']);
-    Route::get('listarlugares', [LugarController::class, 'show'])
-    ->name('listarlugares');
+    //------------------------------------------------------------//
+    Route::get('/listar', 'LugarController@index')
+    ->name('index');
 
+    //-------------------------------------------------------------//
+    Route::get('/info', 'LugarController@show')
+   ->name('infolugar');
 
-    Route::get('infolugar/{lugar}', function (Lugar $lugar) {
-
-        return view('lugar.infoLugar',['lugar' => $lugar]);
-    })->name('infolugar');
-
-
-
-    //----------------rutas para administrar Rutas-----
-
-    Route::get('altaruta', [RutaController::class, 'create'])->name('altaruta');
-    Route::post('altaruta', [RutaController::class, 'store']);
-
-    Route::get('listarrutas', [RutaController::class, 'show'])
-        ->name('listarrutas');
-
-
-
-    Route::get(
-        '/inforuta/{ruta}',
-        function (ruta $ruta) {
-
-            return view('rutas.info', ['ruta' => $ruta]);
-        }
-    )->middleware('auth')
-        ->name('inforuta');
-
-
-    Route::get('eliminarruta/{ruta}', function (ruta $ruta) {
-
-        return RutaController::destroy($ruta);
-    })->middleware('auth')
-        ->name('eliminarruta');
-
-    Route::get('editarruta/{ruta}', function (ruta $ruta) {
-        return RutaController::edit($ruta);
-
-    })->name('editarruta');
-
-    Route::put('editarruta', [RutaController::class, 'update'])->name('updateruta');
-
-
-    //---------------------rutas para administrar combis
-    Route::get('altacombi', [CombiController::class, 'createCombi'])
-        ->name('altacombi');
-
-    Route::post('altacombi', [CombiController::class, 'store']);
-
-    Route::get('listarcombis', [CombiController::class, 'listarCombis'])
-        ->name('listarcombis');
 });
 
 
 
-//-----------------------Routes for Choferes--------------------------
-Route::group(['prefix' => 'chofer', 'middleware' => ['role:chofer']], function () {
+
+//-----------------RUTAS------------------------
+Route::name('ruta.')
+->prefix('/ruta')
+->middleware('role:administrator')
+->group(function () {
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('/alta', 'RutaController@create')
+    ->name('create');
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::post('/alta/store', 'RutaController@store')
+    ->name('store');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('/listar', 'RutaController@index')
+        ->name('index');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get( '/{ruta}', 'RutaController@show')
+        ->name('info');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::delete('{ruta}/delete', 'RutaController@destroy')
+        ->name('delete');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('{ruta}/edit', 'RutaController@edit')
+    ->name('edit');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::put('{ruta}/update', [RutaController::class, 'update'])->name('update');
+
+
+
 });
 
 
-Route::get('editarusuario/{user}', function (User $user) {
-    if (($user->id ==  Auth::user()->id) or (Auth::user()->hasRole('administrator'))) {
-        return view('user.modificarperfil', ['user' => $user]);
-    } else {
-        echo "NO TIENE PERMISO PARA ACCEDER A ESTA PAGINA";
-    }
-})->name('edit');
 
-Route::put('editarusuarios', [UsuariosController::class, 'modificarUsuario'])->name('editarusuarios');
+
+
+
+
+
+
+
+
+
+Route::get('editarusuario/{user}', [UsuariosController::class, 'edit'])
+        ->name('user.edit');
+
+
+Route::put('editarusuarios', [UsuariosController::class, 'update'])->name('editarusuarios');
 

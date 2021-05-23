@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use function PHPUnit\Framework\isNull;
+
 class Combi extends Model
 {
     protected $fillable = [
@@ -25,8 +27,32 @@ class Combi extends Model
     }
     public function ruta()
     {
-        return $this->hasOne(ruta::class, 'combi_id',"id");
+        return $this->hasOne(Ruta::class, 'combi_id',"id");
     }
+
+
+    /*Borra el chofer asingnado a la combi, si este existe */
+    public function desasignarChofer(){
+
+        if (isset($this->chofer)) {
+            $chofer_viejo = User::find($this->chofer->id);
+            $chofer_viejo->combi()->dissociate();
+            $chofer_viejo->save();
+        }
+
+    }
+
+    /*asigna de forma segura el chofer a la combi */
+    public function asignarChofer($chofer_id){
+
+        if (isset($chofer_id) && (! is_null($chofer_id)) ) {
+
+            $chofer = User::find($chofer_id);
+            //setear la relacion 1-1 --
+            $this->chofer()->save($chofer);
+        }
+    }
+
 
 
 }

@@ -25,17 +25,17 @@
 
         <x-slot name="content">
 
-            <form method="GET" action="{{ route('altachofer') }}">
+            <form method="GET" action="{{ route('chofer.create') }}">
 
-                <x-dropdown-link :href="route('altachofer')" onclick="event.preventDefault();
+                <x-dropdown-link :href="route('chofer.create')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Alta chofer') }}
                 </x-dropdown-link>
             </form>
 
-            <form method="GET" action="{{ route('listarchoferes') }}">
+            <form method="GET" action="{{ route('chofer.index') }}">
 
-                <x-dropdown-link :href="route('listarchoferes')" onclick="event.preventDefault();
+                <x-dropdown-link :href="route('chofer.index')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Listar choferes') }}
                 </x-dropdown-link>
@@ -92,7 +92,7 @@
 </div>
 
 
-    
+
 <!-- Admin Ruta  -->
 <div class="hidden sm:flex sm:items-center sm:ml-6">
     <x-dropdown align="right" width="48">
@@ -111,17 +111,17 @@
 
         <x-slot name="content">
 
-            <form method="GET" action="{{ route('altaruta') }}">
+            <form method="GET" action="{{ route('ruta.create') }}">
 
-                <x-dropdown-link :href="route('altaruta')" onclick="event.preventDefault();
+                <x-dropdown-link :href="route('ruta.create')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Alta Ruta') }}
                 </x-dropdown-link>
             </form>
 
-            <form method="GET" action="{{ route('listarrutas') }}">
+            <form method="GET" action="{{ route('ruta.index') }}">
 
-                <x-dropdown-link :href="route('listarrutas')" onclick="event.preventDefault();
+                <x-dropdown-link :href="route('ruta.index')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Listar Rutas') }}
                 </x-dropdown-link>
@@ -154,16 +154,16 @@
 
         <x-slot name="content">
 
-            <form method="GET" action="{{ route('altalugar') }}">
+            <form method="GET" action="{{ route('lugar.create') }}">
 
-                <x-dropdown-link :href="route('altalugar')" onclick="event.preventDefault();
+                <x-dropdown-link :href="route('lugar.create')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Alta Lugar') }}
                 </x-dropdown-link>
             </form>
-            <form method="GET" action="{{ route('listarlugares') }}">
+            <form method="GET" action="{{ route('lugar.index') }}">
 
-<x-dropdown-link :href="route('altalugar')" onclick="event.preventDefault();
+<x-dropdown-link :href="route('lugar.create')" onclick="event.preventDefault();
                     this.closest('form').submit();">
     {{ __('Listar lugares') }}
 </x-dropdown-link>

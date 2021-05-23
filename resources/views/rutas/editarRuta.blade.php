@@ -9,7 +9,7 @@
         <x-auth-card>
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form method="POST" action="{{ route('updateruta') }}">
+            <form method="POST" action="{{ route('ruta.update',['ruta' => $ruta]) }}">
             @csrf @method('PUT')
             <input type="hidden" name="id" value="{{ $ruta->id}}">
                 <div class="mb-3 row">
@@ -72,7 +72,7 @@
                 <div class="flex items-center justify-end mt-4">
 
                     <x-button class="ml-4">
-                        {{ __('Crear Ruta') }}
+                        {{ __('Editar') }}
                     </x-button>
                 </div>
 

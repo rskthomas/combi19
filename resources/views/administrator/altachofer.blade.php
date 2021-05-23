@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-@if(session()->has('popup'))
+@if(session()->has('exito'))
 
 <div class="alert alert-success text-center" role="alert">
   Se ha creado con éxito un usuario chofer
@@ -19,7 +19,7 @@
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-            <form method="POST" action="{{ route('altachofer') }}">
+            <form method="POST" action="{{ route('chofer.store') }}">
                 @csrf
 
                 <!-- Name -->
