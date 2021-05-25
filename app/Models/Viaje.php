@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Ruta;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Viaje extends Model
 {
@@ -15,8 +16,9 @@ class Viaje extends Model
         'fecha_salida',
         'precio',
         'cant_asientos',
-        'ruta',
-        'hora_salida'
+        'ruta_id',
+        'hora_salida',
+        'estado'
     ];
     protected $casts = [
   
@@ -26,7 +28,7 @@ class Viaje extends Model
 
 
     public function ruta(){
-        return $this->belongsTo(Ruta::class,"ruta","id");
+        return $this->belongsTo(Ruta::class,"ruta_id","id");
 
 
     }

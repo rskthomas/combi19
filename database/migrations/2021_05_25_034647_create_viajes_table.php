@@ -20,10 +20,11 @@ class CreateViajesTable extends Migration
             $table->string('descripcion')->nullable();
             $table->date('fecha_salida');
             $table->time('hora_salida');
+            $table->string('estado');
 
             $table->double('precio');
             $table->integer('cant_asientos');
-            $table->foreignId('ruta')
+            $table->foreignId('ruta_id')
             ->nullable()
             ->onDelete('SET NULL')
             ->constrained('rutas');

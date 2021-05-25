@@ -64,8 +64,9 @@ class ViajeController extends Controller
             'fecha_salida' => $request->fecha_salida,
             'hora_salida' => $request->hora_salida,
             'precio' => $request -> precio,
+            'estado'=>"pendiente",
             'cant_asientos'=> $request -> cant_asientos,
-            'ruta'=>$request -> ruta,
+            'ruta_id'=>$request -> ruta,
 
 
         ]);

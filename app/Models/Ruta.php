@@ -29,7 +29,7 @@ class Ruta extends Model
     }
     public function viajes()
     {
-        return $this->hasMany(ruta::class,"ruta","id");
+        return $this->hasMany(Viaje::class,"ruta_id","id");
     }
 
 
