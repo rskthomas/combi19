@@ -209,8 +209,25 @@ Route::name('ruta.')
 });
 
 
+//-----------------VIAJES------------------------
+Route::name('viaje.')
+->prefix('/viaje')
+->middleware('role:administrator')
+->group(function () {
 
 
+    //-------------------------------------------------------------------------------------//
+    Route::get('/alta', 'ViajeController@create')
+    ->name('create');
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::post('/alta/store', 'ViajeController@store')
+    ->name('store');
+
+
+
+} );
 
 
 
