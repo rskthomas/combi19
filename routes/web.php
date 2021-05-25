@@ -163,6 +163,10 @@ Route::name('lugar.')
     Route::get('{lugar}/edit', 'LugarController@edit')
         ->name('edit');
 
+        //-------------------------------------------------------------------------------------//
+    Route::put('{lugar}/update', 'LugarController@update')
+    ->name('update');
+
 
 
 });
