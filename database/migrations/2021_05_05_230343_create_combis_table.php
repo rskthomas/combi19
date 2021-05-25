@@ -34,6 +34,6 @@ class CreateCombisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('combis');
+      //  Schema::dropIfExists('combis');
     }
 }

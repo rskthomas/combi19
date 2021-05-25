@@ -27,4 +27,10 @@ class Ruta extends Model
     {
         return $this->belongsTo(Combi::class);
     }
+    public function viajes()
+    {
+        return $this->hasMany(Viaje::class,"ruta_id","id");
+    }
+
+
 }

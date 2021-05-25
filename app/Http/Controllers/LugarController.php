@@ -6,6 +6,8 @@ use App\Models\Lugar;
 use Illuminate\Http\Request;
 use PHPUnit\Util\Xml\Validator;
 
+use function PHPUnit\Framework\isNull;
+
 class LugarController extends Controller
 {
     /**
@@ -15,9 +17,9 @@ class LugarController extends Controller
      */
     public function index()
     {
-        $resultado= Lugar::paginate(10);
+        $resultado = Lugar::paginate(10);
 
-        return view('lugar.listarLugares')->with('resultado',$resultado);
+        return view('lugar.listar')->with('resultado', $resultado);
     }
 
     /**
@@ -44,19 +46,17 @@ class LugarController extends Controller
         $request["provincia"] = strtoupper($request->provincia);
         $request->validate([
             'nombre' => 'required|string|max:255|unique:lugars',
-            'provincia'=> 'required|string'
-             ]);
+            'provincia' => 'required|string'
+        ]);
 
 
 
-        $lugar= Lugar::create([
+        $lugar = Lugar::create([
             'nombre' => $request->nombre,
-            'provincia' =>$request->provincia
+            'provincia' => $request->provincia
 
         ]);
-        return redirect()->to(route('lugar.create'))-> with('popup','ok');
-
-
+        return redirect()->to(route('lugar.create'))->with('popup', 'ok');
     }
 
     /**
@@ -66,11 +66,9 @@ class LugarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Lugar $lugar)
-   { 
-    
-      return view('lugar.infoLugar',['lugar' => $lugar]);
+    {
 
-       
+        return view('lugar.info', ['lugar' => $lugar]);
     }
 
     /**
@@ -81,7 +79,13 @@ class LugarController extends Controller
      */
     public function edit(Lugar $lugar)
     {
-        //
+        //dd($lugar->ruta);
+        if (!($lugar->ruta)->isEmpty() | !($lugar->ruta2)->isEmpty()) {
+
+            return redirect()->to(route('lugar.info', ['lugar' => $lugar]))->with('bajaerronea', $lugar);
+        }
+
+        return view('lugar.editar', ['lugar' => $lugar]);
     }
 
     /**
@@ -93,7 +97,25 @@ class LugarController extends Controller
      */
     public function update(Request $request, Lugar $lugar)
     {
-        //
+     
+        $request["nombre"] = strtoupper($request->nombre);
+        $request["provincia"] = strtoupper($request->provincia);
+        $request->validate([
+            'nombre' => 'required|string|max:255|',
+            'provincia' => 'required|string'
+        ]);
+     
+        
+        if ($request->nombre != $lugar->nombre) {
+            $request->validate([
+                'nombre' => 'unique:lugars'
+            ]);
+        }
+    
+        $lugar-> update ($request->all());
+        return redirect()->to(route('lugar.info', ['lugar' => $lugar->id]))-> with('lugarmodificado','open');
+
+
     }
 
     /**
@@ -104,12 +126,12 @@ class LugarController extends Controller
      */
     public function destroy(Lugar $lugar)
     {
-        if(isSet($lugar->ruta)){
+        if (!($lugar->ruta)->isEmpty()| !($lugar->ruta2)->isEmpty()) {
 
-            return redirect()->to(route('lugar.infolugar', ['lugar' => $lugar]))-> with('bajaerronea',$lugar);
+            return redirect()->to(route('lugar.info', ['lugar' => $lugar]))->with('bajaerronea', $lugar);
         }
 
         $lugar->delete();
-        return redirect()->to(route('lugar.infolugar'))-> with('bajaerronea',$lugar);
+        return redirect()->to(route('lugar.index'))->with('lugareliminado', $lugar);
     }
 }

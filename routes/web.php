@@ -151,8 +151,23 @@ Route::name('lugar.')
     ->name('index');
 
     //-------------------------------------------------------------//
-    Route::get('/info', 'LugarController@show')
-   ->name('infolugar');
+    Route::get('/{lugar}', 'LugarController@show')
+   ->name('info');
+   
+    //-------------------------------------------------------------------------------------//
+    Route::delete('{lugar}/delete', 'LugarController@destroy')
+        ->name('delete');
+    
+    
+    //-------------------------------------------------------------------------------------//
+    Route::get('{lugar}/edit', 'LugarController@edit')
+        ->name('edit');
+
+        //-------------------------------------------------------------------------------------//
+    Route::put('{lugar}/update', 'LugarController@update')
+    ->name('update');
+
+
 
 });
 
@@ -209,8 +224,25 @@ Route::name('ruta.')
 });
 
 
+//-----------------VIAJES------------------------
+Route::name('viaje.')
+->prefix('/viaje')
+->middleware('role:administrator')
+->group(function () {
 
 
+    //-------------------------------------------------------------------------------------//
+    Route::get('/alta', 'ViajeController@create')
+    ->name('create');
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::post('/alta/store', 'ViajeController@store')
+    ->name('store');
+
+
+
+} );
 
 
 

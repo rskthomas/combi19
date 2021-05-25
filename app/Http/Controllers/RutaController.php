@@ -128,7 +128,17 @@ class RutaController extends Controller
         if($request->lugar_salida == $request->lugar_llegada){
             return redirect()->back()->withErrors('Las terminales de salida y llegada no pueden ser las mismas');
         }
-        $ruta=ruta::findOrFail($request->id);
+        $ruta=Ruta::findOrFail($request->id);
+        if($ruta->viajes != null){
+           
+            if($request->lugar_llegada != $ruta->lugar_llegada | $request->lugar_salida =! $ruta->lugar_salida ){
+                return redirect()->back()->withErrors('no puede modificar las terminales de salida y llegada, la ruta tiene un viaje asignado');
+
+
+            }
+            
+
+        }
 
         $ruta-> update ($request->all());
 
@@ -146,7 +156,13 @@ class RutaController extends Controller
     public static function destroy(ruta $ruta)
     {
         //
+
+        if(!$ruta->viajes->isEmpty()){
+            return redirect() ->to(route('ruta.info', ['ruta' => $ruta->id]))-> with('nosepuedeeliminar','open');
+
+        }
         $ruta-> delete();
+        
 
         return redirect()->to(route('ruta.index'))-> with('rutaeliminada',$ruta);
 
