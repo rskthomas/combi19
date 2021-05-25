@@ -126,12 +126,12 @@ class LugarController extends Controller
      */
     public function destroy(Lugar $lugar)
     {
-        if (isset($lugar->ruta)) {
+        if (!($lugar->ruta)->isEmpty()| !($lugar->ruta2)->isEmpty()) {
 
             return redirect()->to(route('lugar.info', ['lugar' => $lugar]))->with('bajaerronea', $lugar);
         }
 
         $lugar->delete();
-        return redirect()->to(route('lugar.info'))->with('bajaerronea', $lugar);
+        return redirect()->to(route('lugar.index'))->with('lugareliminado', $lugar);
     }
 }

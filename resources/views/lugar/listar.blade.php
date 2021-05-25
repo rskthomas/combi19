@@ -9,7 +9,7 @@
     @if(session()->has('lugareliminado'))
 
     <div class="alert alert-success" role="alert">
-        <span>Se ha eliminado un lugar </span>
+        <span>Se ha eliminado correctamente </span>
     </div>
 
     @endif
