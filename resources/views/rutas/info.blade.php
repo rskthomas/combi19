@@ -12,6 +12,15 @@
 </div>
 
 @endif
+@if(session()->has('nosepuedeeliminar'))
+
+<div class="alert alert-danger text-center" role="alert">
+    No se puede eliminar la ruta, tiene viajes  asignados. Pruebe eliminarlos primero
+</div>
+
+@endif
+
+
 
 
     <div class="py-8 col-md-5 mx-auto ">

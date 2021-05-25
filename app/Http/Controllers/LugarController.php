@@ -17,7 +17,7 @@ class LugarController extends Controller
     {
         $resultado= Lugar::paginate(10);
 
-        return view('lugar.listarLugares')->with('resultado',$resultado);
+        return view('lugar.listar')->with('resultado',$resultado);
     }
 
     /**
@@ -68,7 +68,7 @@ class LugarController extends Controller
     public function show(Lugar $lugar)
    { 
     
-      return view('lugar.infoLugar',['lugar' => $lugar]);
+      return view('lugar.info',['lugar' => $lugar]);
 
        
     }
@@ -106,10 +106,10 @@ class LugarController extends Controller
     {
         if(isSet($lugar->ruta)){
 
-            return redirect()->to(route('lugar.infolugar', ['lugar' => $lugar]))-> with('bajaerronea',$lugar);
+            return redirect()->to(route('lugar.info', ['lugar' => $lugar]))-> with('bajaerronea',$lugar);
         }
 
         $lugar->delete();
-        return redirect()->to(route('lugar.infolugar'))-> with('bajaerronea',$lugar);
+        return redirect()->to(route('lugar.info'))-> with('bajaerronea',$lugar);
     }
 }

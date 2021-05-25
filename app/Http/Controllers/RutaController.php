@@ -156,7 +156,13 @@ class RutaController extends Controller
     public static function destroy(ruta $ruta)
     {
         //
+
+        if($ruta->viajes != null){
+            return redirect() ->to(route('ruta.info', ['ruta' => $ruta->id]))-> with('nosepuedeeliminar','open');
+
+        }
         $ruta-> delete();
+        
 
         return redirect()->to(route('ruta.index'))-> with('rutaeliminada',$ruta);
 

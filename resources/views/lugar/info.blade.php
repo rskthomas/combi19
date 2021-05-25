@@ -44,7 +44,7 @@
                     <div class="col-sm "> Lugar registrado el </div>
                     <div class="col-sm ">
                         <div class="col-sm-9 text-secondary text-left">
-                            {{ $lugar->created_at ->format('Y-m-d') }}
+                            {{ $lugar->created_at  }}
                         </div>
                     </div>
                 </div>
@@ -111,14 +111,8 @@
                     ¿Esta seguro que desea eliminar el lugar ?
                     {{ $lugar->patente }}
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                    <form action="{{ route('combi.delete', ['combi' => $combi]) }}" method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </a>
-                </div>
+               
+    
             </div>
         </div>
     </div>

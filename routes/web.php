@@ -151,8 +151,19 @@ Route::name('lugar.')
     ->name('index');
 
     //-------------------------------------------------------------//
-    Route::get('/info', 'LugarController@show')
-   ->name('infolugar');
+    Route::get('/{lugar}', 'LugarController@show')
+   ->name('info');
+   
+    //-------------------------------------------------------------------------------------//
+    Route::delete('{lugar}/delete', 'LugarController@destroy')
+        ->name('delete');
+    
+    
+    //-------------------------------------------------------------------------------------//
+    Route::get('{lugar}/edit', 'LugarController@edit')
+        ->name('edit');
+
+
 
 });
 
