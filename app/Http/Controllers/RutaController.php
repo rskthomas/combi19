@@ -157,7 +157,7 @@ class RutaController extends Controller
     {
         //
 
-        if($ruta->viajes != null){
+        if(!$ruta->viajes->isEmpty()){
             return redirect() ->to(route('ruta.info', ['ruta' => $ruta->id]))-> with('nosepuedeeliminar','open');
 
         }
