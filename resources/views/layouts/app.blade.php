@@ -23,17 +23,25 @@
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            <header class="bg-gray-400 shadow ">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <header class="bg-gray-400 shadow">
+                <div class="max-w-7xl mx-auto py-3 px-5 sm:px-6 lg:px-8">
                     <!-- this slot is optional -->
                     {{ $header ?? '' }}
                 </div>
+                <div class="w-auto h-1.5 " style="background-color: #115571"></div>
             </header>
 
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
+
         </div>
+
+
+
+        <div class="w-auto h-16" style="background-color: #115571"></div>
+        <div class="w-auto h-2.5 bg-black"></div>
+
     </body>
 </html>
