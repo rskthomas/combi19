@@ -29,7 +29,7 @@ class ViajeController extends Controller
 
         $rutas = Ruta::all();
 
-        return view('viajes.agregarViaje',['rutas' => $rutas]);
+        return view('entidades.viaje.alta',['rutas' => $rutas]);
     }
 
     /**
@@ -71,7 +71,7 @@ class ViajeController extends Controller
 
         ]);
 
-        // return redirect()->to(route('ruta.create')); 
+        // return redirect()->to(route('ruta.create'));
     }
 
     /**

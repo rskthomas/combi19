@@ -21,13 +21,13 @@ class CombiController extends Controller
 
     public function create()
     {
-        return view('administrator.combi.altacombi', ['resultado' => User::choferesLibres()]);
+        return view('entidades.combi.alta', ['resultado' => User::choferesLibres()]);
     }
 
     public function index()
     {
         $resultado = Combi::paginate(10);
-        return view('administrator.combi.listar', ['resultado' => $resultado]);
+        return view('entidades.combi.listar', ['resultado' => $resultado]);
     }
 
 
@@ -52,13 +52,13 @@ class CombiController extends Controller
 
     public function show(Combi $combi)
     {
-        return view('administrator.combi.info', ['combi' => $combi]);
+        return view('entidades.combi.info', ['combi' => $combi]);
     }
 
 
     public function edit(Combi $combi)
     {
-        return view('administrator.combi.editar', ['combi' => $combi, 'resultado' => User::choferesLibres()]);
+        return view('entidades.combi.editar', ['combi' => $combi, 'resultado' => User::choferesLibres()]);
     }
 
     public function update(Combi $combi)

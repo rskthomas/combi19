@@ -20,7 +20,7 @@ class RutaController extends Controller
     {
         $resultado= Ruta::paginate(10);
 
-        return view('rutas.listarRuta')->with('resultado',$resultado);
+        return view('entidades.rutas.listar')->with('resultado',$resultado);
     }
 
     /**
@@ -37,7 +37,7 @@ class RutaController extends Controller
 
         $lugares = Lugar::all();
 
-        return view('rutas.agregarRuta',['lugares' => $lugares, 'combis'=>$combis]);
+        return view('entidades.rutas.alta',['lugares' => $lugares, 'combis'=>$combis]);
     }
 
     /**
@@ -48,7 +48,7 @@ class RutaController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $request->validate([
 
             'salida' => 'required|numeric',
@@ -85,7 +85,7 @@ class RutaController extends Controller
      */
     public function show(ruta $ruta)
     {
-        return view('rutas.info', ['ruta' => $ruta]);
+        return view('entidades.rutas.info', ['ruta' => $ruta]);
 
     }
 
@@ -101,7 +101,7 @@ class RutaController extends Controller
         $combis=Combi::all();
         $lugares = Lugar::all();
 
-        return view('rutas.editarRuta',['ruta'=> $ruta,'lugares' => $lugares, 'combis'=>$combis]);
+        return view('entidades.rutas.editar',['ruta'=> $ruta,'lugares' => $lugares, 'combis'=>$combis]);
 
 
 
@@ -118,7 +118,7 @@ class RutaController extends Controller
     {
         //
 
-       
+
         $request->validate([
             'lugar_salida' => 'required',
             'lugar_llegada' => 'required',
@@ -130,13 +130,13 @@ class RutaController extends Controller
         }
         $ruta=Ruta::findOrFail($request->id);
         if($ruta->viajes != null){
-           
+
             if($request->lugar_llegada != $ruta->lugar_llegada | $request->lugar_salida =! $ruta->lugar_salida ){
                 return redirect()->back()->withErrors('no puede modificar las terminales de salida y llegada, la ruta tiene un viaje asignado');
 
 
             }
-            
+
 
         }
 
@@ -162,7 +162,7 @@ class RutaController extends Controller
 
         }
         $ruta-> delete();
-        
+
 
         return redirect()->to(route('ruta.index'))-> with('rutaeliminada',$ruta);
 

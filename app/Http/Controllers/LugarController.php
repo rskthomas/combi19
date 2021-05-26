@@ -19,7 +19,7 @@ class LugarController extends Controller
     {
         $resultado = Lugar::paginate(10);
 
-        return view('lugar.listar')->with('resultado', $resultado);
+        return view('entidades.lugar.listar')->with('resultado', $resultado);
     }
 
     /**
@@ -31,7 +31,7 @@ class LugarController extends Controller
 
     public function create()
     {
-        return view('lugar.agregarLugar');
+        return view('entidades.lugar.alta');
     }
 
     /**
@@ -68,7 +68,7 @@ class LugarController extends Controller
     public function show(Lugar $lugar)
     {
 
-        return view('lugar.info', ['lugar' => $lugar]);
+        return view('entidades.lugar.info', ['lugar' => $lugar]);
     }
 
     /**
@@ -85,7 +85,7 @@ class LugarController extends Controller
             return redirect()->to(route('lugar.info', ['lugar' => $lugar]))->with('bajaerronea', $lugar);
         }
 
-        return view('lugar.editar', ['lugar' => $lugar]);
+        return view('entidades.lugar.editar', ['lugar' => $lugar]);
     }
 
     /**
@@ -97,21 +97,21 @@ class LugarController extends Controller
      */
     public function update(Request $request, Lugar $lugar)
     {
-     
+
         $request["nombre"] = strtoupper($request->nombre);
         $request["provincia"] = strtoupper($request->provincia);
         $request->validate([
             'nombre' => 'required|string|max:255|',
             'provincia' => 'required|string'
         ]);
-     
-        
+
+
         if ($request->nombre != $lugar->nombre) {
             $request->validate([
                 'nombre' => 'unique:lugars'
             ]);
         }
-    
+
         $lugar-> update ($request->all());
         return redirect()->to(route('lugar.info', ['lugar' => $lugar->id]))-> with('lugarmodificado','open');
 
