@@ -34,7 +34,7 @@
                     <label for="descripcion">Descripcion </label>
 
                     <textarea class="form-control" id='descripcion' name="descripcion" :value="old('descripcion')">
-{{old('descripcion')}}            
+                    {{old('descripcion')}}
                     </textarea>
 
 

@@ -116,9 +116,7 @@ class RutaController extends Controller
      */
     public function update(Request $request, ruta $ruta)
     {
-        //
-
-
+    
         $request->validate([
             'lugar_salida' => 'required',
             'lugar_llegada' => 'required',

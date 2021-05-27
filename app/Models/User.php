@@ -53,6 +53,21 @@ class User extends Authenticatable
         return $this->belongsTo(Combi::class);
     }
 
+    public function tarjeta()
+    {
+        return $this->hasOne(Tarjeta::class);
+    }
+
+    public  function tieneTarjeta(){
+
+        return isSet($this->tarjeta);
+    }
+
+    public function isGold(){
+
+        return $this->isGold;
+    }
+
     public static function choferesLibres()
     {
 

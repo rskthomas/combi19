@@ -36,12 +36,16 @@
                 {{ $slot }}
             </main>
 
+            <div>
+                <div class="w-auto h-16" style="background-color: #115571"></div>
+                <div class="w-auto h-2 bg-black"></div>
+            </div>
+
         </div>
 
 
 
-        <div class="w-auto h-16" style="background-color: #115571"></div>
-        <div class="w-auto h-2.5 bg-black"></div>
+
 
     </body>
 </html>

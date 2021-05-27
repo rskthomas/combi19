@@ -153,12 +153,12 @@ Route::name('lugar.')
     //-------------------------------------------------------------//
     Route::get('/{lugar}', 'LugarController@show')
    ->name('info');
-   
+
     //-------------------------------------------------------------------------------------//
     Route::delete('{lugar}/delete', 'LugarController@destroy')
         ->name('delete');
-    
-    
+
+
     //-------------------------------------------------------------------------------------//
     Route::get('{lugar}/edit', 'LugarController@edit')
         ->name('edit');
@@ -244,7 +244,20 @@ Route::name('viaje.')
 
 } );
 
+Route::name('tarjeta.')
+->prefix('/tarjeta')
+->middleware('role:administrator')
+->group(function () {
 
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('/alta', 'TarjetaController@create')
+    ->name('create');
+    //-------------------------------------------------------------------------------------//
+    Route::post('/alta/store', 'TarjetaController@store')
+    ->name('store');
+
+} );
 
 
 

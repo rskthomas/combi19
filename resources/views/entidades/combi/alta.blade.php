@@ -5,12 +5,7 @@
         </h2>
     </x-slot>
 
-    @if (session()->has('popup'))
-
-        <div class="alert alert-success text-center" role="alert">
-            Se ha creado con éxito la combi
-        </div>
-    @endif
+  c
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
 
         <!-- Content starts -->
