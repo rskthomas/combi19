@@ -61,8 +61,9 @@
             </div>
 
         <div class="card-footer">
-            <button class="btn btn-sm btn-success float-right" type="submit">
-                <i class="mdi mdi-gamepad-circle"></i> Continuar</button>
+            <x-button class="ml-4">
+                {{ __('Continuar') }}
+            </x-button>
             <button class="btn btn-sm btn-danger" type="reset">
                 <i class="mdi mdi-lock-reset"></i> Reiniciar</button>
         </div>
