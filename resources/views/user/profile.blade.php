@@ -89,10 +89,4 @@
         </div>
     </div>
 
-
-    @if (Auth::user()->hasRole('administrator'))
-
-    <x-options-bar :item="$user" :tipo="'user'" />
-    @endif
-
 </x-app-layout>

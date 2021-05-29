@@ -39,16 +39,28 @@ Route::post('/', function () {
 
 
 //----------------Rutas para todos los usuarios--------------------
-Route::get(
-    '/profile/{user}',
-    function (User $user) {
-
-        return view('user.profile', ['user' => $user]);
-    }
-)->middleware('auth')
-    ->name('profile');
 
 
+    Route::name('user.')
+    ->prefix('/user')
+    ->middleware('auth')
+    ->group(function () {
+
+
+        //--------------------------perfil----------------------------------------------------//
+        Route::get('/{user}','UsuariosController@show')
+        ->name('info')
+        ->withoutMiddleware('role:administrator')
+        ->middleware('auth');
+
+
+    } );
+
+    Route::get('editarusuario/{user}', [UsuariosController::class, 'edit'])
+        ->name('user.edit');
+
+
+Route::put('editarusuarios', [UsuariosController::class, 'update'])->name('editarusuarios');
 
 //-----------------------COMBI-------------------------------
 Route::name('combi.')
@@ -71,7 +83,8 @@ Route::name('combi.')
         //-----------------------------------------------------//
         Route::get('/{combi}','CombiController@show')
         ->name('info')
-        ->withoutMiddleware('role:administrator');
+        ->withoutMiddleware('role:administrator')
+        ->middleware('auth');
 
         //-----------------------------------------------------//
         Route::get('/{combi}/edit','CombiController@edit')
@@ -109,7 +122,8 @@ Route::name('combi.')
         //-----------------------------------------------------//
         Route::get('/{chofer}','ChoferesController@show')
         ->name('info')
-        ->withoutMiddleware('role:administrator');
+        ->withoutMiddleware('role:administrator')
+        ->middleware('auth');
 
         //-----------------------------------------------------//
         Route::get('/{chofer}/edit','ChoferesController@edit')
@@ -263,9 +277,5 @@ Route::name('tarjeta.')
 
 
 
-Route::get('editarusuario/{user}', [UsuariosController::class, 'edit'])
-        ->name('user.edit');
 
-
-Route::put('editarusuarios', [UsuariosController::class, 'update'])->name('editarusuarios');
 
