@@ -77,10 +77,12 @@
 
             <div class="mt-3 ml-5">
 
-                <input type="checkbox" name="isGold" value="">
-                <label for="isGold"> No, quiero pagar el precio completo </label><br>
-                <input type="checkbox" name="isGold" value="true">
-                <label for="isGold"> Si, quiero ahorrar! </label><br>
+                <label for="gold">
+                <input type="radio" name="gold" value="" checked>
+                         No, quiero pagar el precio completo! </label><br>
+
+                <input type="radio" name="gold" value="yes">
+                <label for="isGold"> Sí, quiero ahorrar! </label>
 
             </div>
 

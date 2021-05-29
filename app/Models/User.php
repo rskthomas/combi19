@@ -63,11 +63,19 @@ class User extends Authenticatable
         return isSet($this->tarjeta);
     }
 
-    public function isGold(){
+    public function isGold(): bool{
 
         return $this->isGold;
     }
 
+    public function asignarTarjeta($tarjeta){
+
+            //setear la relacion 1-1 --
+            $this->tarjeta()->save($tarjeta);
+            $this->isGold = true;
+            $this->save();
+
+    }
     public static function choferesLibres()
     {
 

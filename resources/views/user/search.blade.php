@@ -4,14 +4,21 @@
             {{ __('') }}
         </h2>
     </x-slot>
-  @if(session()->has('popup'))
-    <div class="alert alert-success" role="alert">
-<span>Se ha eliminado el usuario </span>
-@endif
-@if(session()->has('gold'))
-<div class="alert alert-success" role="alert">
-<span>Se ha registrado exitosamente como usuario Gold !</span>
 
+@if(session()->has('popup'))
+    <div class="alert alert-success" role="alert">
+    <span>Se ha eliminado el usuario </span>
+@endif
+
+@if(session()->has('gold'))
+    <div class="alert alert-success" role="alert">
+    <span>Se ha registrado exitosamente como usuario Gold !</span>
+    </div>
+@endif
+
+@if(session()->has('nogold'))
+<div class="alert alert-success" role="alert">
+<span>Se ha registrado exitosamente como usuario Viajero!</span>
 </div>
 @endif
 

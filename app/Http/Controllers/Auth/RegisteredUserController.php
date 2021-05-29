@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
 
 
 class RegisteredUserController extends Controller
@@ -34,6 +35,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
 
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -46,7 +48,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'birthdate'=> $request->birthdate,
-            //for now, isGold is always false
+            //by default, the user is not premium
             'isGold' => false,
         ]);
 
@@ -56,7 +58,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        if ( isSet($request -> gold) ){
+
+            Session::put('is_new_user', 'yes');
+            return redirect()->to(route('tarjeta.create'));
+
+        }else return redirect(RouteServiceProvider::HOME)->with('nogold');
     }
 
 

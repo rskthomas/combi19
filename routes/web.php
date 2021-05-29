@@ -246,7 +246,6 @@ Route::name('viaje.')
 
 Route::name('tarjeta.')
 ->prefix('/tarjeta')
-->middleware('role:administrator')
 ->group(function () {
 
 

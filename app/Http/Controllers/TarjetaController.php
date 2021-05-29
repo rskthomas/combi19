@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Tarjeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
 
 class TarjetaController extends Controller
 {
@@ -28,7 +30,7 @@ class TarjetaController extends Controller
     {
 
         return view('entidades.tarjeta.alta');
-        //
+
     }
 
     /**
@@ -48,21 +50,23 @@ class TarjetaController extends Controller
             'expiration_month' => 'required|string|max:2',
         ]);
 
-        $tarjeta = Tarjeta::create([
-            'name' => $request->name,
-            'number' => $request->number,
-            'cvc' => $request->cvc,
-            'expiration_year' => $request->expiration_year,
-            'expiration_month' => $request->expiration_month,
+        //if the user is recently registered, it is because it chose the gold option
 
-        ]);
+        if ((Session::pull('is_new_user', 'default')) == 'yes') {
 
-        $user = $request-> user();
-        if ($user->isGold()){
-            $tarjeta->user()->save(Auth::user());
+            $tarjeta = Tarjeta::create([
+                'name' => $request->name,
+                'number' => $request->number,
+                'cvc' => $request->cvc,
+                'expiration_year' => $request->expiration_year,
+                'expiration_month' => $request->expiration_month,
+
+            ]);
+
+            $request->user()->asignarTarjeta($tarjeta);
+
+            return redirect(RouteServiceProvider::HOME)->with('gold');
         }
-
-
 
     }
 
