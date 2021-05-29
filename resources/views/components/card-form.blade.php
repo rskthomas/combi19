@@ -60,12 +60,9 @@
                 </div>
             </div>
 
-        <div class="card-footer">
+        <div class="align-self-end">
 
-            <button class="btn btn-sm btn-danger" type="reset">
-                <i class="mdi mdi-lock-reset"></i> Reiniciar</button>
-
-            <x-button class="ml-4">
+            <x-button class="">
                 {{ __('Continuar') }}
             </x-button>
 
