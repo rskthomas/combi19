@@ -33,7 +33,7 @@ class RutaController extends Controller
         //$combi = Combi::all();
         $combis=Combi::doesntHave('ruta')
                     ->wherehas('chofer')
-                       ->get();;
+                       ->get();
 
         $lugares = Lugar::all();
 
@@ -83,7 +83,7 @@ class RutaController extends Controller
      * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
-    public function show(ruta $ruta)
+    public function show(Ruta $ruta)
     {
         return view('rutas.info', ['ruta' => $ruta]);
 
@@ -95,10 +95,13 @@ class RutaController extends Controller
      * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
-    public static function edit(ruta $ruta)
+    public static function edit(Ruta $ruta)
     {
         //
-        $combis=Combi::all();
+        $combis=Combi::doesntHave('ruta')
+        ->wherehas('chofer')
+           ->get();
+        $combis->push($ruta->combi);
         $lugares = Lugar::all();
 
         return view('rutas.editarRuta',['ruta'=> $ruta,'lugares' => $lugares, 'combis'=>$combis]);
@@ -114,30 +117,16 @@ class RutaController extends Controller
      * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ruta $ruta)
+    public function update(Request $request, Ruta $ruta)
     {
         //
-
-       
-        $request->validate([
-            'lugar_salida' => 'required',
-            'lugar_llegada' => 'required',
+ 
+        $request->validate([           
             'combi_id' => 'required',
         ]);
 
-        if($request->lugar_salida == $request->lugar_llegada){
+        if(isset($request->lugar_salida) and $request->lugar_salida == $request->lugar_llegada){
             return redirect()->back()->withErrors('Las terminales de salida y llegada no pueden ser las mismas');
-        }
-        $ruta=Ruta::findOrFail($request->id);
-        if($ruta->viajes != null){
-           
-            if($request->lugar_llegada != $ruta->lugar_llegada | $request->lugar_salida =! $ruta->lugar_salida ){
-                return redirect()->back()->withErrors('no puede modificar las terminales de salida y llegada, la ruta tiene un viaje asignado');
-
-
-            }
-            
-
         }
 
         $ruta-> update ($request->all());
