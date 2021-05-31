@@ -22,7 +22,7 @@ class Viaje extends Model
     ];
     protected $casts = [
   
-        'hora_salida' => 'datetime:H:i:s'
+       
     ];
     
 

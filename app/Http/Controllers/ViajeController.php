@@ -15,7 +15,9 @@ class ViajeController extends Controller
      */
     public function index()
     {
-        //
+        $resultado= Viaje::paginate(10);
+
+        return view('viajes.listarViajes')->with('resultado',$resultado);
     }
 
     /**
@@ -50,10 +52,13 @@ class ViajeController extends Controller
             'hora_salida'=>'required',
             'descripcion'=>'required'
         ]);
-
+    
         $ruta = Ruta::where("id","=",$request->ruta)->first();
+  
+        
         if($ruta->combi ['asientos'] < $request->cant_asientos){
-            return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible ');
+            //$parametros=['error'=>'la cantidad de asientos elegida es mayor a la disponible ','request'=>$request]
+            return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible para la combi'.$ruta->combi['id']. '('. $ruta->combi['asientos'].')')->withInput();
         }
 
 
@@ -80,9 +85,9 @@ class ViajeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Viaje $viaje)
     {
-        //
+        return view('viajes.info', ['viaje' => $viaje]);
     }
 
     /**
