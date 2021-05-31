@@ -91,7 +91,7 @@
                     <div class="mt-4">
                         <x-label for="kms" :value="__('Cantidad de kilometros aproximados')" />
 
-                        <x-input id="kms" class="block mt-1 w-full" type="text" name="kms" :value="old('email',$ruta->kms)" required oninvalid="this.setCustomValidity('Por favor, ingrese una cantidad de kilometros')" oninput="setCustomValidity('')" />
+                        <x-input id="kms" class="block mt-1 w-full" type="number" name="kms" :value="old('email',$ruta->kms)" :min="0" required oninvalid="this.setCustomValidity('Por favor, ingrese una cantidad de kilometros ')" oninput="setCustomValidity('')" />
                     </div>
 
 
