@@ -28,15 +28,27 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 |
 */
 // -------------Home----------------
-Route::get('/', 'HomeController@create')
-    ->name('home');
 
-Route::post('/', function () {
 
-    return view('user.search', ['popup' => 'true']);
-})
-    ->name('homeredirect');
+    Route::name('home')
+    ->prefix('/')
+    ->group(function () {
 
+
+        //--------------------------Home for all users----------------------------------------------------//
+        Route::get('/','HomeController@create');
+
+        //--------------------------autocomplete API----------------------------------------------------//
+        Route::get('api/lugares','HomeController@getAutocompleteData')
+                    ->name('.autocomplete');
+        //--------------------------search for debug----------------------------------------------------//
+        Route::get('/','HomeController@create');
+
+
+    } );
+
+    Route::get('admin/invoice/create','InvoiceController@create');
+    Route::get('admin/api/product','InvoiceController@getAutocompleteData');
 
 //----------------Rutas para todos los usuarios--------------------
 

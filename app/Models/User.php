@@ -50,7 +50,8 @@ class User extends Authenticatable
     public function home()
     {
 
-        if ($this->hasRole('administrator')) return view('administrator.home');
+        //if ($this->hasRole('administrator')) return view('administrator.home');
+        if ($this->hasRole('administrator')) return view('user.search');
 
         else if ($this->hasRole('chofer'))  return view('chofer.home');
 
