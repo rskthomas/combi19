@@ -7,7 +7,7 @@
 
 @if(session()->has('popup'))
     <div class="alert alert-success" role="alert">
-    <span>Se ha eliminado el usuario </span>
+    <span>Se ha eliminado el usuario </span> </div>
 @endif
 
 @if(session()->has('gold'))

@@ -43,7 +43,7 @@ Route::post('/', function () {
 
     Route::name('user.')
     ->prefix('/user')
-    ->middleware('auth')
+    ->middleware('role:administrator')
     ->group(function () {
 
 
@@ -53,14 +53,17 @@ Route::post('/', function () {
         ->withoutMiddleware('role:administrator')
         ->middleware('auth');
 
+        //-----------------------------------------------------//
+        Route::get('/{user}/edit','UsuariosController@edit')
+        ->name('edit');
+
+        //-----------------------------------------------------//
+        Route::put('/{user}/edit','UsuariosController@update')
+        ->name('update');
 
     } );
 
-    Route::get('editarusuario/{user}', [UsuariosController::class, 'edit'])
-        ->name('user.edit');
 
-
-Route::put('editarusuarios', [UsuariosController::class, 'update'])->name('editarusuarios');
 
 //-----------------------COMBI-------------------------------
 Route::name('combi.')
@@ -251,36 +254,36 @@ Route::name('viaje.')
  //-------------------------------------------------------------------------------------//
     Route::post('/alta/store', 'ViajeController@store')
     ->name('store');
-    
-  
+
+
       //-------------------------------------------------------------------------------------//
       Route::get('/listar', 'ViajeController@index')
           ->name('index');
-  
-  
-  
+
+
+
       //-------------------------------------------------------------------------------------//
       Route::get( '/{viaje}', 'ViajeController@show')
           ->name('info');
-  
-  
-  
+
+
+
       //-------------------------------------------------------------------------------------//
       Route::delete('{viaje}/delete', 'ViajeController@destroy')
           ->name('delete');
-  
-  
-  
+
+
+
       //-------------------------------------------------------------------------------------//
       Route::get('{viaje}/edit', 'ViajeController@edit')
       ->name('edit');
-  
-  
-  
+
+
+
       //-------------------------------------------------------------------------------------//
       Route::put('{viaje}/update', [ViajeController::class, 'update'])->name('update');
-  
-  
+
+
 
 } );
 

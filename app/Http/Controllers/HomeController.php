@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -9,25 +10,16 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
 
-    //TODO bad code, fix later
 
     public function create()
     {
-        App::setLocale('es');
-        if (Auth::check() ) {
+        if(Auth::guest()) return view('user.search');
 
-            //A user can have many roles, in this case just one
-            switch ( Auth::user()->roles[0] -> name ) {
-                case 'administrator':
-                    return view('administrator.home');
-                case 'chofer':
-                    return view('chofer.home');
-                case 'user':
-                    return view('user.search');
-            };
-        }else
+        else{
 
-            return view('user.search');
-    }
+            $user = User:: find( auth()->user()->id );
+            return $user->home();
+        }
+}
 
 }

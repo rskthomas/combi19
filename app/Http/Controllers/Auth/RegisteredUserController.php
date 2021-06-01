@@ -63,7 +63,7 @@ class RegisteredUserController extends Controller
             Session::put('is_new_user', 'yes');
             return redirect()->to(route('tarjeta.create'));
 
-        }else return redirect(RouteServiceProvider::HOME)->with('nogold');
+        }else return redirect()->to(RouteServiceProvider::HOME)->with('nogold');
     }
 
 
