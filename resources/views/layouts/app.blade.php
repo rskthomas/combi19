@@ -18,12 +18,14 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
+
+
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100 ">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            <header class="bg-gray-400 shadow">
+            <header class="bg-gray-400 shadow ">
                 <div class="max-w-7xl mx-auto py-3 px-5 sm:px-6 lg:px-8">
                     <!-- this slot is optional -->
                     {{ $header ?? '' }}
@@ -32,16 +34,10 @@
             </header>
 
             <!-- Page Content -->
-            <main>
+            <div id="main">
                 {{ $slot }}
-            </main>
+            </div>
 
         </div>
-
-
-
-        <div class="w-auto h-16" style="background-color: #115571"></div>
-        <div class="w-auto h-2.5 bg-black"></div>
-
     </body>
 </html>

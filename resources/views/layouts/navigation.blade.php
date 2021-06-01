@@ -54,7 +54,7 @@
 
 
                             @csrf
-                            <x-dropdown-link href="{{ route('profile', ['user' => Auth::user()]) }}" >
+                            <x-dropdown-link href="{{ route('user.info', ['user' => Auth::user()]) }}" >
                                 {{ __('Mi perfil') }}
                             </x-dropdown-link>
 

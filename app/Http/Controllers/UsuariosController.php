@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Hash;
 
 class UsuariosController extends Controller
 {
+
+    public function show(User $user){
+
+        return view('user.profile', ['user' => $user]);
+
+    }
+
     public function update(Request $request)
     {
 
@@ -45,5 +52,11 @@ class UsuariosController extends Controller
         } else {
             abort(403);
         }
+    }
+    public function destroy(User $user){
+
+        //redirige al perfil por ahora
+        return view('user.profile', ['user' => $user]);
+
     }
 }
