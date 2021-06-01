@@ -3,6 +3,7 @@
 //this line below imports routes from auth.php
 require __DIR__ . '/auth.php';
 
+use App\Models\Producto;
 use App\Models\Role;
 use App\Models\Ruta;
 use App\Models\User;
