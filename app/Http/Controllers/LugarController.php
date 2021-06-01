@@ -108,7 +108,7 @@ class LugarController extends Controller
 
         if ($request->nombre != $lugar->nombre) {
             $request->validate([
-                'nombre' => 'unique:lugars'
+                'nombre' => 'unique:'
             ]);
         }
 

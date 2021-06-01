@@ -3,6 +3,7 @@
 //this line below imports routes from auth.php
 require __DIR__ . '/auth.php';
 
+use App\Models\Producto;
 use App\Models\Role;
 use App\Models\Ruta;
 use App\Models\User;
@@ -258,9 +259,53 @@ Route::name('viaje.')
 
 } );
 
+
+//----------------PRODUCTOS---------------------
+Route::name('producto.')
+->prefix('/producto')
+->middleware('role:administrator')
+->group(function () {
+
+    //-------------------------------------------------------------//
+    Route::get('/alta', 'ProductoController@create')
+    ->name('create');
+
+    //------------------------------------------------------------//
+
+    Route::post('/alta/store', 'ProductoController@store')
+    ->name('store');
+
+
+    //------------------------------------------------------------//
+    Route::get('/listar', 'ProductoController@index')
+    ->name('index');
+
+    //-------------------------------------------------------------//
+    Route::get('/{producto}', 'ProductoController@show')
+   ->name('info');
+
+    //-------------------------------------------------------------------------------------//
+    Route::delete('{producto}/delete', 'ProductoController@destroy')
+        ->name('delete');
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('{producto}/edit', 'ProductoController@edit')
+        ->name('edit');
+
+        //-------------------------------------------------------------------------------------//
+    Route::put('{producto}/update', 'ProductoController@update')
+    ->name('update');
+
+
+
+});
+
+
 Route::name('tarjeta.')
 ->prefix('/tarjeta')
 ->group(function () {
+
 
 
     //-------------------------------------------------------------------------------------//
