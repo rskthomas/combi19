@@ -1,5 +1,7 @@
 <x-app-layout>
 
+    <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
             {{ __('Ingrese los datos de su busqueda') }}
@@ -34,11 +36,20 @@
             @csrf
 
             <div class="form-group">
+                <label for="date" value="Lugar de Salida">
+                <input  id="search" class="block mt-1 w-full" type="text" name="search"
+                class="typeahead form-control" required  />
+
+                </label>
+            </div>
+
+            <div class="form-group">
                 <x-label for="lugar_salida" :value="__('Lugar de salida')" />
 
-                <x-input id="lugar_salida" class="block mt-1 w-full" type="text" name="lugar_salida"
+                <x-input id="search" class="block mt-1 w-full" type="text" name="search"
                     class="typeahead form-control" required />
             </div>
+
 
             <div class="form-group">
                 <x-label for="Date" :value="__('Fecha de Salida')" />
@@ -48,28 +59,27 @@
 
             <!-- Fecha de salida-->
 
-        </form>
-    </div>
+
 
     <script type="text/javascript">
 
         var path = "{{ route('home.autocomplete') }}";
 
-        $('input.typeahead').typeahead({
-
+        $('typehead').typeahead(
+            { hint: true, highlight: true, minLength: 1 }, // options
+            {
             source:  function (query, process) {
 
-            return $.get(path, { query: query }, function (data) {
+            return $.getJSON(path, { query: query }, function (data) {
 
                     return process(data);
-
                 });
-
             }
 
         });
 
     </script>
-
+ </form>
+</div>
 
 </x-app-layout>

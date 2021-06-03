@@ -1,15 +1,12 @@
 @props(['name'])
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<!-- Datepicker CSS-->
 <link id="bs-css" href="{{ asset('css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
 <link id="bsdp-css" href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
     rel="stylesheet">
-<script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"
-    integrity="sha512-5pjEAV8mgR98bRTcqwZ3An0MYSOleV04mwwYj2yw+7PBhFVf/0KcE+NEox0XrFiU5+x5t5qidmo5MgBkDD9hEw=="
-    crossorigin="anonymous"></script>
+
+
 
 <!-- Datepicker -->
 <div class='input-group date mt-1' id='datetimepicker1'>
@@ -33,4 +30,11 @@
     });
 
 </script>
+<!-- Datepicker Scripts-->
 
+<script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"
+    integrity="sha512-5pjEAV8mgR98bRTcqwZ3An0MYSOleV04mwwYj2yw+7PBhFVf/0KcE+NEox0XrFiU5+x5t5qidmo5MgBkDD9hEw=="
+    crossorigin="anonymous"></script>

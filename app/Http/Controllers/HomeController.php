@@ -25,12 +25,18 @@ class HomeController extends Controller
 
     public function getAutocompleteData(Request $request)
     {
+        dd($request->query());
+        $search = $request->query;
+        $datas = Lugar::where('nombre', 'like', '%' . $search . '%')
+            ->orderBy('nombre')
+            ->get();
 
-        $data = Lugar::select("nombre")
-        ->where("nombre","LIKE","%{$request->query}%")
-        ->get();
+        $dataModified = array();
+        foreach ($datas as $data) {
+            $dataModified[] = $data->nombre;
+        }
 
-            return response()->json($data);
 
+        return response()->json($dataModified);
     }
 }

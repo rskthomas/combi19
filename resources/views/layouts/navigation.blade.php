@@ -133,17 +133,17 @@
                 <x-application-logo class="block h-14 w-auto fill-current text-gray-600" />
             </a>
         </div>
-        <div class="flex-shrink-0 flex items-center font-semibold text-xl text-gray-800 leading-tight pl-10">
+        <div class="flex-shrink-0 flex items-center font-semibold lead text-gray-600 pl-10 pt-3">
             <h2>Bienvenido a Combi 19</h2>
         </div>
 
         @if (Route::has('login'))
             <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
 
-                <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Iniciar sesión</a>
+                <a href="{{ route('login') }}" class="text-sm text-gray-600 font-semibold underline">Iniciar sesión</a>
 
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Registrarse</a>
+                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-600 font-semibold underline">Registrarse</a>
                 @endif
 
             </div>
