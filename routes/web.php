@@ -30,62 +30,59 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 // -------------Home----------------
 
 
-    Route::name('home')
+Route::name('home')
     ->prefix('/')
     ->group(function () {
 
 
         //--------------------------Home for all users----------------------------------------------------//
-        Route::get('/','HomeController@create');
+        Route::get('/', 'HomeController@create');
 
         //--------------------------autocomplete API----------------------------------------------------//
-        Route::get('api/lugares','HomeController@getAutocompleteData')
-                    ->name('.autocomplete');
+        Route::get('api/lugares/find', 'HomeController@getAutocompleteData')
+            ->name('.autocomplete');
         //--------------------------search for debug----------------------------------------------------//
-        Route::get('/','HomeController@create');
+        Route::get('/', 'HomeController@create');
+    });
 
-
-    } );
-
-    Route::get('admin/invoice/create','InvoiceController@create');
-    Route::get('admin/api/product','InvoiceController@getAutocompleteData');
+Route::get('admin/invoice/create', 'InvoiceController@create');
+Route::get('admin/api/product', 'InvoiceController@getAutocompleteData');
 
 //----------------Rutas para todos los usuarios--------------------
 
 
-    Route::name('user.')
+Route::name('user.')
     ->prefix('/user')
     ->middleware('role:administrator')
     ->group(function () {
 
 
         //--------------------------perfil----------------------------------------------------//
-        Route::get('/{user}','UsuariosController@show')
-        ->name('info')
-        ->withoutMiddleware('role:administrator')
-        ->middleware('auth');
+        Route::get('/{user}', 'UsuariosController@show')
+            ->name('info')
+            ->withoutMiddleware('role:administrator')
+            ->middleware('auth');
 
         //-----------------------------------------------------//
-        Route::get('/{user}/edit','UsuariosController@edit')
-        ->name('edit');
+        Route::get('/{user}/edit', 'UsuariosController@edit')
+            ->name('edit');
 
         //-----------------------------------------------------//
-        Route::put('/{user}/edit','UsuariosController@update')
-        ->name('update');
-
-    } );
+        Route::put('/{user}/edit', 'UsuariosController@update')
+            ->name('update');
+    });
 
 
 
 //-----------------------COMBI-------------------------------
 Route::name('combi.')
-     ->prefix('/combi')
-     ->middleware('role:administrator')
-     ->group(function () {
+    ->prefix('/combi')
+    ->middleware('role:administrator')
+    ->group(function () {
 
         //-----------------------------------------------------//
         Route::get('/alta', 'CombiController@create')
-        ->name('new');
+            ->name('new');
 
         //-----------------------------------------------------//
         Route::post('/alta/store', 'CombiController@store')
@@ -93,65 +90,63 @@ Route::name('combi.')
 
         //-----------------------------------------------------//
         Route::get('/listar', 'CombiController@index')
-        ->name('listar');
+            ->name('listar');
 
         //-----------------------------------------------------//
-        Route::get('/{combi}','CombiController@show')
-        ->name('info')
-        ->withoutMiddleware('role:administrator')
-        ->middleware('auth');
+        Route::get('/{combi}', 'CombiController@show')
+            ->name('info')
+            ->withoutMiddleware('role:administrator')
+            ->middleware('auth');
 
         //-----------------------------------------------------//
-        Route::get('/{combi}/edit','CombiController@edit')
-        ->name('edit');
+        Route::get('/{combi}/edit', 'CombiController@edit')
+            ->name('edit');
 
         //-----------------------------------------------------//
         Route::put('/{combi}/update', 'CombiController@update')
-        ->name('update');
+            ->name('update');
 
         //-----------------------------------------------------//
         Route::delete('/{combi}/delete', 'CombiController@destroy')
-        ->name('delete');
-
+            ->name('delete');
     });
 
 //Rutas para los choferes
 
-    Route::name('chofer.')
-     ->prefix('/chofer')
-     ->middleware('role:administrator')
-     ->group(function () {
+Route::name('chofer.')
+    ->prefix('/chofer')
+    ->middleware('role:administrator')
+    ->group(function () {
 
         //-----------------------------------------------------//
         Route::get('/alta', 'ChoferesController@create')
-        ->name('create');
+            ->name('create');
 
         //-----------------------------------------------------//
         Route::post('/alta/store', 'ChoferesController@store')
-        ->name('store');;
+            ->name('store');;
 
         //-----------------------------------------------------//
         Route::get('/listar', 'ChoferesController@index')
-        ->name('index');
+            ->name('index');
 
         //-----------------------------------------------------//
-        Route::get('/{chofer}','ChoferesController@show')
-        ->name('info')
-        ->withoutMiddleware('role:administrator')
-        ->middleware('auth');
+        Route::get('/{chofer}', 'ChoferesController@show')
+            ->name('info')
+            ->withoutMiddleware('role:administrator')
+            ->middleware('auth');
 
         //-----------------------------------------------------//
-        Route::get('/{chofer}/edit','ChoferesController@edit')
-        ->name('edit');
+        Route::get('/{chofer}/edit', 'ChoferesController@edit')
+            ->name('edit');
 
         //-----------------------------------------------------//
         Route::put('/{chofer}/update', 'UsuariosController@update')
-        ->name('update');
+            ->name('update');
 
         //-----------------------------------------------------//
         Route::delete('/{chofer}/delete', 'ChoferesController@destroy')
-        ->name('delete');
-
+            ->name('delete');
     });
 
 
@@ -161,162 +156,154 @@ Route::name('combi.')
 
 //----------------LUGARES---------------------
 Route::name('lugar.')
-->prefix('/lugar')
-->middleware('role:administrator')
-->group(function () {
+    ->prefix('/lugar')
+    ->middleware('role:administrator')
+    ->group(function () {
 
-    //-------------------------------------------------------------//
-    Route::get('/alta', 'LugarController@create')
-    ->name('create');
+        //-------------------------------------------------------------//
+        Route::get('/alta', 'LugarController@create')
+            ->name('create');
 
-    //------------------------------------------------------------//
+        //------------------------------------------------------------//
 
-    Route::post('/alta/store', 'LugarController@store')
-    ->name('store');
-
-
-    //------------------------------------------------------------//
-    Route::get('/listar', 'LugarController@index')
-    ->name('index');
-
-    //-------------------------------------------------------------//
-    Route::get('/{lugar}', 'LugarController@show')
-   ->name('info');
-
-    //-------------------------------------------------------------------------------------//
-    Route::delete('{lugar}/delete', 'LugarController@destroy')
-        ->name('delete');
+        Route::post('/alta/store', 'LugarController@store')
+            ->name('store');
 
 
-    //-------------------------------------------------------------------------------------//
-    Route::get('{lugar}/edit', 'LugarController@edit')
-        ->name('edit');
+        //------------------------------------------------------------//
+        Route::get('/listar', 'LugarController@index')
+            ->name('index');
+
+        //-------------------------------------------------------------//
+        Route::get('/{lugar}', 'LugarController@show')
+            ->name('info');
 
         //-------------------------------------------------------------------------------------//
-    Route::put('{lugar}/update', 'LugarController@update')
-    ->name('update');
+        Route::delete('{lugar}/delete', 'LugarController@destroy')
+            ->name('delete');
 
 
+        //-------------------------------------------------------------------------------------//
+        Route::get('{lugar}/edit', 'LugarController@edit')
+            ->name('edit');
 
-});
+        //-------------------------------------------------------------------------------------//
+        Route::put('{lugar}/update', 'LugarController@update')
+            ->name('update');
+    });
 
 
 
 
 //-----------------RUTAS------------------------
 Route::name('ruta.')
-->prefix('/ruta')
-->middleware('role:administrator')
-->group(function () {
+    ->prefix('/ruta')
+    ->middleware('role:administrator')
+    ->group(function () {
 
 
-    //-------------------------------------------------------------------------------------//
-    Route::get('/alta', 'RutaController@create')
-    ->name('create');
+        //-------------------------------------------------------------------------------------//
+        Route::get('/alta', 'RutaController@create')
+            ->name('create');
 
 
-    //-------------------------------------------------------------------------------------//
-    Route::post('/alta/store', 'RutaController@store')
-    ->name('store');
-
-
-
-    //-------------------------------------------------------------------------------------//
-    Route::get('/listar', 'RutaController@index')
-        ->name('index');
+        //-------------------------------------------------------------------------------------//
+        Route::post('/alta/store', 'RutaController@store')
+            ->name('store');
 
 
 
-    //-------------------------------------------------------------------------------------//
-    Route::get( '/{ruta}', 'RutaController@show')
-        ->name('info');
+        //-------------------------------------------------------------------------------------//
+        Route::get('/listar', 'RutaController@index')
+            ->name('index');
 
 
 
-    //-------------------------------------------------------------------------------------//
-    Route::delete('{ruta}/delete', 'RutaController@destroy')
-        ->name('delete');
+        //-------------------------------------------------------------------------------------//
+        Route::get('/{ruta}', 'RutaController@show')
+            ->name('info');
 
 
 
-    //-------------------------------------------------------------------------------------//
-    Route::get('{ruta}/edit', 'RutaController@edit')
-    ->name('edit');
+        //-------------------------------------------------------------------------------------//
+        Route::delete('{ruta}/delete', 'RutaController@destroy')
+            ->name('delete');
 
 
 
-    //-------------------------------------------------------------------------------------//
-    Route::put('{ruta}/update', [RutaController::class, 'update'])->name('update');
+        //-------------------------------------------------------------------------------------//
+        Route::get('{ruta}/edit', 'RutaController@edit')
+            ->name('edit');
 
 
 
-});
+        //-------------------------------------------------------------------------------------//
+        Route::put('{ruta}/update', [RutaController::class, 'update'])->name('update');
+    });
 
 
 //-----------------VIAJES------------------------
 Route::name('viaje.')
-->prefix('/viaje')
-->middleware('role:administrator')
-->group(function () {
+    ->prefix('/viaje')
+    ->middleware('role:administrator')
+    ->group(function () {
 
 
-    //-------------------------------------------------------------------------------------//
-    Route::get('/alta', 'ViajeController@create')
-    ->name('create');
- //-------------------------------------------------------------------------------------//
-    Route::post('/alta/store', 'ViajeController@store')
-    ->name('store');
+        //-------------------------------------------------------------------------------------//
+        Route::get('/alta', 'ViajeController@create')
+            ->name('create');
+        //-------------------------------------------------------------------------------------//
+        Route::post('/alta/store', 'ViajeController@store')
+            ->name('store');
 
 
-      //-------------------------------------------------------------------------------------//
-      Route::get('/listar', 'ViajeController@index')
-          ->name('index');
-
-
-
-      //-------------------------------------------------------------------------------------//
-      Route::get( '/{viaje}', 'ViajeController@show')
-          ->name('info');
+        //-------------------------------------------------------------------------------------//
+        Route::get('/listar', 'ViajeController@index')
+            ->name('index');
 
 
 
-      //-------------------------------------------------------------------------------------//
-      Route::delete('{viaje}/delete', 'ViajeController@destroy')
-          ->name('delete');
+        //-------------------------------------------------------------------------------------//
+        Route::get('/{viaje}', 'ViajeController@show')
+            ->name('info');
 
 
 
-      //-------------------------------------------------------------------------------------//
-      Route::get('{viaje}/edit', 'ViajeController@edit')
-      ->name('edit');
+        //-------------------------------------------------------------------------------------//
+        Route::delete('{viaje}/delete', 'ViajeController@destroy')
+            ->name('delete');
 
 
 
-      //-------------------------------------------------------------------------------------//
-      Route::put('{viaje}/update', [ViajeController::class, 'update'])->name('update');
+        //-------------------------------------------------------------------------------------//
+        Route::get('{viaje}/edit', 'ViajeController@edit')
+            ->name('edit');
 
 
+        //-------------------------------------------------------------------------------------//
+        Route::put('{viaje}/update', [ViajeController::class, 'update'])->name('update');
 
-} );
+
+        //-----------------------------  Busqueda de viajes  --------------------------------//
+
+        Route::post('/busqueda', 'ViajeController@search')
+            ->name('search')
+            ->withoutMiddleware('role:administrator');
+
+        Route::get('/busqueda/resultados', 'ViajeController@search')
+            ->name('search.show')
+            ->withoutMiddleware('role:administrator');
+    });
 
 Route::name('tarjeta.')
-->prefix('/tarjeta')
-->group(function () {
+    ->prefix('/tarjeta')
+    ->group(function () {
 
 
-    //-------------------------------------------------------------------------------------//
-    Route::get('/alta', 'TarjetaController@create')
-    ->name('create');
-    //-------------------------------------------------------------------------------------//
-    Route::post('/alta/store', 'TarjetaController@store')
-    ->name('store');
-
-} );
-
-
-
-
-
-
-
-
+        //-------------------------------------------------------------------------------------//
+        Route::get('/alta', 'TarjetaController@create')
+            ->name('create');
+        //-------------------------------------------------------------------------------------//
+        Route::post('/alta/store', 'TarjetaController@store')
+            ->name('store');
+    });

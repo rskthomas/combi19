@@ -1,7 +1,5 @@
 <x-app-layout>
 
-    <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
-
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
             {{ __('Ingrese los datos de su busqueda') }}
@@ -29,57 +27,85 @@
     @endif
 
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 w-full sm:max-w-md
-            px-6 py-3 mt-3 bg-white shadow-md overflow-hidden sm:rounded-lg">
+    <div
+        class="flex flex-col container w-50 bg-white sm:px-2 px-auto py-3 mt-4 shadow-md overflow-hidden sm:rounded-lg items-center ">
 
-        <form method="POST" action="{{ route('combi.store') }}">
+        <h1 class="font-semibold pb-2"> Buscá tu pasaje en combi </h1>
+
+
+        <form method="POST" class="w-50" action="{{ route('viaje.search') }}">
             @csrf
 
             <div class="form-group">
-                <label for="date" value="Lugar de Salida">
-                <input  id="search" class="block mt-1 w-full" type="text" name="search"
-                class="typeahead form-control" required  />
-
-                </label>
+                <x-label for="departure" :value="__('Lugar de salida')" />
+                <input id="search" type="text" name="departure" placeholder="Busque el lugar de origen"
+                    class="typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    required />
             </div>
 
             <div class="form-group">
-                <x-label for="lugar_salida" :value="__('Lugar de salida')" />
-
-                <x-input id="search" class="block mt-1 w-full" type="text" name="search"
-                    class="typeahead form-control" required />
+                <x-label for="destination" :value="__('Lugar de destino')" />
+                <input id="search" type="text" name="destination" placeholder="Busque el lugar de destino"
+                    class=" typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    required />
             </div>
 
-
             <div class="form-group">
-                <x-label for="Date" :value="__('Fecha de Salida')" />
-                <x-datepicker :name="'date'">
+                <x-label for="fecha_salida" :value="__('Fecha de Salida')" />
+                <x-datepicker :name="'fecha_salida'" style="max-width: 640px">
                 </x-datepicker>
             </div>
 
-            <!-- Fecha de salida-->
+            <x-button class=" w-50 content-center">
+                Buscar viaje!</x-button>
+
+        </form>
+
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mt-4" :errors="$errors" />
+    </div>
 
 
+    <!-- Import typeahead.js -->
+    <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
 
-    <script type="text/javascript">
+    <!-- Initialize typeahead.js on the input -->
+    <script>
+        $(document).ready(function() {
+            var bloodhound = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: 'api/lugares/find?q=%QUERY%',
+                    wildcard: '%QUERY%'
+                },
+            });
 
-        var path = "{{ route('home.autocomplete') }}";
-
-        $('typehead').typeahead(
-            { hint: true, highlight: true, minLength: 1 }, // options
-            {
-            source:  function (query, process) {
-
-            return $.getJSON(path, { query: query }, function (data) {
-
-                    return process(data);
-                });
-            }
-
+            $('.typeahead').typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 1
+            }, {
+                name: 'lugares',
+                source: bloodhound,
+                display: function(data) {
+                    return data.nombre //Input value to be set when you select a suggestion.
+                },
+                templates: {
+                    empty: [
+                        '<div class="list-group search-results-dropdown"><div class="list-group-item rounded-md shadow-sm border-gray-300" bg-gray-600">No se encontró nada.</div></div>'
+                    ],
+                    header: [
+                        '<div class="list-group search-results-dropdown">'
+                    ],
+                    suggestion: function(data) {
+                        return '<div style="font-weight:bold; margin-top:-10px ! important;" class="list-group-item rounded-md shadow-sm border-gray-300" bg-gray-600">' +
+                            data.nombre + '</div></div>'
+                    }
+                }
+            });
         });
 
     </script>
- </form>
-</div>
 
 </x-app-layout>

@@ -52,10 +52,10 @@ class ViajeController extends Controller
             'hora_salida'=>'required',
             'descripcion'=>'required'
         ]);
-    
+
         $ruta = Ruta::where("id","=",$request->ruta)->first();
-  
-        
+
+
         if($ruta->combi ['asientos'] < $request->cant_asientos){
             //$parametros=['error'=>'la cantidad de asientos elegida es mayor a la disponible ','request'=>$request]
             return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible para la combi'.$ruta->combi['id']. '('. $ruta->combi['asientos'].')')->withInput();
@@ -122,5 +122,17 @@ class ViajeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+
+            'fecha_salida' => 'required|date|after:yesterday',
+            'departure' => 'required|string|different:destination',
+            'destination' => 'required|string',
+        ]);
+
+
     }
 }
