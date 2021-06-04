@@ -1,13 +1,5 @@
 <x-app-layout>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-            {{ __('Ingrese los datos de su busqueda') }}
-        </h2>
-    </x-slot>
-
-
-
     @if (session()->has('popup'))
         <div class="alert alert-success" role="alert">
             <span>Se ha eliminado el usuario </span>
