@@ -257,7 +257,36 @@ Route::name('viaje.')
 
 
 
-} );
+    //-------------------------------------------------------------------------------------//
+    Route::get('/listar', 'ViajeController@index')
+        ->name('index');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get( '/{viaje}', 'ViajeController@show')
+        ->name('info');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::delete('{viaje}/delete', 'ViajeController@destroy')
+        ->name('delete');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('{viaje}/edit', 'ViajeController@edit')
+    ->name('edit');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::put('{viaje}/update', [ViajeController::class, 'update'])->name('update');
+
+
+
+});
 
 
 //----------------PRODUCTOS---------------------
@@ -300,6 +329,58 @@ Route::name('producto.')
 
 
 });
+
+//----------------PASAJES---------------------
+
+Route::name('pasaje.')
+->prefix('/pasaje')
+->middleware('role:administrator')
+->group(function () {
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('/alta/{viaje}', 'PasajeController@create')
+    ->name('create');
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::post('/alta/store', 'PasajeController@store')
+    ->name('store');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('/listar', 'PasajeController@index')
+        ->name('index');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get( '/{pasaje}', 'PasajeController@show')
+        ->name('info');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::delete('{pasaje}/delete', 'PasajeController@destroy')
+        ->name('delete');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('{pasaje}/edit', 'PasajeController@edit')
+    ->name('edit');
+
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::put('{pasaje}/update', [PasajeController::class, 'update'])->name('update');
+
+
+
+});
+
+//--------------TARJETA-------------------
 
 
 Route::name('tarjeta.')

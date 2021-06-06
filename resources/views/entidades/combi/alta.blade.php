@@ -6,6 +6,8 @@
     </x-slot>
 
 
+    
+
     <div
         class="max-w-7xl mx-auto sm:px-6 lg:px-8 w-full sm:max-w-md
             px-6 py-3 mt-3 bg-white shadow-md overflow-hidden sm:rounded-lg">
