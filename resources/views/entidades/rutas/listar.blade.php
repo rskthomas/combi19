@@ -46,7 +46,7 @@
                             <td>{{ $ruta->tiempo }}</td>
                             <td>{{ $ruta->kms }}</td>
                             <td>
-                            <a href="{{ route('combi.info', ['combi'=>$ruta->combi ]) }}"">
+                            <a href="{{ route('combi.info', ['combi'=>$ruta->combi ]) }}">
                             {{ $ruta->combi->patente }}</a></td>
 
 

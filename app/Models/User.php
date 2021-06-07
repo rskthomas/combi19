@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Pasaje;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use phpDocumentor\Reflection\Types\Integer;
@@ -85,4 +86,9 @@ class User extends Authenticatable
 
         return $resultado;
     }
+    public function pasajes()
+    {
+        return $this->hasMany(Pasaje::class);
+    }
+
 }

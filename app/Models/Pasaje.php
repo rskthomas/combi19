@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pasaje extends Model
 {
@@ -16,5 +17,10 @@ class Pasaje extends Model
     {
         return $this->belongsTo(Viaje::class, 'viaje_id');
     }
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ruta;
 use App\Models\Viaje;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ViajeController extends Controller
 {
@@ -16,6 +17,8 @@ class ViajeController extends Controller
     public function index()
     {
         //
+        $resultado = Viaje::paginate(10);
+        return view('entidades.viaje.listar', ['resultado' => $resultado]);
     }
 
     /**
@@ -40,7 +43,7 @@ class ViajeController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+       
         $request->validate([
 
             'fecha_salida' => 'required|date',
@@ -67,6 +70,7 @@ class ViajeController extends Controller
             'estado'=>"pendiente",
             'cant_asientos'=> $request -> cant_asientos,
             'ruta_id'=>$request -> ruta,
+            'user_id'=>Auth::user()->id
 
 
         ]);
@@ -80,9 +84,10 @@ class ViajeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function sjshow($id)
+    public function show(Viaje $viaje)
     {
         //
+        return view('entidades.viaje.info', ['viaje' => $viaje]);
     }
 
     /**
@@ -94,6 +99,7 @@ class ViajeController extends Controller
     public function edit($id)
     {
         //
+
     }
 
     /**
@@ -106,6 +112,8 @@ class ViajeController extends Controller
     public function update(Request $request, $id)
     {
         //
+       
+
     }
 
     /**
@@ -114,8 +122,18 @@ class ViajeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Viaje $viaje)
     {
-        //
+
+
+        if(count($viaje->pasajes)>0){
+            return redirect() ->to(route('viaje.info', ['viaje' => $viaje]))-> with('nosepuedeeliminar','open');
+
+        }
+        $viaje-> delete();
+
+
+        return redirect()->to(route('viaje.index'))-> with('eliminado',$viaje);
     }
+ 
 }

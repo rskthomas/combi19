@@ -83,7 +83,7 @@ class RutaController extends Controller
      * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
-    public function show(ruta $ruta)
+    public function show(Ruta $ruta)
     {
         return view('entidades.rutas.info', ['ruta' => $ruta]);
 
@@ -95,7 +95,7 @@ class RutaController extends Controller
      * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
-    public static function edit(ruta $ruta)
+    public static function edit(Ruta $ruta)
     {
         //
         $combis=Combi::all();
@@ -114,7 +114,7 @@ class RutaController extends Controller
      * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ruta $ruta)
+    public function update(Request $request, Ruta $ruta)
     {
     
         $request->validate([
@@ -151,7 +151,7 @@ class RutaController extends Controller
      * @param  \App\Models\Ruta  $ruta
      * @return \Illuminate\Http\Response
      */
-    public static function destroy(ruta $ruta)
+    public static function destroy(Ruta $ruta)
     {
         //
 

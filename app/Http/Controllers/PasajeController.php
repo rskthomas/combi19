@@ -6,6 +6,7 @@ use App\Models\Viaje;
 use App\Models\Pasaje;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PasajeController extends Controller
 {
@@ -45,9 +46,37 @@ class PasajeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Viaje $viaje)
     {
         //
+    $id=   Auth::user()->id;
+   //dd($id);
+        $request->validate([
+            'number' => 'required|string|max:17|min:13|unique:tarjetas',
+            'name' => 'required|string|max:55',
+            'cvc' => 'required|string|max:4',
+
+            'expiration_year' => 'required|string|max:4',
+            'expiration_month' => 'required|string|max:2',
+        ]);
+
+        if($request->cantPasajes<=$viaje->pasajesLibres()){
+
+            $pasaje= Pasaje::create([
+                'asiento'=>$viaje->siguienteAsiento(),
+                'estado'=>'pendiente',
+                'total_pasaje'=>$request->totalCompra,
+                'total_productos'=>$request->totalProductos,
+                'productos'=>"{}",
+                'viaje_id'=>$viaje->id,
+                'user_id'=>$id,
+              
+
+            ]);
+            }
+
+
+
     }
 
     /**

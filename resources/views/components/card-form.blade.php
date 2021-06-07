@@ -60,9 +60,9 @@
                 </div>
             </div>
 
-        <div class="align-self-end">
+        <div class="align-self-end" id="continuar">
 
-            <x-button class="">
+            <x-button class="" id="botonContinuar" >
                 {{ __('Continuar') }}
             </x-button>
 

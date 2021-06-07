@@ -344,7 +344,7 @@ Route::name('pasaje.')
 
 
     //-------------------------------------------------------------------------------------//
-    Route::post('/alta/store', 'PasajeController@store')
+    Route::post('/alta/store/{viaje}', 'PasajeController@store')
     ->name('store');
 
 

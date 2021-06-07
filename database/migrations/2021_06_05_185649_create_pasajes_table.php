@@ -25,6 +25,10 @@ class CreatePasajesTable extends Migration
             ->nullable()
             ->onDelete('SET NULL')
             ->constrained('viajes');
+            $table->foreignId('user_id')
+            ->nullable()
+            ->onDelete('SET NULL')
+            ->constrained('users');
 
         });
     }

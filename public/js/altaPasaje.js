@@ -1,6 +1,13 @@
 $(document).ready(function(){
   
 alert("entra");
+document.getElementById("botonContinuar").hidden=true;
+
+
+
+
+
+})
 
 
 $("#addproductos").click(function (e){
@@ -8,12 +15,6 @@ $("#addproductos").click(function (e){
     document.getElementById("listaproductos").hidden=false;
     
 })
-
-
-
-
-})
-
 function addPasaje(precio){
     document.getElementById('cantPasajes').value++;
     document.getElementById("totalPasaje").value = parseFloat(document.getElementById("totalPasaje").value ) +parseFloat(precio);
@@ -46,7 +47,7 @@ function agregar(idproducto,precio){
     modificartotal="total"+idproducto;
     document.getElementById(modificartotal).value = parseFloat(document.getElementById(modificartotal).value ) +parseFloat(precio);
     document.getElementById("totalProductos").value = parseFloat(document.getElementById("totalProductos").value ) +parseFloat(precio);
-   modificarTotales(precio);
+    modificarTotales(precio);
 
     
 }

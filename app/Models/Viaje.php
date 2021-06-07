@@ -33,10 +33,26 @@ class Viaje extends Model
 
 
     }
-    public function viajes()
+    public function pasajes()
     {
         return $this->hasMany(Pasaje::class,"viaje_id","id");
     }
+
+    public function pasajesLibres(){
+        if( isset($this->pasajes)){
+           return $this->cant_asientos -count($this->pasajes);
+        }
+     
+
+   }
+   public function siguienteAsiento(){
+   
+       return (count($this->pasajes))+1;
+    
+ 
+
+}
+
 
     
 

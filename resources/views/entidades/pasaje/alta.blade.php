@@ -4,12 +4,10 @@
             {{ __('Comprar pasaje para') }}
         </h2>
     </x-slot>
-
-
     <div class=" max-w-7xl mx-auto sm:px-6 lg:px-8 w-full sm:max-w-screen-lg
             px-6 py-3 mt-3 bg-white shadow-md overflow-hidden sm:rounded-lg
              ">
-
+             <x-auth-validation-errors class="mb-4 justify-center" :errors="$errors" class=" pl-4 " />
         <div class="card-header">
             Datos del viaje
         </div>
@@ -22,7 +20,7 @@
 
                 </div>
                 <div class="col-6">
-                    <x-label for="fecha" :value="__('Fecha de salida:')"  />
+                    <x-label for="fecha" :value="__('Fecha de salida:')" />
                     {{$viaje->fecha_salida}}
 
                 </div>
@@ -35,7 +33,7 @@
 
                 </div>
 
-               
+
             </div>
             <br>
             <a href="{{ route('viaje.info', ['viaje' => $viaje]) }}" class="card-link">Mas informacion </a>
@@ -43,26 +41,29 @@
 
         <!-- Content starts -->
     </div>
-    <div class=" max-w-7xl mx-auto sm:px-6 lg:px-8 w-full sm:max-w-screen-lg
+
+    <form method="POST" action="{{ route('pasaje.store',['viaje'=>$viaje]) }}">
+        @csrf
+        
+        <div class=" max-w-7xl mx-auto sm:px-6 lg:px-8 w-full sm:max-w-screen-lg
             px-6 py-3 mt-3 bg-white shadow-md overflow-hidden sm:rounded-lg
              ">
 
-        <div class="card-header">
-            Comprar Pasaje
-        </div>
-        <div class="card-body">
+            <div class="card-header">
+                Comprar Pasaje
+            </div>
+            <div class="card-body">
 
-            <h6 class="card-subtitle mb-2 text-muted">A continuacion complete los datos requeridos para la compra de su pasaje </h6>
-            <br>
+                <h6 class="card-subtitle mb-2 text-muted">A continuacion complete los datos requeridos para la compra de su pasaje </h6>
+                <br>
 
 
-            <form method="POST" action="{{ route('pasaje.store') }}">
-                @csrf
+
 
                 <div class="mb-3 row">
                     <label for="cantPasajes" class="col-sm-2 col-form-label rounded">Cantidad de Pasajes</label>
                     <div class="col-sm-1  col-md-2">
-                        <input type="text" class="form-control-plaintext rounded" id="cantPasajes"  value="1">
+                        <input type="text" class="form-control-plaintext rounded" id="cantPasajes" name="cantPasajes" value="1">
 
                     </div>
                     <button type="button" class="btn " title="agregar" id="add" onclick="addPasaje('{{$viaje->precio}}')">
@@ -80,38 +81,63 @@
 
                     </button>
                 </div>
-                <div class="mb-3 row">
-                <button type="button" class="btn btn-light" " title="agregarproductos" id="addproductos"> AGREGAR PRODUCTOS
-                </button>
-                </div>
-                @include('/entidades/pasaje/comprarProductos')
-                    <div class="mb-3 row">
-                        <label for="totalPasaje" class="col-sm-2 col-form-label">Total Pasajes</label>
-                        <div class="col-sm-10">
-                            <input type="text" disabled class="form-control-plaintext rounded" id="totalPasaje" value="{{$viaje->precio}}">
-                        </div>
-                    </div>
-            
-                    <div class="mb-3 row">
-                        <label for="totalProductos" class="col-sm-2 col-form-label">Total Productos</label>
-                        <div class="col-sm-10">
-                            <input type="text" disabled class="form-control-plaintext rounded" id="totalProductos" value="0">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="staticEmail" class="col-sm-2 col-form-label">Total Descuentos</label>
-                        <div class="col-sm-10">
-                            <input type="text" disabled class="form-control-plaintext rounded" id="staticEmail" value="0">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="totalCompra" class="col-sm-2 col-form-label">Total A Pagar</label>
-                        <div class="col-sm-10">
-                            <input type="text" disabled class="form-control-plaintext rounded" id="totalCompra" value="{{$viaje->precio}}">
-                        </div>
-                    </div>
-            
 
+
+            </div>
+        </div>
+
+        <div class=" max-w-7xl mx-auto sm:px-6 lg:px-8 w-full sm:max-w-screen-lg
+            px-6 py-3 mt-3 bg-white shadow-md overflow-hidden sm:rounded-lg
+             ">
+             <div class="card-header">
+             <div class="mb-3 row">
+                <button type="button" class="btn btn-light" title="agregarproductos" id="addproductos"> AGREGAR PRODUCTOS
+</button>
+             </div>
+          
+               
+            @include('/entidades/pasaje/comprarProductos')
+
+        </div>
+        </div>
+        <div class=" max-w-7xl mx-auto sm:px-6 lg:px-8 w-full sm:max-w-screen-lg
+            px-6 py-3 mt-3 bg-white shadow-md overflow-hidden sm:rounded-lg
+             ">
+
+            <div class="card-header">
+                <div class="mb-3 row">
+                    <label for="totalPasaje" class="col-sm-2 col-form-label">Total Pasajes</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext rounded" id="totalPasaje" name="totalPasaje"value="{{$viaje->precio}}">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="totalProductos" class="col-sm-2 col-form-label">Total Productos</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext rounded" id="totalProductos" name="totalProductos" value="0">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="totalDescuentos" class="col-sm-2 col-form-label">Total Descuentos</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext rounded" id="totalDescuentos" name="totalDescuentos" value="0">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="totalCompra" class="col-sm-2 col-form-label">Total A Pagar</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext rounded" name="totalCompra" id="totalCompra" value="{{$viaje->precio}}">
+                    </div>
+                </div>
+            </div>
+            <div class=" max-w-1xl mx-auto sm:px-2 lg:px-0 w-full sm:max-w-screen-lg
+            px-0 py-3 mt-0 bg-white shadow-md overflow-hidden sm:rounded-lg
+             ">
+
+                <div class="card-header"> Pago
+                </div>
+                @include('/entidades/pasaje/pagarPasaje')
                 <div class="flex items-center justify-end mt-4">
 
                     <x-button class="ml-4">
@@ -122,9 +148,13 @@
 
 
 
-            </form>
-
+            </div>
         </div>
+
+
+
+    </form>
+
     </div>
 
 
