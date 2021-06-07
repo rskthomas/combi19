@@ -290,9 +290,6 @@ Route::name('viaje.')
             ->name('search')
             ->withoutMiddleware('role:administrator');
 
-        Route::get('/busqueda/resultados', 'ViajeController@search')
-            ->name('search.show')
-            ->withoutMiddleware('role:administrator');
     });
 
 Route::name('tarjeta.')

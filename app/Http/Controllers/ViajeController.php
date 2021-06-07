@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Ruta;
+use App\Models\Lugar;
 use App\Models\Viaje;
 use Illuminate\Http\Request;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class ViajeController extends Controller
 {
@@ -15,9 +19,9 @@ class ViajeController extends Controller
      */
     public function index()
     {
-        $resultado= Viaje::paginate(10);
+        $resultado = Viaje::paginate(10);
 
-        return view('viajes.listarViajes')->with('resultado',$resultado);
+        return view('viajes.listarViajes')->with('resultado', $resultado);
     }
 
     /**
@@ -31,7 +35,7 @@ class ViajeController extends Controller
 
         $rutas = Ruta::all();
 
-        return view('entidades.viaje.alta',['rutas' => $rutas]);
+        return view('entidades.viaje.alta', ['rutas' => $rutas]);
     }
 
     /**
@@ -48,17 +52,17 @@ class ViajeController extends Controller
             'fecha_salida' => 'required|date',
             'precio' => 'required|numeric',
             'cant_asientos' => 'required|numeric',
-            'ruta'=>'required',
-            'hora_salida'=>'required',
-            'descripcion'=>'required'
+            'ruta' => 'required',
+            'hora_salida' => 'required',
+            'descripcion' => 'required'
         ]);
 
-        $ruta = Ruta::where("id","=",$request->ruta)->first();
+        $ruta = Ruta::where("id", "=", $request->ruta)->first();
 
 
-        if($ruta->combi ['asientos'] < $request->cant_asientos){
+        if ($ruta->combi['asientos'] < $request->cant_asientos) {
             //$parametros=['error'=>'la cantidad de asientos elegida es mayor a la disponible ','request'=>$request]
-            return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible para la combi'.$ruta->combi['id']. '('. $ruta->combi['asientos'].')')->withInput();
+            return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible para la combi' . $ruta->combi['id'] . '(' . $ruta->combi['asientos'] . ')')->withInput();
         }
 
 
@@ -68,10 +72,10 @@ class ViajeController extends Controller
             'descripcion' => $request->descripcion,
             'fecha_salida' => $request->fecha_salida,
             'hora_salida' => $request->hora_salida,
-            'precio' => $request -> precio,
-            'estado'=>"pendiente",
-            'cant_asientos'=> $request -> cant_asientos,
-            'ruta_id'=>$request -> ruta,
+            'precio' => $request->precio,
+            'estado' => "pendiente",
+            'cant_asientos' => $request->cant_asientos,
+            'ruta_id' => $request->ruta,
 
 
         ]);
@@ -132,6 +136,27 @@ class ViajeController extends Controller
             'departure' => 'required|string|different:destination',
             'destination' => 'required|string',
         ]);
+
+
+        try {
+
+            $salida = Lugar::where('nombre', '=', $request->departure)->firstOrFail();
+            $llegada = Lugar::where('nombre', '=', $request->destination)->firstOrFail();
+
+            $ruta = Ruta::where('lugar_salida', '=', $salida->id)->where('lugar_llegada', '=', $llegada->id)->firstOrFail();
+
+            $results = Viaje::where('ruta_id', '=', $ruta->id)
+                              ->where('fecha_salida', '=', $request->fecha_salida )->get();
+
+        } catch (Exception $e) {
+            return 'nada';
+
+        };
+
+
+
+            return view('entidades.viaje.resultados', ['resultado'=> $results]);
+
 
 
     }
