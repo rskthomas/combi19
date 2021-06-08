@@ -33,7 +33,7 @@ class RutaController extends Controller
         //$combi = Combi::all();
         $combis=Combi::doesntHave('ruta')
                     ->wherehas('chofer')
-                       ->get();;
+                       ->get();
 
         $lugares = Lugar::all();
 
@@ -98,7 +98,10 @@ class RutaController extends Controller
     public static function edit(Ruta $ruta)
     {
         //
-        $combis=Combi::all();
+        $combis=Combi::doesntHave('ruta')
+        ->wherehas('chofer')
+           ->get();
+        $combis->push($ruta->combi);
         $lugares = Lugar::all();
 
         return view('entidades.rutas.editar',['ruta'=> $ruta,'lugares' => $lugares, 'combis'=>$combis]);
@@ -116,14 +119,13 @@ class RutaController extends Controller
      */
     public function update(Request $request, Ruta $ruta)
     {
-    
+        //
+
         $request->validate([
-            'lugar_salida' => 'required',
-            'lugar_llegada' => 'required',
             'combi_id' => 'required',
         ]);
 
-        if($request->lugar_salida == $request->lugar_llegada){
+        if(isset($request->lugar_salida) and $request->lugar_salida == $request->lugar_llegada){
             return redirect()->back()->withErrors('Las terminales de salida y llegada no pueden ser las mismas');
         }
         $ruta=Ruta::findOrFail($request->id);

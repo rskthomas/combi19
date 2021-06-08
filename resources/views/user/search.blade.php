@@ -1,34 +1,103 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-            {{ __('') }}
-        </h2>
-    </x-slot>
 
-@if(session()->has('popup'))
-    <div class="alert alert-success" role="alert">
-    <span>Se ha eliminado el usuario </span>
-@endif
-
-@if(session()->has('gold'))
-    <div class="alert alert-success" role="alert">
-    <span>Se ha registrado exitosamente como usuario Gold !</span>
-    </div>
-@endif
-
-@if(session()->has('nogold'))
-<div class="alert alert-success" role="alert">
-<span>Se ha registrado exitosamente como usuario Viajero!</span>
-</div>
-@endif
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    Aca va el formulario de busqueda
-                </div>
-            </div>
+    @if (session()->has('popup'))
+        <div class="alert alert-success" role="alert">
+            <span>Se ha eliminado el usuario </span>
         </div>
+    @endif
+
+    @if (session()->has('gold'))
+        <div class="alert alert-success" role="alert">
+            <span>Se ha registrado exitosamente como usuario Gold !</span>
+        </div>
+    @endif
+
+    @if (session()->has('nogold'))
+        <div class="alert alert-success" role="alert">
+            <span>Se ha registrado exitosamente como usuario Viajero!</span>
+        </div>
+    @endif
+
+
+    <div
+        class="flex flex-col container w-50 bg-white sm:px-2 px-auto py-3 mt-4 shadow-md overflow-hidden sm:rounded-lg items-center ">
+
+        <h1 class="font-semibold pb-2"> Buscá tu pasaje en combi </h1>
+
+
+        <form method="POST" class="w-50" action="{{ route('viaje.search') }}">
+            @csrf
+
+            <div class="form-group">
+                <x-label for="departure" :value="__('Lugar de salida')" />
+                <input id="search" type="text" name="departure" placeholder="Busque el lugar de origen"
+                    class="typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    required />
+            </div>
+
+            <div class="form-group">
+                <x-label for="destination" :value="__('Lugar de destino')" />
+                <input id="search" type="text" name="destination" placeholder="Busque el lugar de destino"
+                    class=" typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    required />
+            </div>
+
+            <div class="form-group">
+                <x-label for="fecha_salida" :value="__('Fecha de Salida')" />
+                <x-datepicker :name="'fecha_salida'" style="max-width: 640px">
+                </x-datepicker>
+            </div>
+
+            <x-button class=" w-50 content-center">
+                Buscar viaje!</x-button>
+
+        </form>
+
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mt-4" :errors="$errors" />
     </div>
+
+
+    <!-- Import typeahead.js -->
+    <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+
+    <!-- Initialize typeahead.js on the input -->
+    <script>
+        $(document).ready(function() {
+            var bloodhound = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: 'api/lugares/find?q=%QUERY%',
+                    wildcard: '%QUERY%'
+                },
+            });
+
+            $('.typeahead').typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 1
+            }, {
+                name: 'lugares',
+                source: bloodhound,
+                display: function(data) {
+                    return data.nombre //Input value to be set when you select a suggestion.
+                },
+                templates: {
+                    empty: [
+                        '<div class="list-group search-results-dropdown"><div class="list-group-item rounded-md shadow-sm border-gray-300" bg-gray-600">No se encontró nada.</div></div>'
+                    ],
+                    header: [
+                        '<div class="list-group search-results-dropdown">'
+                    ],
+                    suggestion: function(data) {
+                        return '<div style="font-weight:bold; margin-top:-10px ! important;" class="list-group-item rounded-md shadow-sm border-gray-300" bg-gray-600">' +
+                            data.nombre + '</div></div>'
+                    }
+                }
+            });
+        });
+
+    </script>
+
 </x-app-layout>

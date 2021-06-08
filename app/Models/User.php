@@ -48,6 +48,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function home()
+    {
+
+        //if ($this->hasRole('administrator')) return view('administrator.home');
+        if ($this->hasRole('administrator')) return view('user.search');
+
+        else if ($this->hasRole('chofer'))  return view('chofer.home');
+
+        else return view('user.search');
+    }
+
 
     public function combi()
     {
@@ -59,30 +70,32 @@ class User extends Authenticatable
         return $this->hasOne(Tarjeta::class);
     }
 
-    public  function tieneTarjeta(){
+    public  function tieneTarjeta()
+    {
 
-        return isSet($this->tarjeta);
+        return isset($this->tarjeta);
     }
 
-    public function isGold(): bool{
+    public function isGold(): bool
+    {
 
         return $this->isGold;
     }
 
-    public function asignarTarjeta($tarjeta){
+    public function asignarTarjeta($tarjeta)
+    {
 
-            //setear la relacion 1-1 --
-            $this->tarjeta()->save($tarjeta);
-            $this->isGold = true;
-            $this->save();
-
+        //setear la relacion 1-1 --
+        $this->tarjeta()->save($tarjeta);
+        $this->isGold = true;
+        $this->save();
     }
     public static function choferesLibres()
     {
 
         $resultado = User::whereRoleIs('chofer')
-                ->whereNull('combi_id')
-                ->get();
+            ->whereNull('combi_id')
+            ->get();
 
         return $resultado;
     }

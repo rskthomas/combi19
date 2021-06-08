@@ -12,6 +12,7 @@
             {{ __('Crear Viaje') }}
         </h2>
     </x-slot>
+  
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Content starts -->
@@ -30,7 +31,6 @@
 
 
 
-
                     <label for="descripcion">Descripcion </label>
 
                     <textarea class="form-control" id='descripcion' name="descripcion" :value="old('descripcion')">
@@ -44,15 +44,12 @@
                     <div class=" text-sm text-gray-700"> Seleccione una ruta </div>
                     <div class="row justify-content-center">
                         <div class="col-12">
-                            <select aria-label=".form-select-sm example"  id="ruta" name="ruta" :value="old('ruta')" required class="btn-lg btn-block text-sm text-gray-700 mt-2 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                <option selected disabled hidden> ---Ruta--- </option>
-                                @if((old('ruta')))
-                                <option selected disabled hidden> {{old('ruta')}} </option>
-                                <div class=" text-sm text-gray-700"> Descripcion </div>
-                                @endif
-
+                            <select aria-label=".form-select-sm example"  id="ruta" name="ruta" :value="old('ruta')" required class="btn-lg btn-block text-sm text-gray-700 mt-2 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" >
+                            <option selected disabled hidden> ----RUTA ----</option>
+                               
                                 @foreach ($rutas as $ruta)
-                                <option value="{{$ruta->id}}" class="mr-2 text-sm text-gray-700">{{$ruta->salida->nombre}}-{{$ruta->llegada->nombre}}</option>
+                                
+                                <option value="{{$ruta->id}}" class="mr-2 text-sm text-gray-700">{{$ruta->salida->nombre}}-{{$ruta->llegada->nombre}}(combi{{$ruta->combi->id}})</option>
                                 @endforeach
                             </select>
                         </div>

@@ -32,5 +32,12 @@ class Ruta extends Model
         return $this->hasMany(Viaje::class,"ruta_id","id");
     }
 
+    public function sameRoute( String $nombre_llegada, String $nombre_salida){
+
+
+        return( ( $this->llegada->nombre == $nombre_llegada ) && ( $this->salida->nombre == $nombre_salida ) );
+
+    }
+
 
 }
