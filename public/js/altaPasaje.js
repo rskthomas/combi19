@@ -1,10 +1,7 @@
 $(document).ready(function(){
-  
-alert("entra");
+
+
 document.getElementById("botonContinuar").hidden=true;
-
-
-
 
 
 })
@@ -13,7 +10,7 @@ document.getElementById("botonContinuar").hidden=true;
 $("#addproductos").click(function (e){
 
     document.getElementById("listaproductos").hidden=false;
-    
+
 })
 function addPasaje(precio){
     document.getElementById('cantPasajes').value++;
@@ -37,7 +34,7 @@ else{
 
 function modificarTotales(precio){
     document.getElementById("totalCompra").value = parseFloat(document.getElementById("totalCompra").value ) +parseFloat(precio);
-    
+
 }
 
 function agregar(idproducto,precio){
@@ -49,7 +46,7 @@ function agregar(idproducto,precio){
     document.getElementById("totalProductos").value = parseFloat(document.getElementById("totalProductos").value ) +parseFloat(precio);
     modificarTotales(precio);
 
-    
+
 }
 
 function substraer(idproducto,precio){
@@ -61,9 +58,9 @@ function substraer(idproducto,precio){
     document.getElementById(modificartotal).value = parseFloat(document.getElementById(modificartotal).value ) -parseFloat(precio);
     document.getElementById("totalProductos").value = parseFloat(document.getElementById("totalProductos").value ) -parseFloat(precio);
     modificarTotales("-"+precio);
-  
+
 }
-    
+
 }
 
 

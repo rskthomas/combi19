@@ -335,7 +335,7 @@ Route::name('producto.')
 
 Route::name('pasaje.')
     ->prefix('/pasaje')
-    ->middleware('role:administrator')
+    ->middleware('auth')
     ->group(function () {
 
 
@@ -370,7 +370,8 @@ Route::name('pasaje.')
 
         //-------------------------------------------------------------------------------------//
         Route::get('{pasaje}/edit', 'PasajeController@edit')
-            ->name('edit');
+            ->name('edit')
+            ->middleware('role:administrator');
 
 
 

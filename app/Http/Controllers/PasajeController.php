@@ -18,7 +18,7 @@ class PasajeController extends Controller
      */
     public function index()
     {
-        
+
 
         $resultado= Pasaje::paginate(10);
 
@@ -30,10 +30,9 @@ class PasajeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Viaje $viaje
-        )
-    {   
-        
+    public function create(Viaje $viaje)
+    {
+
         $productos= Producto::all();
         return view('entidades.pasaje.alta',['productos' => $productos, 'viaje'=>$viaje
         ]);
@@ -62,7 +61,7 @@ class PasajeController extends Controller
         ]);
 
         if($request->cantPasajes<=$viaje->pasajesLibres()){
-           
+
 
             $pasaje= Pasaje::create([
                 'asiento'=>$viaje->siguienteAsiento(),
@@ -72,11 +71,11 @@ class PasajeController extends Controller
                 'productos'=>"{}",
                 'viaje_id'=>$viaje->id,
                 'user_id'=>$id,
-              
+
 
             ]);
             $usuario =   User::find(Auth::id());
-           
+
             $usuario->pasajes()->save($pasaje);
             }
 

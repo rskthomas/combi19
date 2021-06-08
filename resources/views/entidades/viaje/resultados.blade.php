@@ -34,7 +34,7 @@
                                 {{ $viaje->hora_salida }} hs</td>
                             <td> Activo </td>
                             <td>{{ $viaje->ruta->combi->tipo_de_combi }}</td>
-                            <td class="text-yellow-700">{{ $viaje->cant_asientos }} pasajes disponibles!
+                            <td class="text-yellow-700">{{ $viaje->pasajesLibres() }} pasajes disponibles!
                                 </br>
                                 Tiempo estimado: {{ $viaje->ruta->tiempo }}
                             </td>
@@ -43,7 +43,7 @@
 
                             <td>
                                 <!-- BOTON Comprar -->
-                                <a href="#"">
+                                <a href="{{url('/pasaje/alta/'. $viaje->id) }} ">
                             <button type=" button" class="btn btn-primary" title="Comprar Pasaje">
 
                                     Comprar

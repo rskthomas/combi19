@@ -4,24 +4,8 @@
             {{ __('Alta de tarjeta') }}
         </h2>
     </x-slot>
-<style>
-input::placeholder { text-transform: none; }
-/* hide arrows from number*/
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
-</style>
-
 
     <div class="flex flex-col items-center sm:pt-0 sm:justify-center pt-3 mb-32">
-
-
         <!-- Content starts -->
 
        @include('components.card-form')

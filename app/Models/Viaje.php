@@ -49,14 +49,14 @@ class Viaje extends Model
         if( isset($this->pasajes)){
            return $this->cant_asientos -count($this->pasajes);
         }
-     
+
 
    }
    public function siguienteAsiento(){
-   
+
        return (count($this->pasajes))+1;
-    
- 
+
+
 
 }
 
