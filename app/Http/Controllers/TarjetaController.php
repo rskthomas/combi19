@@ -65,7 +65,7 @@ class TarjetaController extends Controller
 
             $request->user()->asignarTarjeta($tarjeta);
 
-            return redirect()->to(RouteServiceProvider::HOME)->with('gold');
+            return redirect()->to(RouteServiceProvider::HOME);
         }
 
     }

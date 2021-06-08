@@ -8,6 +8,7 @@ use App\Models\Pasaje;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 class PasajeController extends Controller
 {
@@ -51,6 +52,8 @@ class PasajeController extends Controller
         //
     $id=   Auth::user()->id;
    //dd($id);
+
+        if(! User::find($id)->isGold() ){
         $request->validate([
             'number' => 'required|string|max:17|min:13|unique:tarjetas',
             'name' => 'required|string|max:55',
@@ -60,8 +63,9 @@ class PasajeController extends Controller
             'expiration_month' => 'required|string|max:2',
         ]);
 
-        if($request->cantPasajes<=$viaje->pasajesLibres()){
+        }
 
+        if($request->cantPasajes<=$viaje->pasajesLibres()){
 
             $pasaje= Pasaje::create([
                 'asiento'=>$viaje->siguienteAsiento(),
@@ -78,6 +82,8 @@ class PasajeController extends Controller
 
             $usuario->pasajes()->save($pasaje);
             }
+
+        return redirect()->to(RouteServiceProvider::HOME)->with('pasajeComprado', 'open');
 
 
 

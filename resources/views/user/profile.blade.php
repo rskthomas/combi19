@@ -69,10 +69,8 @@
                 <x-row>
                     <x-slot name="type">
                         Tarjeta de Credito
-                        <hr>
-                        <p class=" col-sm-9 text-secondary text-right"> terminada en  </p>
                     </x-slot>
-                    {{ '** **** ' . substr($user->tarjeta->number , -4) }}
+                    {{ '**** **** **** ' . substr($user->tarjeta->number , -4) }}
                 </x-row>
                 <hr />
                 @endif

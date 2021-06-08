@@ -6,15 +6,9 @@
         </div>
     @endif
 
-    @if (session()->has('gold'))
-        <div class="alert alert-success" role="alert">
-            <span>Se ha registrado exitosamente como usuario Gold !</span>
-        </div>
-    @endif
-
-    @if (session()->has('nogold'))
-        <div class="alert alert-success" role="alert">
-            <span>Se ha registrado exitosamente como usuario Viajero!</span>
+    @if (session()->has('pasajeComprado'))
+        <div class="alert alert-success text-center" role="alert">
+            <span>Se ha comprado exitosamente el pasaje!</span>
         </div>
     @endif
 

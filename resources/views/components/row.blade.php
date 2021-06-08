@@ -1,8 +1,8 @@
 
-<div class="row pl-4 py-3">
+<div class="row pl-4 pt-2 pb-1">
     <div class="col-sm font-semibold ">{{$type}} </div>
     <div class="col-sm ">
-        <div class="col-sm-9 text-secondary text-left">
+        <div class=" text-secondary text-left">
             {{ $slot }}
         </div>
     </div>
