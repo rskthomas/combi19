@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Viaje;
 use App\Models\Pasaje;
 use App\Models\Producto;
@@ -61,6 +62,7 @@ class PasajeController extends Controller
         ]);
 
         if($request->cantPasajes<=$viaje->pasajesLibres()){
+           
 
             $pasaje= Pasaje::create([
                 'asiento'=>$viaje->siguienteAsiento(),
@@ -73,6 +75,9 @@ class PasajeController extends Controller
               
 
             ]);
+            $usuario =   User::find(Auth::id());
+           
+            $usuario->pasajes()->save($pasaje);
             }
 
 
