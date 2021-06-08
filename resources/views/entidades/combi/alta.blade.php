@@ -5,8 +5,13 @@
         </h2>
     </x-slot>
 
+    @if(session()->has('creacionExitosa'))
+    <div class="alert alert-success text-center" role="alert">
+        <span> Se ha creado una combi con éxito </span>
+    </div>
+    @endif
 
-    
+
 
     <div
         class="max-w-7xl mx-auto sm:px-6 lg:px-8 w-full sm:max-w-md

@@ -37,13 +37,10 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $request["nombre"] = strtoupper($request->nombre);
-        $request["descripcion"] = strtoupper($request->descripcion);
-        $request["precio"] =($request->precio);
-
         $request->validate([
             'nombre' => 'required|string|max:255|unique:productos',
             'descripcion' => 'required|string',
+            'tipo' => 'required|string',
             'precio' => 'required|numeric',
         ]);
 
@@ -54,6 +51,7 @@ class ProductoController extends Controller
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'precio' => $request->precio,
+            'tipo' => $request->tipo,
 
         ]);
         return redirect()->to(route('producto.create'))->with('popup', 'ok');

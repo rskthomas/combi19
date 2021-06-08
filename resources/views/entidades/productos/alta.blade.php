@@ -36,6 +36,16 @@
                         placeholder="Ej.: Masa fina cubierta en chocolate"  required autofocus oninvalid="this.setCustomValidity('Por favor, ingrese una descripcion')" oninput="setCustomValidity('')" />
                 </div>
 
+                <x-label for="tipo" :value="__('Tipo del producto?')" class="mt-2 font-bold" />
+                <div class="mt-4 ml-5">
+                    <label for="tipo">
+                    <input type="radio" name="tipo" value="Salado" checked>
+                             Salado </label><br>
+
+                    <input type="radio" name="tipo" value="Dulce">
+                    <label for="tipo"> Dulce </label>
+                </div>
+
                  <!-- Precio -->
                  <div class="mt-4">
                     <x-label for="precio" :value="__('Precio')" />
@@ -43,6 +53,9 @@
                     <x-input id="precio" class="block mt-1 w-full" type="text" name="precio" :value="old('precio')"
                         placeholder="Ej.: 50.00"  required autofocus oninvalid="this.setCustomValidity('Por favor, ingrese un precio')" oninput="setCustomValidity('')" />
                 </div>
+
+
+
 
 
                 <div class="flex items-center justify-end mt-4">

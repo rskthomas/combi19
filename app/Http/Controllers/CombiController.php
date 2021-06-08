@@ -47,7 +47,7 @@ class CombiController extends Controller
         $combi->save();
 
         return redirect()->to(route('combi.new'))
-                         ->with('popup', 'open');
+                         ->with('creacionExitosa', 'open');
     }
 
     public function show(Combi $combi)

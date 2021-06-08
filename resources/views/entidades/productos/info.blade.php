@@ -49,6 +49,14 @@
                 </x-row>
                 <hr />
                 <!-- a row -->
+                <x-row>
+                    <x-slot name="type">
+                        Tipo
+                    </x-slot>
+                    {{ $producto->tipo}}
+                </x-row>
+                <hr/>
+                <!-- a row -->
                  <x-row>
                     <x-slot name="type">
                         Producto registrado el
