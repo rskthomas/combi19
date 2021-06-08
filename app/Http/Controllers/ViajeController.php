@@ -149,15 +149,10 @@ class ViajeController extends Controller
                               ->where('fecha_salida', '=', $request->fecha_salida )->get();
 
         } catch (Exception $e) {
-            return 'nada';
-
+            $results = Collection::empty();
         };
 
-
-
             return view('entidades.viaje.resultados', ['resultado'=> $results]);
-
-
 
     }
 }
