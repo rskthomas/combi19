@@ -35,7 +35,6 @@ Route::name('home')
     ->prefix('/')
     ->group(function () {
 
-
         //--------------------------Home for all users----------------------------------------------------//
         Route::get('/', 'HomeController@create');
 
@@ -46,8 +45,6 @@ Route::name('home')
         Route::get('/', 'HomeController@create');
     });
 
-Route::get('admin/invoice/create', 'InvoiceController@create');
-Route::get('admin/api/product', 'InvoiceController@getAutocompleteData');
 
 //----------------Rutas para todos los usuarios--------------------
 
@@ -406,11 +403,11 @@ Route::name('tarjeta.')
 
 
         //-------------------------------------------------------------------------------------//
-       
+
         Route::get('/alta', 'TarjetaController@create')
             ->name('create');
         //-------------------------------------------------------------------------------------//
         Route::post('/alta/store', 'TarjetaController@store')
             ->name('store');
-    
+
     });
