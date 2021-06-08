@@ -32,14 +32,14 @@
 
             <div class="form-group ">
                 <x-label for="departure" :value="__('Lugar de salida')" />
-                <input  id="search" type="text" name="departure" placeholder="Busque el lugar de origen" :value="old('departure')"
+                <input oninput="this.value = this.value.toUpperCase()" id="search" type="text" name="departure" placeholder="Busque el lugar de origen" :value="old('departure')"
                     class="typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     required />
             </div>
 
             <div class="form-group">
                 <x-label for="destination" :value="__('Lugar de destino')" />
-                <input id="search" type="text" name="destination" placeholder="Busque el lugar de destino" :value="old('destination')"
+                <input oninput="this.value = this.value.toUpperCase()" id="search" type="text" name="destination" placeholder="Busque el lugar de destino" :value="old('destination')"
                     class=" w-auto typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     required />
             </div>
