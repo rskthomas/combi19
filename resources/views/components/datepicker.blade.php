@@ -9,9 +9,9 @@
 
 
 <!-- Datepicker -->
-<div class="input-group date mt-1" id='datetimepicker1'>
+<div class="input-group date" id='datetimepicker1'>
     <input type='text' placeholder="dd - mm - yyyy" id="{{ $name }}" name="{{ $name }}" required
-        readonly style="max-width: 640px;"
+        readonly
         class="form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
     <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>

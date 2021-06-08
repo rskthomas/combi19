@@ -20,35 +20,37 @@
 
 
     <div
-        class="flex flex-col container w-50 bg-white sm:px-2 px-auto py-3 mt-4 shadow-md overflow-hidden sm:rounded-lg items-center ">
-
-        <h1 class="font-semibold pb-2"> Buscá tu pasaje en combi </h1>
+        class="flex items-center  container w-50 bg-white sm:px-2 px-auto py-3 mt-4 shadow-md overflow-hidden sm:rounded-lg ">
 
 
-        <form method="POST" class="w-50" action="{{ route('viaje.search') }}">
+        <div class="w-50">
+        <h1 class="font-semibold pb-2 text-center"> Buscá tu pasaje en combi </h1>
+        </div>
+
+        <form method="POST" class="w-50 pl-4" action="{{ route('viaje.search') }}">
             @csrf
 
-            <div class="form-group">
+            <div class="form-group ">
                 <x-label for="departure" :value="__('Lugar de salida')" />
-                <input id="search" type="text" name="departure" placeholder="Busque el lugar de origen"
+                <input  id="search" type="text" name="departure" placeholder="Busque el lugar de origen" :value="old('departure')"
                     class="typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     required />
             </div>
 
             <div class="form-group">
                 <x-label for="destination" :value="__('Lugar de destino')" />
-                <input id="search" type="text" name="destination" placeholder="Busque el lugar de destino"
-                    class=" typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                <input id="search" type="text" name="destination" placeholder="Busque el lugar de destino" :value="old('destination')"
+                    class=" w-auto typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     required />
             </div>
 
             <div class="form-group">
                 <x-label for="fecha_salida" :value="__('Fecha de Salida')" />
-                <x-datepicker :name="'fecha_salida'" style="max-width: 640px">
+                <x-datepicker :name="'fecha_salida'"  >
                 </x-datepicker>
             </div>
 
-            <x-button class=" w-50 content-center">
+            <x-button :class="'w-100 justify-center'">
                 Buscar viaje!</x-button>
 
         </form>
