@@ -142,11 +142,11 @@ Route::name('comentario.')
 
 
     //-------------------------------------------------------------------------------------//
-    Route::get('{producto}/edit', 'ProductoController@edit')
+    Route::get('{comentario}/edit', 'ComentarioController@edit')
         ->name('edit');
 
     //-------------------------------------------------------------------------------------//
-    Route::put('{producto}/update', 'ProductoController@update')
+    Route::put('{comentario}/update', 'ComentarioController@update')
         ->name('update');
 });
 

@@ -62,7 +62,7 @@ class ComentarioController extends Controller
      */
     public function show(Comentario $comentario)
     {
-            //no me parece q haga falta mostrarlo
+        return view('entidades.comentarios.info', ['comentario' => $comentario]);
     }
 
     /**
@@ -104,6 +104,7 @@ class ComentarioController extends Controller
      */
     public function destroy(Comentario $comentario)
     {
-        //
+        $comentario->delete();
+        return redirect()->to(route('comentario.index'))->with('comentarioeliminado', $comentario);
     }
 }
