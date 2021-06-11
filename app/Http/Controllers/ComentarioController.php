@@ -14,7 +14,9 @@ class ComentarioController extends Controller
      */
     public function index()
     {
-        //
+        $resultado = Comentario::paginate(5);
+
+        return view('entidades.comentarios.listar')->with('resultado', $resultado);
     }
 
     /**
@@ -24,7 +26,7 @@ class ComentarioController extends Controller
      */
     public function create()
     {
-        //
+       return view('entidades.comentarios.alta');
     }
 
     /**
@@ -35,7 +37,21 @@ class ComentarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'contenido' => 'required|string|max:255|',
+
+        ]);
+
+
+
+        $producto = Comentario::create([
+
+            'contenido' => $request->contenido,
+            'user_id' => $request->user_id
+
+        ]);
+
+        return redirect()->to(route('comentario.create'))->with('popup', 'ok');
     }
 
     /**
@@ -46,7 +62,7 @@ class ComentarioController extends Controller
      */
     public function show(Comentario $comentario)
     {
-        //
+            //no me parece q haga falta mostrarlo
     }
 
     /**
@@ -57,7 +73,7 @@ class ComentarioController extends Controller
      */
     public function edit(Comentario $comentario)
     {
-        //
+        return view('entidades.comentarios.editar', ['comentario' => $comentario]);
     }
 
     /**
@@ -69,7 +85,15 @@ class ComentarioController extends Controller
      */
     public function update(Request $request, Comentario $comentario)
     {
-        //
+        $request["contenido"] = ($request->contenido);
+
+        $request->validate([
+            'contenido' => 'required|string|max:255|',
+
+        ]);
+
+        $comentario-> update ($request->all());
+        return redirect()->to(route('comentario.info', ['comentario' => $comentario->id]))-> with('comentariomodificado','open');
     }
 
     /**

@@ -109,6 +109,47 @@ Route::name('combi.')
             ->name('delete');
     });
 
+    //Rutas para los viajeros
+
+    //----------------COMENTARIOS---------------------
+
+Route::name('comentario.')
+->prefix('/comentario')
+->middleware('role:user')
+->group(function () {
+
+    //-------------------------------------------------------------//
+    Route::get('/alta', 'ComentarioController@create')
+        ->name('create');
+
+    //------------------------------------------------------------//
+
+    Route::post('/alta/store', 'ComentarioController@store')
+        ->name('store');
+
+
+    //------------------------------------------------------------//
+    Route::get('/listar', 'ComentarioController@index')
+        ->name('index');
+
+    //-------------------------------------------------------------//
+    Route::get('/{comentario}', 'ComentarioController@show')
+        ->name('info');
+
+    //-------------------------------------------------------------------------------------//
+    Route::delete('{comentario}/delete', 'ComentarioController@destroy')
+        ->name('delete');
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('{producto}/edit', 'ProductoController@edit')
+        ->name('edit');
+
+    //-------------------------------------------------------------------------------------//
+    Route::put('{producto}/update', 'ProductoController@update')
+        ->name('update');
+});
+
 //Rutas para los choferes
 
 Route::name('chofer.')

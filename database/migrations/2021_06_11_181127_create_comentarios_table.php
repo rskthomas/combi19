@@ -21,8 +21,6 @@ class CreateComentariosTable extends Migration
                 ->nullable()
                 ->onDelete('SET NULL')
                 ->constrained('users');
-                $table->date('fecha');
-            $table->time('hora');
         });
     }
 
