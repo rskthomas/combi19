@@ -63,7 +63,7 @@ class ViajeController extends Controller
 
         if ($ruta->combi['asientos'] < $request->cant_asientos) {
             //$parametros=['error'=>'la cantidad de asientos elegida es mayor a la disponible ','request'=>$request]
-            return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible para la combi' . $ruta->combi['id'] . '(' . $ruta->combi['asientos'] . ')')->withInput();
+            return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible para la combi ' . $ruta->combi['patente'] . '(cantidad de asientos disponibles:' . $ruta->combi['asientos'] . ')')->withInput();
         }
 
 
@@ -102,9 +102,11 @@ class ViajeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Viaje $viaje)
     {
-        //
+        $rutas = Ruta::all();
+
+        return view('entidades.viaje.editar', ['viaje' => $viaje, 'rutas'=> $rutas]);
 
     }
 
@@ -115,9 +117,32 @@ class ViajeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Viaje $viaje)
     {
         //
+        $request->validate([
+
+            'fecha_salida' => 'required|date',
+            'precio' => 'required|numeric',
+            'cant_asientos' => 'required|numeric',
+            'ruta' => 'required',
+            'hora_salida' => 'required',
+            'descripcion' => 'required'
+        ]);
+       // dd($request);
+        $ruta = Ruta::where("id", "=", $request->ruta)->first();
+
+
+        if ($ruta->combi['asientos'] < $request->cant_asientos) {
+            //$parametros=['error'=>'la cantidad de asientos elegida es mayor a la disponible ','request'=>$request]
+            return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible para la combi ' . $ruta->combi['patente'] . '(cantidad de asientos disponibles:' . $ruta->combi['asientos'] .')')->withInput();
+        }
+
+
+
+        $viaje-> update ($request->all());
+
+        return redirect()->to(route('viaje.info', ['viaje' => $viaje->id]))-> with('modificado','open');
        
 
     }

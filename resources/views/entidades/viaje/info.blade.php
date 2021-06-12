@@ -20,7 +20,13 @@
 
     @endif
 
+    @if(count($viaje->pasajes)!=0)
+    <div class="alert alert-warning text-center" role="alert">
+       Recuerde que este viaje tiene pasajes vendidos, por lo tanto no se podra editar ni eliminar.
 
+    </div>
+
+    @endif
 
 
     <div class="py-8 col-md-5 mx-auto ">
@@ -109,7 +115,7 @@
         </div>
     </div>
 
-    @if (Auth::user()->hasRole('administrator'))
+    @if (Auth::user()->hasRole('administrator') && count($viaje->pasajes)==0)
 
     <x-options-bar :item="$viaje" :tipo="'viaje'" />
 

@@ -45,6 +45,7 @@
 
     <form method="POST" action="{{ route('pasaje.store', ['viaje' => $viaje]) }}">
         @csrf
+        <input hidden id="gold" value="{{Auth::user()->isGold}}">
 
         <div class=" max-w-7xl mx-auto sm:px-6 lg:px-8 w-full sm:max-w-screen-lg
             px-6 py-3 mt-3 bg-white shadow-md overflow-hidden sm:rounded-lg
@@ -115,7 +116,7 @@
 
             <div class="card-header">
                 <div class="mb-3 row">
-                    <label for="totalPasaje" class="col-sm-2 col-form-label">Total Pasajes</label>
+                    <label for="totalPasaje" class="col-sm-2 col-form-label">Total Pasajes $</label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext rounded" id="totalPasaje"
                             name="totalPasaje" value="{{ $viaje->precio }}">
@@ -123,21 +124,21 @@
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="totalProductos" class="col-sm-2 col-form-label">Total Productos</label>
+                    <label for="totalProductos" class="col-sm-2 col-form-label">Total Productos  $</label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext rounded" id="totalProductos"
                             name="totalProductos" value="0">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="totalDescuentos" class="col-sm-2 col-form-label">Total Descuentos</label>
+                    <label for="totalDescuentos" class="col-sm-2 col-form-label">Total Descuentos-$</label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext rounded" id="totalDescuentos"
                             name="totalDescuentos" value="0">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="totalCompra" class="col-sm-2 col-form-label">Total A Pagar</label>
+                    <label for="totalCompra" class="col-sm-2 col-form-label">Total A Pagar $</label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext rounded" name="totalCompra"
                             id="totalCompra" value="{{ $viaje->precio }}">
@@ -165,6 +166,7 @@
 
                 @else
                 </div>
+              
                 @include('/entidades/pasaje/pagarPasaje')
 
                 @endif

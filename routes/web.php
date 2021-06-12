@@ -3,17 +3,18 @@
 //this line below imports routes from auth.php
 require __DIR__ . '/auth.php';
 
-use App\Models\Producto;
 use App\Models\Role;
 use App\Models\Ruta;
 use App\Models\User;
 use App\Models\Combi;
 use App\Models\Lugar;
+use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RutaController;
 use App\Http\Controllers\CombiController;
 use App\Http\Controllers\LugarController;
+use App\Http\Controllers\ViajeController;
 use App\Http\Controllers\ChoferesController;
 use App\Http\Controllers\Auth\UsuariosController;
 use App\Http\Controllers\Auth\RegisteredUserController;

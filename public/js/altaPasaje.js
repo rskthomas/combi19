@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    
+alert("ok");
+alert($("#gold").val());
 
 
 document.getElementById("botonContinuar").hidden=true;
@@ -23,6 +26,7 @@ function subsPasaje(precio){
     if($("#cantPasajes").val() >1){
     document.getElementById('cantPasajes').value--;
     document.getElementById("totalPasaje").value = parseFloat(document.getElementById("totalPasaje").value ) - parseFloat(precio);
+   
     modificarTotales("-"+precio);
 }
 else{
@@ -33,8 +37,14 @@ else{
 }
 
 function modificarTotales(precio){
+    if ($("#gold").val()!=0){
+        descuento= Math.round(precio *0.2,-2);
+        document.getElementById("totalDescuentos").value = parseFloat(document.getElementById("totalDescuentos").value ) +parseFloat(descuento);
+        document.getElementById("totalCompra").value = parseFloat(document.getElementById("totalCompra").value ) +parseFloat(precio)-parseFloat(descuento);
+    }
+    else{
     document.getElementById("totalCompra").value = parseFloat(document.getElementById("totalCompra").value ) +parseFloat(precio);
-
+    }
 }
 
 function agregar(idproducto,precio){
