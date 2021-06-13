@@ -24,7 +24,7 @@ class Tarjeta extends Model
     }
     public function vencida()
     {
-        return ($this->expiration_year > Date("Y",time()) &&($this->expiration_month > Date("m",time()))) ;
+        return ($this->expiration_year > Date("Y",time()) ||(($this->expiration_year == Date("Y",time()) && ($this->expiration_month > Date("m",time()))))) ;
     }
 
 }

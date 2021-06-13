@@ -64,7 +64,7 @@ class PasajeController extends Controller
         $id =   Auth::user()->id;
      
 
-        if (!User::find($id)->isGold()) {
+        if (  !User::find($id)->isGold() || Auth::user()->tarjeta->vencida() ) {
             $request->validate([
                 'number' => 'required|string|max:17|min:13|unique:tarjetas',
                 'name' => 'required|string|max:55',

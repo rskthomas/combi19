@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-6">
                     <x-label for="fecha" :value="__('Fecha de salida:')" />
-                    {{ $viaje->fecha_salida }} 
+                    {{ $viaje->fecha_salida }}
 
                 </div>
                 <div class="col-6 mt-2">
@@ -49,7 +49,12 @@
     <br>
     <form method="POST" action="{{ route('pasaje.store', ['viaje' => $viaje]) }}">
         @csrf
-        <input hidden id="gold" value="{{Auth::user()->isGold}}">
+        @if(Auth::user()->isGold== 1 && Auth::user()->tarjeta->vencida() |Auth::user()->isGold== 0 )
+        <input hidden id="gold" value="0">
+        @else 
+        <input hidden id="gold" value="1">
+        @endif
+
 
         <div class=" max-w-7x100 mx-auto  w-full sm:max-w-screen-lg
              bg-white shadow-md overflow-hidden sm:rounded-lg">
@@ -61,13 +66,14 @@
 
                 <h6 class="card-subtitle mb-2 text-muted">A continuacion complete los datos requeridos para la compra de
                     su pasaje </h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Recuerde que si ha decidido ser usuario gold recibira grandes descuentos   </h6>
+                <h6 class="card-subtitle mb-2 text-muted">Recuerde que si ha decidido ser usuario gold recibira grandes descuentos </h6>
                 <br>
 
 
 
 
-                <div class="mb-3 row" hidden><!-- ver si lo borramos-->
+                <div class="mb-3 row" hidden>
+                    <!-- ver si lo borramos-->
                     <label for="cantPasajes" class="col-sm-2 col-form-label rounded">Cantidad de Pasajes</label>
                     <div class="col-sm-1  col-md-2">
                         <input type="text" class="form-control-plaintext rounded" id="cantPasajes" name="cantPasajes" value="1">
@@ -144,13 +150,13 @@
                 <div class="card-header "> Pago
                     <hr>
                     <!-- Si el usuario es gold, usar la tarjeta guardada-->
-                    @if (Auth::user()->isGold() )
+                    @if (Auth::user()->isGold() && !Auth::user()->tarjeta->vencida())
 
                     <x-label for="tarjeta" class="text-1x1 " :value="__('Tarjeta a utilizar:')" />
 
                     <div class=" w-50 max-w-1xl sm:px-2 lg:px-0 w-50 sm:max-w-screen-lg
                      bg-white shadow-md overflow-hidden sm:rounded-lg text-secondary">
-                        
+
                         <p class="mt-6 text-3xl text-center ">{{ '**** **** **** ' . substr(Auth::user()->tarjeta->number , -4) }}</p>
                         <p class="mt-6 text-1xl text-center">{{strtoupper(Auth::user()->name) }}</p>
 
@@ -160,7 +166,13 @@
 
                 </div>
                 @else
-             
+                @if(Auth::user()->isGold() && Auth::user()->tarjeta->vencida())
+
+                <div class="alert alert-success" role="alert">
+                    <span>Su tarjeta se encuentra vencida, por favor ingrese una nueva tarjeta </span>
+                </div>
+                @endif
+
 
                 @include('/entidades/pasaje/pagarPasaje')
 
