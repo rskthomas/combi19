@@ -1,7 +1,5 @@
 $(document).ready(function(){
-    
-alert("ok");
-alert($("#gold").val());
+
 
 
 document.getElementById("botonContinuar").hidden=true;

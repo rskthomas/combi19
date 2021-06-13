@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
             $table->integer('cellphone') -> nullable();
             $table->date('birthdate')
                   -> nullable();
+            $table->date('bloqueado')
+                  ->nullable();
 
             $table->foreignId('combi_id')
             ->nullable()

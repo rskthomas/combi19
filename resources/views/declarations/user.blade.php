@@ -4,4 +4,7 @@
         <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
             {{ __('Buscar Pasaje') }}
         </x-nav-link>
+        <x-nav-link :href="route('viaje.index')" :active="request()->routeIs('home')">
+            {{ __('Viajes disponibles') }}
+        </x-nav-link>
     </div>

@@ -81,7 +81,7 @@ class ViajeController extends Controller
 
         ]);
 
-        // return redirect()->to(route('ruta.create'));
+      return redirect()->to(route('viaje.create'))-> with('creado','open');
     }
 
     /**

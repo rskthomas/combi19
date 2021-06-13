@@ -1,5 +1,12 @@
 <div class="card" id="listaproductos" hidden>
 
+@if ($productos->isEmpty())
+        <div class="alert alert-success text-center" role="alert">
+            <span> Por el momento no tenemos productos disponibles, disculpe las molestias </span>
+        </div>
+
+    @else
+
     <div class="card-body">
         <h5 class="card-title">Seleccione los Productos que desea Agregar</h5>
         
@@ -57,6 +64,6 @@
             @endforeach
         </table>
 
-
+@endif
     </div>
 </div>

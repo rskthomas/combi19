@@ -12,6 +12,13 @@
             {{ __('Crear Viaje') }}
         </h2>
     </x-slot>
+    @if(session()->has('creado'))
+
+<div class="alert alert-success text-center" role="alert">
+    <span>Se ha creado el viaje con exito</span>
+</div>
+
+@endif
   
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

@@ -220,7 +220,8 @@ Route::name('ruta.')
 
         //-------------------------------------------------------------------------------------//
         Route::get('/{ruta}', 'RutaController@show')
-            ->name('info');
+            ->name('info')      
+             ->withoutMiddleware('role:administrator');
 
 
 
@@ -258,13 +259,15 @@ Route::name('viaje.')
 
         //-------------------------------------------------------------------------------------//
         Route::get('/listar', 'ViajeController@index')
-            ->name('index');
+            ->name('index')
+            ->withoutMiddleware('role:administrator');
 
 
 
         //-------------------------------------------------------------------------------------//
         Route::get('/{viaje}', 'ViajeController@show')
-            ->name('info');
+            ->name('info')
+            ->withoutMiddleware('role:administrator');
 
 
 
@@ -342,7 +345,9 @@ Route::name('pasaje.')
 
         //-------------------------------------------------------------------------------------//
         Route::get('/alta/{viaje}', 'PasajeController@create')
-            ->name('create');
+            ->name('create')
+            ->withoutMiddleware('role:administrator');
+
 
 
         //-------------------------------------------------------------------------------------//
