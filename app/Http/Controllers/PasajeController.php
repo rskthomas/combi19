@@ -65,6 +65,7 @@ class PasajeController extends Controller
      
 
         if (  !User::find($id)->isGold() || Auth::user()->tarjeta->vencida() ) {
+           
             $request->validate([
                 'number' => 'required|string|max:17|min:13|unique:tarjetas',
                 'name' => 'required|string|max:55',
@@ -73,6 +74,11 @@ class PasajeController extends Controller
                 'expiration_year' => 'required|string|max:4',
                 'expiration_month' => 'required|string|max:2',
             ]);
+            if($request->expiration_year < Date("Y",time()) ||
+            (($request->expiration_year == Date("Y",time()) && ($request->expiration_month < Date("m",time())))))
+            {
+                return Redirect::back()->withErrors("La tarjeta se encuentra vencida, por favor ingrese otra tarjeta ");
+            }
         }
 
         if ($request->cantPasajes <= $viaje->pasajesLibres()) {
