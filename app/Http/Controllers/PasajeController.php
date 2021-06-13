@@ -35,11 +35,11 @@ class PasajeController extends Controller
      */
     public function create(Viaje $viaje)
     {
-       /* if(isset(Auth::user()->bloqueado)){
+      if(isset(Auth::user()->bloqueado)){
             return Redirect::back()->withErrors(['msg', 'Disculpe, usted se encuentra bloqueado momentaneamente para la compra de pasajes.Lamentamos el inconveniente. Para mas informacion comuniquese con la empresa']);
 
 
-        }**/
+        }
         $productos = Producto::all();
         $tarjeta = Auth::user()->tarjeta;
         $data = [

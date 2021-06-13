@@ -20,7 +20,7 @@
 
     @endif
 
-    @if(count($viaje->pasajes)!=0)
+    @if(count($viaje->pasajes)!=0 && Auth::user()->hasRole('administrator')  )
     <div class="alert alert-warning text-center" role="alert">
        Recuerde que este viaje tiene pasajes vendidos, por lo tanto no se podra editar ni eliminar.
 

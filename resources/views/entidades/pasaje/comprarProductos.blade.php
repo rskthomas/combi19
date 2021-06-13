@@ -64,6 +64,7 @@
             @endforeach
         </table>
 
-@endif
     </div>
+
+    @endif
 </div>
