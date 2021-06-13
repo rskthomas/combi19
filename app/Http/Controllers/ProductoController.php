@@ -44,16 +44,13 @@ class ProductoController extends Controller
             'precio' => 'required|numeric',
         ]);
 
-
-
         $producto = Producto::create([
-
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'precio' => $request->precio,
             'tipo' => $request->tipo,
-
         ]);
+        
         return redirect()->to(route('producto.create'))->with('popup', 'ok');
     }
 
@@ -91,10 +88,6 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        $request["nombre"] = strtoupper($request->nombre);
-        $request["descripcion"] = strtoupper($request->descripcion);
-        $request["precio"] = strtoupper($request->precio);
-
         $request->validate([
             'nombre' => 'required|string|max:255|',
             'descripcion' => 'required|string',

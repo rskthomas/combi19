@@ -47,7 +47,7 @@ class ViajeController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $request->validate([
 
             'fecha_salida' => 'required|date',
