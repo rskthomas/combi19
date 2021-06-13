@@ -22,7 +22,9 @@ class Tarjeta extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-
+    public function vencida()
+    {
+        return ($this->expiration_year > Date("Y",time()) &&($this->expiration_month > Date("m",time()))) ;
+    }
 
 }

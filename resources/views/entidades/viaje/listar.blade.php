@@ -13,6 +13,13 @@
     </div>
 
     @endif
+    @if(isset(Auth::user()->bloqueado))
+
+    <div class="alert alert-warning" role="alert">
+        <span> Por el momento usted no puede comprar pasajes ya que se encuentra bloqueado. Para mas informacion comuniquese con el administrador </span>
+    </div>
+
+    @endif
 
     @if($resultado->isEmpty())
     <div class="alert alert-success text-center" role="alert">
@@ -58,14 +65,16 @@
                          
                             <td>
 
-                                @if (Auth::user()->hasRole('user') )
+                                @if (Auth::user()->hasRole('user')&& (!isset(Auth::user()->bloqueado) ))
+                                
                                 @if($viaje->pasajesLibres() != 0)
+                             
                                 <a href="{{ route('pasaje.create', ['viaje' => $viaje]) }}">
                                     <button type="button" class="btn btn-primary" title="Comprar">
 
                                         Comprar Pasaje!
                                     </button></a>
-
+                             
                                 @else
                                 <button type="button" class="btn btn-primary" title="Comprar" disabled>
 
