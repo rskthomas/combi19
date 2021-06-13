@@ -103,7 +103,7 @@ class CombiController extends Controller
         } else {
             $combi->desasignarChofer();
             $combi->delete();
-            $key = 'combimodificada';
+            $key = 'combieliminada';
         }
 
         return redirect()->to(route('combi.listar'))

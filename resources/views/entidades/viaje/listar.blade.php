@@ -15,7 +15,7 @@
 @endif
 
 @if($resultado->isEmpty())
-<div class="alert alert-success text-center" role="alert">
+<div class="alert alert-warning text-center" role="alert">
     <span>No hay viajes disponibles, pruebe agregando uno </span>
 </div>
 
@@ -45,7 +45,7 @@
 
                 <tbody id='viaje'>
                     <tr>
-                    
+
                         <td>
                         <a href="{{ route('ruta.info', [$viaje->ruta] ) }}">{{ $viaje->ruta->salida->nombre}}-{{ $viaje->ruta->llegada->nombre}}
                         </a>
@@ -80,7 +80,7 @@
                 </tbody>
                 @endforeach
             </table>
-            
+
             <div class="container">
                     {{ $resultado->links() }}
                 </div>

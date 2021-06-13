@@ -12,7 +12,7 @@
             {{ __('Crear Viaje') }}
         </h2>
     </x-slot>
-  
+
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Content starts -->
@@ -41,15 +41,15 @@
 
 
 
-                    <div class=" text-sm text-gray-700"> Seleccione una ruta </div>
+                    <div class=" text-sm text-gray-700 mt-2"> Seleccione una ruta </div>
                     <div class="row justify-content-center">
                         <div class="col-12">
-                            <select aria-label=".form-select-sm example"  id="ruta" name="ruta" :value="old('ruta')" required class="btn-lg btn-block text-sm text-gray-700 mt-2 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" >
+                            <select aria-label=".form-select-sm example"  id="ruta" name="ruta" :value="old('ruta')" required class="text-auto text-gray-700 mt-2 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" >
                             <option selected disabled hidden> ----RUTA ----</option>
-                               
+
                                 @foreach ($rutas as $ruta)
-                                
-                                <option value="{{$ruta->id}}" class="mr-2 text-sm text-gray-700">{{$ruta->salida->nombre}}-{{$ruta->llegada->nombre}}(combi{{$ruta->combi->id}})</option>
+
+                                <option value="{{$ruta->id}}" class="mr-2 text-sm text-gray-700">{{$ruta->salida->nombre}}-{{$ruta->llegada->nombre}} ( Combi - {{$ruta->combi->patente}} )</option>
                                 @endforeach
                             </select>
                         </div>
@@ -71,7 +71,7 @@
 
 
 
-                    <div>
+                    <div class="mt-3">
                         <x-label for="hora_salida" :value="__('Hora de salida')" />
                         <input type="time" class="block mt-1 w-full" id="hora_salida" name="hora_salida" :value="old('hora_salida')" required>
                     </div>

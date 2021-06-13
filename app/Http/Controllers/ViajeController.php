@@ -47,7 +47,7 @@ class ViajeController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $request->validate([
 
             'fecha_salida' => 'required|date',
@@ -81,7 +81,7 @@ class ViajeController extends Controller
 
         ]);
 
-        // return redirect()->to(route('ruta.create'));
+        return redirect()->to(route('viaje.index'));
     }
 
     /**
@@ -118,7 +118,7 @@ class ViajeController extends Controller
     public function update(Request $request, $id)
     {
         //
-       
+
 
     }
 

@@ -13,7 +13,7 @@
 
     @if(session()->has('combieliminada'))
     <div class="alert alert-success text-center" role="alert">
-        <span>Se ha eliminado la combi {{session()->get('combieliminada')->name}}</span>
+        <span>Se ha eliminado la combi {{session()->get('combieliminada')->name}} con exito</span>
     </div>
     @endif
 
