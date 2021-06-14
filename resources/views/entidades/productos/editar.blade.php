@@ -36,8 +36,8 @@
                  <div class="mt-4">
                     <x-label for="precio" :value="__('Precio')" />
 
-                    <x-input id="precio" class="block mt-1 w-full" type="text" name="precio" :value="old('precio',$producto->precio)"
-                        placeholder="Ej.: 50.00"  required autofocus oninvalid="this.setCustomValidity('Por favor, ingrese un Precio')" oninput="setCustomValidity('')" />
+                    <x-input id="precio" class="block mt-1 w-full" type="number" name="precio" step=".01" :value="old('precio',$producto->precio)"
+                        placeholder="Ej.: 50.00"  required autofocus oninvalid="this.setCustomValidity('Por favor, ingrese un precio valido')" oninput="setCustomValidity('')" />
                 </div>
 
 
