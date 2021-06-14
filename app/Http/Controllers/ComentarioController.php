@@ -47,7 +47,8 @@ class ComentarioController extends Controller
         $producto = Comentario::create([
 
             'contenido' => $request->contenido,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'autor' =>$request->user()->name
 
         ]);
 
