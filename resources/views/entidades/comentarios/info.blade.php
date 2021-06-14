@@ -23,7 +23,7 @@
                     <x-slot name="type">
                         Autor
                     </x-slot>
-                    {{ $comentario->user_id }}
+                    {{ $comentario->autor }}
                 </x-row>
                 <hr />
                 <!-- a row -->

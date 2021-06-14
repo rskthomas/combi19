@@ -40,7 +40,7 @@
 
                             <tbody id='comentario'>
                                 <tr>
-                                    <td>{{ $comentario->user_id }}</td>
+                                    <td>{{ $comentario->autor }}</td>
                                   {{-- Decidir si la descripcion se muestra solo en el show o aca, lo dejo en el show solamente, me parece mejor --}}
                                     <td>{{ $comentario->contenido }}</td>
 
