@@ -43,6 +43,7 @@ class ProductoController extends Controller
             'tipo' => 'required|string',
             'precio' => 'required|numeric',
         ]);
+        $request["nombre"] = strtoupper($request->nombre);
 
         $producto = Producto::create([
             'nombre' => $request->nombre,

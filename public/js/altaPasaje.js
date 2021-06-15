@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    modificarTotales(document.getElementById("totalPasaje").val());
+    alert("ok");
 
 
 

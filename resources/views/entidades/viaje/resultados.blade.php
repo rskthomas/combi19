@@ -1,4 +1,13 @@
 <x-app-layout>
+
+
+@if(isset(Auth::user()->bloqueado))
+
+<div class="alert alert-warning" role="alert">
+    <span> Por el momento usted no puede comprar pasajes ya que se encuentra bloqueado. Para mas informacion comuniquese con el administrador </span>
+</div>
+
+@endif
     @if($resultado->isEmpty())
     <div class="alert mt-6 alert-warning text-center" role="alert">
         <span>No se encontraron viajes</span>
@@ -6,6 +15,7 @@
         <a class="text-center" href="{{route('home')}}">Regresar</a>
     </div>
 
+ 
 
     @else
 
