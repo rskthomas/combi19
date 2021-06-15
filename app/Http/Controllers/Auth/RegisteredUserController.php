@@ -52,8 +52,8 @@ class RegisteredUserController extends Controller
             'isGold' => false,
         ]);
 
-        $user->attachRole($request -> role_id);
-
+        //$user->attachRole($request -> role_id);
+        $user->attachRole('user');
         event(new Registered($user));
 
         Auth::login($user);

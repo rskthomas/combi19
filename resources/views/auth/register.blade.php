@@ -81,7 +81,7 @@
                 </x-button>
             </div>
 
-            <!-- Select Option Rol type  LOCAL ONLY-->
+            <!-- Select Option Rol type  LOCAL ONLY
             <div class="mt-3">
                 <x-label for="role_id" value="{{ __(' (para testeo) Registrarse como:') }}" />
                 <select name="role_id"
@@ -90,7 +90,7 @@
                     <option value="administrator">Administrador</option>
                 </select>
             </div>
-
+                        -->
 
         </form>
     </x-auth-card>
