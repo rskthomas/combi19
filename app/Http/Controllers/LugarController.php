@@ -45,8 +45,8 @@ class LugarController extends Controller
         $request["nombre"] = strtoupper($request->nombre);
         $request["provincia"] = strtoupper($request->provincia);
         $request->validate([
-            'nombre' => 'required|string|max:255|unique:lugars',
-            'provincia' => 'required|string'
+            'nombre' => 'required|string|max:255|unique:lugars|alpha',
+            'provincia' => 'required|string|alpha'
         ]);
 
 
@@ -101,8 +101,8 @@ class LugarController extends Controller
         $request["nombre"] = strtoupper($request->nombre);
         $request["provincia"] = strtoupper($request->provincia);
         $request->validate([
-            'nombre' => 'required|string|max:255|',
-            'provincia' => 'required|string'
+            'nombre' => 'required|string|max:255|alpha',
+            'provincia' => 'required|string|alpha'
         ]);
 
 
