@@ -98,7 +98,7 @@ class ProductoController extends Controller
 
         if ($request->nombre != $producto->nombre) {
             $request->validate([
-                'nombre' => 'unique:'
+                'nombre' => 'unique:productos'
             ]);
         }
 

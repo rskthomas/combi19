@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     @if(isset($combi->ruta->viajes))
-    <div class="alert alert-success text-center" role="alert">
+    <div class="alert alert-warning text-center" role="alert">
         <span> La cantidad de asientos no se podra cambiar porque la combi tiene un viaje asignado </span>
     </div>
 
