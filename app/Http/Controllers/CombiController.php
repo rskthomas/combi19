@@ -70,7 +70,7 @@ class CombiController extends Controller
             'modelo' => 'integer|nullable',
             'chofer_id' => 'nullable',
         ]);
-
+      
         $combi = Combi::findOrFail($combi->id);
 
         /*array_filter() filtra aquellos campos que sean null en $ request

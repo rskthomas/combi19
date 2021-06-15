@@ -90,7 +90,7 @@
                 <hr />
                 <x-row>
                     <x-slot name="type">
-                        Disponibles
+                        Asientos Disponibles
                     </x-slot>
                     {{ $viaje-> pasajesLibres()}}
                 </x-row>

@@ -13,7 +13,7 @@
         <x-auth-card>
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form method="Post" action="{{route('editarusuarios')}}" >
+            <form method="Post" action="{{route('user.update')}}" >
                 @csrf @method('PUT')
                 <input type="hidden" name="id" value="{{ $user-> id}}">
                 <!-- Name -->

@@ -67,7 +67,7 @@ Route::name('user.')
             ->name('edit');
 
         //-----------------------------------------------------//
-        Route::put('/{user}/edit', 'UsuariosController@update')
+        Route::put('/update', 'UsuariosController@update')
             ->name('update');
     });
 

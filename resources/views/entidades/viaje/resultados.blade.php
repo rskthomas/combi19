@@ -26,8 +26,8 @@
                     </tr>
                 </thead>
                 @foreach ($resultado as $viaje)
-
-                    <tbody class="items-center bg-gray-200">
+                
+                <tbody class="items-center bg-gray-200">
                         <tr>
                             <td class="">{{ $viaje->salida_formatted() }}
                                 </br>
@@ -43,12 +43,26 @@
 
                             <td>
                                 <!-- BOTON Comprar -->
-                                <a href="{{url('/pasaje/alta/'. $viaje->id) }} ">
-                            <button type=" button" class="btn btn-primary" title="Comprar Pasaje">
+                                @if (Auth::user()->hasRole('user')&& (!isset(Auth::user()->bloqueado) ))
+                                
+                                @if($viaje->pasajesLibres() != 0)
+                             
+                                <a href="{{ route('pasaje.create', ['viaje' => $viaje]) }}">
+                                    <button type="button" class="btn btn-primary" title="Comprar">
 
-                                    Comprar
+                                        Comprar Pasaje!
+                                    </button></a>
+                             
+                                @else
+                                <button type="button" class="btn btn-primary" title="Comprar" disabled>
 
-                                    </button>
+                                    AGOTADO
+                                </button>
+
+
+                                @endif
+                                @endif
+
                             </td>
 
                         </tr>
