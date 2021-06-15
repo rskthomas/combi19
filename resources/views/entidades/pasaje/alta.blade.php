@@ -49,10 +49,10 @@
     <br>
     <form method="POST" action="{{ route('pasaje.store', ['viaje' => $viaje]) }}">
         @csrf
-        @if(Auth::user()->isGold== 1 && Auth::user()->tarjeta->vencida() |Auth::user()->isGold== 0 )
-        <input hidden id="gold" value="0">
-        @else 
+        @if(Auth::user()->isGold() && !Auth::user()->tarjeta->vencida() )
         <input hidden id="gold" value="1">
+        @else 
+        <input hidden id="gold" value="0">
         @endif
 
 
@@ -140,7 +140,7 @@
                 <div class="mb-3 row">
                     <label for="totalCompra" class="col-sm-2 col-form-label">Total A Pagar $</label>
                     <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext rounded" name="totalCompra" id="totalCompra" value="{{ $viaje->precio }}">
+                        <input type="text" readonly class="form-control-plaintext rounded" name="totalCompra" id="totalCompra" value="0">
                     </div>
                 </div>
             </div>
