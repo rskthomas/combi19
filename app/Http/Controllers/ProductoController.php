@@ -38,13 +38,15 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255|unique:productos',
+           
             'descripcion' => 'required|string',
             'tipo' => 'required|string',
             'precio' => 'required|numeric',
         ]);
         $request["nombre"] = strtoupper($request->nombre);
-
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:productos',
+        ]);
         $producto = Producto::create([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
