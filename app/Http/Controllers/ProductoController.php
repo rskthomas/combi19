@@ -51,7 +51,7 @@ class ProductoController extends Controller
             'precio' => $request->precio,
             'tipo' => $request->tipo,
         ]);
-        
+
         return redirect()->to(route('producto.create'))->with('popup', 'ok');
     }
 
@@ -90,7 +90,7 @@ class ProductoController extends Controller
     public function update(Request $request, Producto $producto)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255|',
+            'nombre' => 'required|string|max:255',
             'descripcion' => 'required|string',
             'precio' => 'required|numeric'
         ]);

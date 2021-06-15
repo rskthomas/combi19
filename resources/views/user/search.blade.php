@@ -19,6 +19,9 @@
 
         <div class="w-50">
         <h1 class="font-semibold pb-2 text-center"> Buscá tu pasaje en combi </h1>
+        <hr>
+               <!-- Validation Errors -->
+               <x-auth-validation-errors class="mt-4 text-center" :errors="$errors" />
         </div>
 
         <form method="POST" class="w-50 pl-4" action="{{ route('viaje.search') }}">
@@ -49,8 +52,7 @@
 
         </form>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mt-4" :errors="$errors" />
+
     </div>
 
 

@@ -52,8 +52,9 @@ class User extends Authenticatable
     public function home()
     {
 
-        //if ($this->hasRole('administrator')) return view('administrator.home');
-        if ($this->hasRole('administrator')) return view('user.search');
+        if ($this->hasRole('administrator')) return view('administrator.home');
+
+        //if ($this->hasRole('administrator')) return view('user.search');
 
         else if ($this->hasRole('chofer'))  return view('chofer.home');
 
@@ -91,6 +92,7 @@ class User extends Authenticatable
         $this->isGold = true;
         $this->save();
     }
+
     public static function choferesLibres()
     {
 
@@ -100,10 +102,11 @@ class User extends Authenticatable
 
         return $resultado;
     }
+
     public function pasajes()
     {
         return $this->hasMany(Pasaje::class);
     }
 
-    
+
 }
