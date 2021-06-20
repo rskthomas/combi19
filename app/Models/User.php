@@ -104,5 +104,10 @@ class User extends Authenticatable
         return $this->hasMany(Pasaje::class);
     }
 
+    public  function tienePasaje()
+    {
+
+        return isset($this->pasajes);
+    }
 
 }
