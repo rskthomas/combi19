@@ -14,6 +14,16 @@
 
     @endif
 
+
+
+    @if  (  Auth::user()->tienePasaje() ))
+
+        <div class="alert alert-success" role="alert">
+            <span>Encima tenes pasaje </span>
+        </div>
+
+    @endif
+
     @if ($resultado->isEmpty())
         <div class="alert alert-success text-center" role="alert">
             <span>No hay Comentarios disponibles, pruebe agregando uno </span>
@@ -41,7 +51,7 @@
                             <tbody id='comentario'>
                                 <tr>
                                     <td>{{ $comentario->autor }}</td>
-                                  {{-- Decidir si la descripcion se muestra solo en el show o aca, lo dejo en el show solamente, me parece mejor --}}
+                                    {{-- Decidir si la descripcion se muestra solo en el show o aca, lo dejo en el show solamente, me parece mejor --}}
                                     <td>{{ $comentario->contenido }}</td>
 
 
@@ -50,7 +60,8 @@
                                         <!-- route('comentario.edit', ['comentario' => $comentario->id]) -->
 
                                         @if (Auth::user()->hasRole('user'))
-                                            <a href="{{ route('comentario.edit', ['comentario' => $comentario->id]) }}">
+                                            <a
+                                                href="{{ route('comentario.edit', ['comentario' => $comentario->id]) }}">
                                                 <button type="button" class="btn btn-primary" title="Editar Comentario">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -60,7 +71,8 @@
                                                 </button>
                                             </a>
 
-                                            <a href="{{ route('comentario.info', ['comentario' => $comentario->id]) }}">
+                                            <a
+                                                href="{{ route('comentario.info', ['comentario' => $comentario->id]) }}">
                                                 <button type="button" class="btn btn-primary" title="Ver Comentario">
 
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
