@@ -12,6 +12,14 @@
         </div>
     @endif
 
+    @if (session()->has('usuarioSinPasaje'))
+
+        <div class="alert alert-success" role="alert">
+            <span>Debes haber viajado al menos una vez para comentar en la pagina </span>
+        </div>
+
+    @endif
+
 
     <div
         class="flex items-center  container w-50 bg-white sm:px-2 px-auto py-3 mt-4 shadow-md overflow-hidden sm:rounded-lg ">

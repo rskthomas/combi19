@@ -81,6 +81,7 @@ class PasajeController extends Controller
             $usuario =   User::find(Auth::id());
 
             $usuario->pasajes()->save($pasaje);
+            $usuario->asignarPasaje();
             }
 
         return redirect()->to(RouteServiceProvider::HOME)->with('pasajeComprado', 'open');

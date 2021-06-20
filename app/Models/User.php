@@ -26,7 +26,8 @@ class User extends Authenticatable
         'password',
         'isGold',
         'cellphone',
-        'birthdate'
+        'birthdate',
+        'comproPasaje'
     ];
 
     /**
@@ -76,6 +77,13 @@ class User extends Authenticatable
         return isset($this->tarjeta);
     }
 
+
+    public function comproPasaje(): bool
+    {
+
+        return $this->comproPasaje;
+    }
+
     public function isGold(): bool
     {
 
@@ -90,6 +98,16 @@ class User extends Authenticatable
         $this->isGold = true;
         $this->save();
     }
+
+    public function asignarPasaje()
+    {
+
+        //setear la relacion 1-1 --
+        $this->comproPasaje = true;
+        $this->save();
+    }
+
+
     public static function choferesLibres()
     {
 
@@ -99,15 +117,10 @@ class User extends Authenticatable
 
         return $resultado;
     }
+
+
     public function pasajes()
     {
         return $this->hasMany(Pasaje::class);
     }
-
-    public  function tienePasaje()
-    {
-
-        return isset($this->pasajes);
-    }
-
 }

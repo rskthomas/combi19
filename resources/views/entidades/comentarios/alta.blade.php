@@ -4,45 +4,47 @@
             {{ __('Crear comentario') }}
         </h2>
     </x-slot>
- @if (session()->has('popup'))
+    @if (session()->has('popup'))
 
-<div class="alert alert-success text-center" role="alert">
-    Se ha creado con éxito el Comentario!
-</div>
+        <div class="alert alert-success text-center" role="alert">
+            Se ha creado con éxito el Comentario!
+        </div>
 
-@endif
+    @endif
+
+
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
         <!-- Content starts -->
         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0 bg-gray-100">
 
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
 
-            <form method="POST" action="{{ route('comentario.store') }}">
-                @csrf
-                {{-- Nombre --}}
-                <div class="">
+                <form method="POST" action="{{ route('comentario.store') }}">
+                    @csrf
+                    {{-- Nombre --}}
+                    <div class="">
 
-                    <x-label for="contenido " :value="__('Contenido del mensaje')" />
-                    <textarea name="contenido" id="contenido" rows="4" cols="30"></textarea>
-                    {{-- noseq  va aca --}}
+                        <x-label for="contenido " :value="__('Contenido del mensaje')" />
+                        <textarea name="contenido" id="contenido" rows="4" cols="30"></textarea>
+                        {{-- noseq  va aca --}}
 
-                </div>
+                    </div>
 
-                <div class="flex items-center justify-end mt-4">
+                    <div class="flex items-center justify-end mt-4">
 
-                    <x-button class="ml-4">
-                        {{ __('Comentar' ) }}
-                    </x-button>
-                </div>
+                        <x-button class="ml-4">
+                            {{ __('Comentar') }}
+                        </x-button>
+                    </div>
 
-            </form>
+                </form>
 
-            <!-- Validation Errors -->
-            <x-auth-validation-errors class="mb-4" :errors="$errors" />
-</div>
-</div>
+                <!-- Validation Errors -->
+                <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            </div>
+        </div>
     </div>
 </x-app-layout>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"

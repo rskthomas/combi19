@@ -16,13 +16,7 @@
 
 
 
-    @if  (  Auth::user()->tienePasaje() ))
 
-        <div class="alert alert-success" role="alert">
-            <span>Encima tenes pasaje </span>
-        </div>
-
-    @endif
 
     @if ($resultado->isEmpty())
         <div class="alert alert-success text-center" role="alert">

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             /* solo del usuario viajero*/
             $table->boolean('isGold')-> nullable();
+            $table->boolean('comproPasaje')-> nullable();
             /* solo del usuario chofer*/
             $table->integer('cellphone') -> nullable();
             $table->date('birthdate')
@@ -44,11 +45,11 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('viajes');
         Schema::dropIfExists('rutas');
-       
-        
+
+
         Schema::dropIfExists('users');
         Schema::dropIfExists('lugars');
         Schema::dropIfExists('combis');
-    
+
     }
 }

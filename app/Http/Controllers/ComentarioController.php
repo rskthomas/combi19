@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Comentario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 class ComentarioController extends Controller
 {
@@ -25,9 +27,15 @@ class ComentarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+
     {
-       return view('entidades.comentarios.alta');
+
+
+        if (Auth::user()->comproPasaje) {
+            return view('entidades.comentarios.alta');
+        } else return redirect()->to(RouteServiceProvider::HOME)->with('usuarioSinPasaje', 'open');
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -48,7 +56,7 @@ class ComentarioController extends Controller
 
             'contenido' => $request->contenido,
             'user_id' => $request->user_id,
-            'autor' =>$request->user()->name
+            'autor' => $request->user()->name
 
         ]);
 
@@ -93,8 +101,8 @@ class ComentarioController extends Controller
 
         ]);
 
-        $comentario-> update ($request->all());
-        return redirect()->to(route('comentario.info', ['comentario' => $comentario->id]))-> with('comentariomodificado','open');
+        $comentario->update($request->all());
+        return redirect()->to(route('comentario.info', ['comentario' => $comentario->id]))->with('comentariomodificado', 'open');
     }
 
     /**
