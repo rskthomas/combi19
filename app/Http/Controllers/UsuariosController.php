@@ -14,7 +14,8 @@ class UsuariosController extends Controller
 
     public function show(User $user){
 
-        return view('user.profile', ['user' => $user]);
+        $user = User::find(auth()->user()->id);
+            return $user->profile()->with('user', $user);
 
     }
 

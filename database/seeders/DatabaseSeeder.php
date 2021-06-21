@@ -29,5 +29,38 @@ class DatabaseSeeder extends Seeder
         $user->attachRole('administrator');
         event(new Registered($user));
 
+
+        $user = User::create([
+            'name' => 'elviajero',
+            'email' => 'viajero1@gmail.com',
+            'password' => Hash::make('12345678'),
+            'birthdate'=> '06-06-1665',
+            'isGold' => false,
+        ]);
+        $user->attachRole('user');
+        event(new Registered($user));
+
+        $user = User::create([
+            'name' => 'elViajeroGold',
+            'email' => 'viajerogold1@gmail.com',
+            'password' => Hash::make('12345678'),
+            'birthdate'=> '06-06-1665',
+            'isGold' => true,
+        ]);
+        $user->attachRole('user');
+        event(new Registered($user));
+
+        $user = User::create([
+            'name' => 'elChofer',
+            'email' => 'chofer1@gmail.com',
+            'password' => Hash::make('12345678'),
+            'birthdate'=> '06-06-1665',
+            'cellphone' => '2212-234212',
+        ]);
+        $user->attachRole('chofer');
+
+
+        event(new Registered($user));
+
     }
 }

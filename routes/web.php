@@ -130,12 +130,6 @@ Route::name('chofer.')
             ->name('index');
 
         //-----------------------------------------------------//
-        Route::get('/{chofer}', 'ChoferesController@show')
-            ->name('info')
-            ->withoutMiddleware('role:administrator')
-            ->middleware('auth');
-
-        //-----------------------------------------------------//
         Route::get('/{chofer}/edit', 'ChoferesController@edit')
             ->name('edit');
 
@@ -220,7 +214,7 @@ Route::name('ruta.')
 
         //-------------------------------------------------------------------------------------//
         Route::get('/{ruta}', 'RutaController@show')
-            ->name('info')      
+            ->name('info')
              ->withoutMiddleware('role:administrator');
 
 

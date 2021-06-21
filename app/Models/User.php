@@ -61,6 +61,13 @@ class User extends Authenticatable
         else return view('user.search');
     }
 
+    public function profile()
+    {
+        if ($this->hasRole('chofer'))  return view('chofer.profile');
+
+        else return view('user.profile');
+    }
+
 
     public function combi()
     {
@@ -74,13 +81,11 @@ class User extends Authenticatable
 
     public  function tieneTarjeta()
     {
-
         return isset($this->tarjeta);
     }
 
-    public function isGold(): bool
+    public function isGold():bool
     {
-
         return $this->isGold;
     }
 
