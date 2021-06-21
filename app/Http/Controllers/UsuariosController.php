@@ -60,4 +60,12 @@ class UsuariosController extends Controller
         return view('user.profile', ['user' => $user]);
 
     }
+
+    public function misViajes(User $user){
+
+        $resultado = $user->pasajes()->paginate(5);
+        return view('user.viajes') ->with('resultado', $resultado);
+
+
+    }
 }

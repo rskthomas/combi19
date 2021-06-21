@@ -4,7 +4,13 @@
         <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
             {{ __('Buscar Pasaje') }}
         </x-nav-link>
-        <x-nav-link :href="route('viaje.index')" :active="request()->routeIs('home')">
+        <!-- Mis viajes  -->
+        <x-nav-link :href="route('user.viajes', ['user' => Auth::user()])" :active="request()->routeIs('user.viajes')">
+            {{ __('Mis viajes') }}
+        </x-nav-link>
+        <!-- Viajes Disponibles  -->
+        <x-nav-link :href="route('viaje.index')" :active="request()->routeIs('viaje.index')">
             {{ __('Viajes disponibles') }}
         </x-nav-link>
+
     </div>

@@ -29,9 +29,9 @@ class Viaje extends Model
 
     public function salida_formatted(){
 
-        setlocale(LC_ALL,"es_ES");
-        $date = DateTime::createFromFormat("d-m-Y", $this->fecha_salida);
 
+        $date = DateTime::createFromFormat("d-m-Y", $this->fecha_salida);
+        setlocale(LC_TIME, "es_ES.UTF-8");
         return strftime("%A %d %B",$date->getTimestamp());
     }
 
