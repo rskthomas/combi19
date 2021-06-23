@@ -16,7 +16,8 @@ class ComentarioController extends Controller
      */
     public function index()
     {
-        $resultado = Comentario::paginate(5);
+        //$resultado = Comentario::paginate(5);
+        $resultado = \ DB::table('comentarios')->select('comentarios.*')->where('autor','=' ,Auth::user()->name)->paginate(5);
 
         return view('entidades.comentarios.listar')->with('resultado', $resultado);
     }

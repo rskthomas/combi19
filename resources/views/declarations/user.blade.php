@@ -40,7 +40,7 @@
 
                 <x-dropdown-link :href="route('comentario.index')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
-                    {{ __('Listar comentarios') }}
+                    {{ __('Ver mis  comentarios') }}
                 </x-dropdown-link>
             </form>
 
