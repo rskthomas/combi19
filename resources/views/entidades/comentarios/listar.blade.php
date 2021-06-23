@@ -46,7 +46,7 @@
                                 <tr>
                                     <td>{{ $comentario->autor }}</td>
                                     {{-- Decidir si la descripcion se muestra solo en el show o aca, lo dejo en el show solamente, me parece mejor --}}
-                                    <td>{{ $comentario->contenido }}</td>
+                                    <td >{{ $comentario->contenido }}</td>
 
 
                                     <!-- BOTON MODIFICAR -->
