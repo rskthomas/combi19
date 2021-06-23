@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comentario;
 use App\Models\User;
 use App\Models\Lugar;
 use Illuminate\Http\Request;
@@ -13,13 +14,15 @@ class HomeController extends Controller
 
 
     public function create()
-    {
-        if (Auth::guest()) return view('user.search');
+
+    {    $comentarios = Comentario::paginate(5);
+
+        if (Auth::guest()) return view('user.search')->with('comentarios', $comentarios);
 
         else {
 
             $user = User::find(auth()->user()->id);
-            return $user->home();
+            return $user->home()->with('comentarios',$comentarios);
         }
     }
 

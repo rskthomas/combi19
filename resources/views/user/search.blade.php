@@ -14,9 +14,12 @@
 
     @if (session()->has('usuarioSinPasaje'))
 
-        <div class="alert alert-success" role="alert">
-            <span>Debes haber viajado al menos una vez para comentar en la pagina </span>
+
+        <div class="alert alert-warning alert-dismissable" role="alert" <i class="fa fa-text-width" aria-hidden="true"></i>
+            <button type="button" class="close" data-dismiss="alert">
+                <span > Debes haber viajado al menos una vez para comentar en la pagina </span> &times;</button>
         </div>
+
 
     @endif
 
@@ -26,7 +29,7 @@
 
 
         <div class="w-50">
-        <h1 class="font-semibold pb-2 text-center"> Buscá tu pasaje en combi </h1>
+            <h1 class="font-semibold pb-2 text-center"> Buscá tu pasaje en combi </h1>
         </div>
 
         <form method="POST" class="w-50 pl-4" action="{{ route('viaje.search') }}">
@@ -34,21 +37,23 @@
 
             <div class="form-group ">
                 <x-label for="departure" :value="__('Lugar de salida')" />
-                <input oninput="this.value = this.value.toUpperCase()" id="search" type="text" name="departure" placeholder="Busque el lugar de origen" :value="old('departure')"
+                <input oninput="this.value = this.value.toUpperCase()" id="search" type="text" name="departure"
+                    placeholder="Busque el lugar de origen" :value="old('departure')"
                     class="typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     required />
             </div>
 
             <div class="form-group">
                 <x-label for="destination" :value="__('Lugar de destino')" />
-                <input oninput="this.value = this.value.toUpperCase()" id="search" type="text" name="destination" placeholder="Busque el lugar de destino" :value="old('destination')"
+                <input oninput="this.value = this.value.toUpperCase()" id="search" type="text" name="destination"
+                    placeholder="Busque el lugar de destino" :value="old('destination')"
                     class=" w-auto typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     required />
             </div>
 
             <div class="form-group">
                 <x-label for="fecha_salida" :value="__('Fecha de Salida')" />
-                <x-datepicker :name="'fecha_salida'"  >
+                <x-datepicker :name="'fecha_salida'">
                 </x-datepicker>
             </div>
 
@@ -103,5 +108,12 @@
         });
 
     </script>
+
+
+
+
+    <hr {border: 0; height: 2px; border-top: 1px dashed black; border-bottom: 1px dashed black;}>
+    <hr border: 0; height: 2px; border-top: 1px dashed black; border-bottom: 1px dashed black;}>
+    @include('entidades.comentarios.vista');
 
 </x-app-layout>
