@@ -15,7 +15,7 @@ class HomeController extends Controller
 
     public function create()
 
-    {    $comentarios = Comentario::paginate(5);
+    {    $comentarios = \ DB::table('comentarios')->select('comentarios.*')->orderBy('created_at','DESC')->get();
 
         if (Auth::guest()) return view('user.search')->with('comentarios', $comentarios);
 
