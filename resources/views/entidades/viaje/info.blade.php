@@ -4,6 +4,13 @@
             {{ __('Viaje- ') }} {{ $viaje ->nombre}}
         </h2>
     </x-slot>
+    @if(session()->has('combiOcupada'))
+
+<div class="alert alert-warning text-center" role="alert">
+    <span>No se puede crear el viaje: existe un viaje igual dentro del mismo horario</span>
+</div>
+
+@endif
 
     @if(session()->has('modificado'))
 
@@ -106,7 +113,7 @@
 
                 <x-row>
                     <x-slot name="type">
-                       Creado el 
+                       Creado el
                     </x-slot>
                     {{ $viaje->created_at ->format('Y-m-d') }}
                 </x-row>

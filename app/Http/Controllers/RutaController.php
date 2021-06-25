@@ -54,6 +54,7 @@ class RutaController extends Controller
             'salida' => 'required|numeric',
             'llegada' => 'required',
             'combi' => 'required',
+            'tiempo' => 'required|numeric'
         ]);
         if($request->salida==$request->llegada){
             return redirect()->back()->withErrors('Las terminales de salida y llegada no pueden ser las mismas');
@@ -129,7 +130,7 @@ class RutaController extends Controller
             return redirect()->back()->withErrors('Las terminales de salida y llegada no pueden ser las mismas');
         }
         $ruta=Ruta::findOrFail($request->id);
-        
+
 
         $ruta-> update ($request->all());
 

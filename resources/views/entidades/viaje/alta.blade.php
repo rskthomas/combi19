@@ -12,14 +12,22 @@
             {{ __('Crear Viaje') }}
         </h2>
     </x-slot>
-    @if(session()->has('creado'))
+@if(session()->has('creado'))
 
 <div class="alert alert-success text-center" role="alert">
     <span>Se ha creado el viaje con exito</span>
 </div>
 
 @endif
-  
+
+@if(session()->has('combiOcupada'))
+
+<div class="alert alert-warning text-center" role="alert">
+    <span>No se puede crear el viaje: existe un viaje igual dentro del mismo horario</span>
+</div>
+
+@endif
+
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Content starts -->

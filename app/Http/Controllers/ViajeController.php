@@ -7,9 +7,9 @@ use App\Models\Ruta;
 use App\Models\Lugar;
 use App\Models\Viaje;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 
 class ViajeController extends Controller
 {
@@ -32,7 +32,6 @@ class ViajeController extends Controller
      */
     public function create()
     {
-        //
 
         $rutas = Ruta::all();
 
@@ -66,7 +65,27 @@ class ViajeController extends Controller
             return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible para la combi ' . $ruta->combi['patente'] . '(cantidad de asientos disponibles:' . $ruta->combi['asientos'] . ')')->withInput();
         }
 
+        //If there is a trip with same ruta_id on the same day then
+        //check if time is between estimated time
 
+
+
+        $v_mismoDia  = Viaje::where('ruta_id', '=', $ruta->id)->where('fecha_salida', '=', $request->fecha_salida)->get();
+
+        $fecha_viaje = new Carbon($request->fecha_salida . $request->hora_salida);
+
+        foreach ($v_mismoDia as $viaje) {
+
+            $viajeDate = new CarbonImmutable($viaje->fecha_salida . $viaje->hora_salida);
+
+            if ($fecha_viaje->between(
+                $viajeDate->subHours($viaje->ruta->tiempo),
+                $viajeDate->addHours($viaje->ruta->tiempo)
+            )) {
+
+                return redirect()->to(route('viaje.create'))->with('combiOcupada', 'open');
+            };
+        };
 
         $viaje = Viaje::create([
             'nombre' => $request->nombre,
@@ -81,7 +100,7 @@ class ViajeController extends Controller
 
         ]);
 
-      return redirect()->to(route('viaje.create'))-> with('creado','open');
+        return redirect()->to(route('viaje.create'))->with('creado', 'open');
     }
 
     /**
@@ -106,8 +125,7 @@ class ViajeController extends Controller
     {
         $rutas = Ruta::all();
 
-        return view('entidades.viaje.editar', ['viaje' => $viaje, 'rutas'=> $rutas]);
-
+        return view('entidades.viaje.editar', ['viaje' => $viaje, 'rutas' => $rutas]);
     }
 
     /**
@@ -129,22 +147,35 @@ class ViajeController extends Controller
             'hora_salida' => 'required',
             'descripcion' => 'required'
         ]);
-       // dd($request);
+        // dd($request);
         $ruta = Ruta::where("id", "=", $request->ruta)->first();
 
 
         if ($ruta->combi['asientos'] < $request->cant_asientos) {
             //$parametros=['error'=>'la cantidad de asientos elegida es mayor a la disponible ','request'=>$request]
-            return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible para la combi ' . $ruta->combi['patente'] . '(cantidad de asientos disponibles:' . $ruta->combi['asientos'] .')')->withInput();
+            return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible para la combi ' . $ruta->combi['patente'] . '(cantidad de asientos disponibles:' . $ruta->combi['asientos'] . ')')->withInput();
         }
 
+        $v_mismoDia  = Viaje::where('ruta_id', '=', $ruta->id)->where('fecha_salida', '=', $request->fecha_salida)->get();
 
+        $fecha_viaje = new Carbon($request->fecha_salida . $request->hora_salida);
 
-        $viaje-> update ($request->all());
+        foreach ($v_mismoDia as $each) {
 
-        return redirect()->to(route('viaje.info', ['viaje' => $viaje->id]))-> with('modificado','open');
-       
+            $viajeDate = new CarbonImmutable($each->fecha_salida . $each->hora_salida);
 
+            if ($fecha_viaje->between(
+                $viajeDate->subHours($each->ruta->tiempo),
+                $viajeDate->addHours($each->ruta->tiempo)
+            )) {
+
+                return redirect()->to(route('viaje.info', ['viaje' => $viaje->id]))->with('combiOcupada', 'open');
+            };
+        };
+
+        $viaje->update($request->all());
+
+        return redirect()->to(route('viaje.info', ['viaje' => $viaje->id]))->with('modificado', 'open');
     }
 
     /**
@@ -157,14 +188,13 @@ class ViajeController extends Controller
     {
 
 
-        if(count($viaje->pasajes)>0){
-            return redirect() ->to(route('viaje.info', ['viaje' => $viaje]))-> with('nosepuedeeliminar','open');
-
+        if (count($viaje->pasajes) > 0) {
+            return redirect()->to(route('viaje.info', ['viaje' => $viaje]))->with('nosepuedeeliminar', 'open');
         }
-        $viaje-> delete();
+        $viaje->delete();
 
 
-        return redirect()->to(route('viaje.index'))-> with('eliminado',$viaje);
+        return redirect()->to(route('viaje.index'))->with('eliminado', $viaje);
     }
 
     public function search(Request $request)
@@ -185,13 +215,11 @@ class ViajeController extends Controller
             $ruta = Ruta::where('lugar_salida', '=', $salida->id)->where('lugar_llegada', '=', $llegada->id)->firstOrFail();
 
             $results = Viaje::where('ruta_id', '=', $ruta->id)
-                              ->where('fecha_salida', '=', $request->fecha_salida )->get();
-
+                ->where('fecha_salida', '=', $request->fecha_salida)->get();
         } catch (Exception $e) {
             $results = Collection::empty();
         };
 
-            return view('entidades.viaje.resultados', ['resultado'=> $results]);
-
+        return view('entidades.viaje.resultados', ['resultado' => $results]);
     }
 }

@@ -69,7 +69,7 @@
                     <div class="mt-4">
                         <x-label for="tiempo" :value="__('Tiempo estimado de viaje')" />
 
-                        <x-input id="tiempo" class="block mt-1 w-full" type="text" name="tiempo" :value="old('tiempo')" placeholder="ej, 6 hs"  required oninvalid="this.setCustomValidity('Por favor, ingrese el tiempo estimado del viaje')" oninput="setCustomValidity('')" />
+                        <x-input id="tiempo" class="block mt-1 w-full" type="number" name="tiempo" :value="old('tiempo')" placeholder="Tiempo estimado en hs"  required oninvalid="this.setCustomValidity('Por favor, ingrese el tiempo estimado del viaje')" oninput="setCustomValidity('')" />
                     </div>
                     <div class="mt-4">
                         <x-label for="kms" :value="__('Cantidad de kilometros aproximados')" />

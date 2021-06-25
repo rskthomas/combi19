@@ -12,7 +12,8 @@
             {{ __('Editar Viaje') }}{{$viaje->nombre}}
         </h2>
     </x-slot>
-  
+
+
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Content starts -->
@@ -47,9 +48,9 @@
                         <div class="col-12">
                             <select aria-label=".form-select-sm example"  id="ruta" name="ruta" :value="old('ruta',{{$viaje->ruta}})" required class="btn-lg btn-block text-sm text-gray-700 mt-2 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" >
                             <option selected  hidden value="{{$viaje->ruta->id}}">{{$viaje->ruta->salida->nombre}}-{{$viaje->ruta->llegada->nombre}}</option>
-                               
+
                                 @foreach ($rutas as $ruta)
-                                
+
                                 <option value="{{$ruta->id}}" class="mr-2 text-sm text-gray-700">{{$ruta->salida->nombre}}-{{$ruta->llegada->nombre}}(combi{{$ruta->combi->id}})</option>
                                 @endforeach
                             </select>
@@ -118,7 +119,7 @@
 
                             });
                         });
-                   
+
                         $(document).ready(function() {
 
                         document.getElementById("hora_salida").value="<?php echo $viaje["hora_salida"]; ?>";

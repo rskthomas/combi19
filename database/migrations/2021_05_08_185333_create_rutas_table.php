@@ -15,7 +15,7 @@ class CreateRutasTable extends Migration
     {
         Schema::create('rutas', function (Blueprint $table) {
             $table->id();
-            $table->string("tiempo");
+            $table->integer("tiempo");
             $table->string("kms");
             $table->foreignId('lugar_salida')
             ->nullable()
@@ -25,8 +25,8 @@ class CreateRutasTable extends Migration
             ->nullable()
             ->onDelete('set null')
             ->constrained('lugars');
-            
-            
+
+
             $table->foreignId('combi_id')
             ->nullable()
             ->onDelete('set null')
