@@ -31,10 +31,11 @@ class ComentarioController extends Controller
 
     {
 
-
         if (Auth::user()->comproPasaje) {
+
             return view('entidades.comentarios.alta');
-        } else return redirect()->to(RouteServiceProvider::HOME)->with('usuarioSinPasaje', 'open');
+        }
+        else return redirect()->to(RouteServiceProvider::HOME)->with('usuarioSinPasaje', 'open');
     }
 
 

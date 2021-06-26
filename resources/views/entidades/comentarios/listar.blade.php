@@ -14,10 +14,6 @@
 
     @endif
 
-
-
-
-
     @if ($resultado->isEmpty())
         <div class="alert alert-success text-center" role="alert">
             <span>No hay Comentarios disponibles, pruebe agregando uno </span>
@@ -45,7 +41,6 @@
                             <tbody id='comentario'>
                                 <tr>
                                     <td>{{ $comentario->autor }}</td>
-                                    {{-- Decidir si la descripcion se muestra solo en el show o aca, lo dejo en el show solamente, me parece mejor --}}
                                     <td >{{ $comentario->contenido }}</td>
 
 
