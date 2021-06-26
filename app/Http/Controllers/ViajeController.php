@@ -8,8 +8,7 @@ use App\Models\Lugar;
 use App\Models\Viaje;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
+
 
 class ViajeController extends Controller
 {
@@ -70,22 +69,9 @@ class ViajeController extends Controller
 
 
 
-        $v_mismoDia  = Viaje::where('ruta_id', '=', $ruta->id)->where('fecha_salida', '=', $request->fecha_salida)->get();
-
-        $fecha_viaje = new Carbon($request->fecha_salida . $request->hora_salida);
-
-        foreach ($v_mismoDia as $viaje) {
-
-            $viajeDate = new CarbonImmutable($viaje->fecha_salida . $viaje->hora_salida);
-
-            if ($fecha_viaje->between(
-                $viajeDate->subHours($viaje->ruta->tiempo),
-                $viajeDate->addHours($viaje->ruta->tiempo)
-            )) {
-
+        if (Viaje::seSuperpone($request->fecha_salida, $request->hora_salida, $request->ruta))
                 return redirect()->to(route('viaje.create'))->with('combiOcupada', 'open');
-            };
-        };
+
 
         $viaje = Viaje::create([
             'nombre' => $request->nombre,
@@ -156,22 +142,10 @@ class ViajeController extends Controller
             return redirect()->back()->withErrors('la cantidad de asientos elegida es mayor a la disponible para la combi ' . $ruta->combi['patente'] . '(cantidad de asientos disponibles:' . $ruta->combi['asientos'] . ')')->withInput();
         }
 
-        $v_mismoDia  = Viaje::where('ruta_id', '=', $ruta->id)->where('fecha_salida', '=', $request->fecha_salida)->get();
 
-        $fecha_viaje = new Carbon($request->fecha_salida . $request->hora_salida);
+        if (Viaje::seSuperpone($request->fecha_salida, $request->hora_salida, $request->ruta))
+        return redirect()->to(route('viaje.info', ['viaje' => $viaje->id]))->with('combiOcupada', 'open');
 
-        foreach ($v_mismoDia as $each) {
-
-            $viajeDate = new CarbonImmutable($each->fecha_salida . $each->hora_salida);
-
-            if ($fecha_viaje->between(
-                $viajeDate->subHours($each->ruta->tiempo),
-                $viajeDate->addHours($each->ruta->tiempo)
-            )) {
-
-                return redirect()->to(route('viaje.info', ['viaje' => $viaje->id]))->with('combiOcupada', 'open');
-            };
-        };
 
         $viaje->update($request->all());
 
@@ -222,4 +196,7 @@ class ViajeController extends Controller
 
         return view('entidades.viaje.resultados', ['resultado' => $results]);
     }
+
+
+
 }

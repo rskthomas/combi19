@@ -7,7 +7,8 @@ use App\Models\Ruta;
 use App\Models\Pasaje;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 class Viaje extends Model
 {
     use HasFactory;
@@ -62,7 +63,26 @@ class Viaje extends Model
 
 
 
+public static function seSuperpone(String $fecha_salida, String $hora_salida,String $ruta):bool{
 
+    $v_mismoDia  = Viaje::where('ruta_id', '=', $ruta)->where('fecha_salida' , '=', $fecha_salida)->get();
+
+        $fecha_viaje = new Carbon($fecha_salida . $hora_salida);
+
+        foreach ($v_mismoDia as $viaje) {
+
+            $viajeDate = new CarbonImmutable($viaje->fecha_salida . $viaje->hora_salida);
+
+            if ($fecha_viaje->between(
+                $viajeDate->subHours($viaje->ruta->tiempo * 2),
+                $viajeDate->addHours($viaje->ruta->tiempo * 2)
+            )) {
+
+                return true;
+            };
+        };
+        return false;
+}
 
 
 }
