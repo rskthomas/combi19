@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\TarjetaController;
 
 class PasajeController extends Controller
 {
@@ -35,10 +36,8 @@ class PasajeController extends Controller
      */
     public function create(Viaje $viaje)
     {
-      if(isset(Auth::user()->bloqueado)){
-            return Redirect::back()->with(['bloqueado','true']);
-
-
+        if (isset(Auth::user()->bloqueado)) {
+            return Redirect::back()->with(['bloqueado', 'true']);
         }
         $productos = Producto::all();
         $tarjeta = Auth::user()->tarjeta;
@@ -46,10 +45,9 @@ class PasajeController extends Controller
             'productos' => $productos, 'viaje' => $viaje
         ];
         if ($tarjeta) {
-           
         }
-   
-        return view('entidades.pasaje.alta',$data);
+
+        return view('entidades.pasaje.alta', $data);
     }
 
     /**
@@ -62,10 +60,10 @@ class PasajeController extends Controller
     {
         //
         $id =   Auth::user()->id;
-     
+    
+        if (!User::find($id)->isGold() || Auth::user()->tarjeta->vencida() || isset($request->nuevaTarjetaAgregada)) {
 
-        if (  !User::find($id)->isGold() || Auth::user()->tarjeta->vencida() ) {
-           
+
             $request->validate([
                 'number' => 'required|string|max:17|min:13|unique:tarjetas',
                 'name' => 'required|string|max:55',
@@ -74,10 +72,28 @@ class PasajeController extends Controller
                 'expiration_year' => 'required|string|max:4',
                 'expiration_month' => 'required|string|max:2',
             ]);
-            if($request->expiration_year < Date("Y",time()) ||
-            (($request->expiration_year == Date("Y",time()) && ($request->expiration_month < Date("m",time())))))
-            {
+            if (
+                $request->expiration_year < Date("Y", time()) ||
+                (($request->expiration_year == Date("Y", time()) && ($request->expiration_month < Date("m", time()))))
+            ) {
                 return Redirect::back()->withErrors("La tarjeta se encuentra vencida, por favor ingrese otra tarjeta ");
+            }
+            if (isset($request->serGold)) {
+
+                if (User::find($id)->isGold()) {
+                    User::find($id)->tarjeta->delete();
+                }
+
+                $tarjeta = Tarjeta::create([
+                    'name' => $request->name,
+                    'number' => $request->number,
+                    'cvc' => $request->cvc,
+                    'expiration_year' => $request->expiration_year,
+                    'expiration_month' => $request->expiration_month,
+
+                ]);
+
+                Auth::user()->asignarTarjeta($tarjeta);
             }
         }
 

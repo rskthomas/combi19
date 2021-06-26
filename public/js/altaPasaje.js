@@ -2,6 +2,8 @@ $(document).ready(function () {
   modificarTotales($("#totalPasaje").val());
 
   document.getElementById("botonContinuar").hidden = true;
+  document.getElementById( "opcionesNuevaTarjeta").hidden = false;
+  
 });
 
 $("#addproductos").click(function (e) {
@@ -40,3 +42,24 @@ function substraer(idproducto, precio) {
     modificarTotales("-" + precio);
   }
 }
+
+function addTarjeta(){
+  document.getElementById("nuevaTarjetaAgregada").value="1";
+  document.getElementById("nuevaTarjeta").hidden=false;
+  document.getElementById("nuevaTarjeta").disabled=false;
+  document.getElementById("tarjetaprecargada").hidden=true;
+  document.getElementById("botonCancelar").hidden=false;
+
+
+
+
+}
+$('#botonCancelar').click(function(){
+  document.getElementById("nuevaTarjetaAgregada").value="";
+  document.getElementById("nuevaTarjeta").hidden=true;
+  document.getElementById("tarjetaprecargada").hidden=false;
+
+
+})
+
+
