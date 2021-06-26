@@ -1,5 +1,6 @@
 $(document).ready(function () {
   modificarTotales($("#totalPasaje").val());
+  productos = {}
 
   document.getElementById("botonContinuar").hidden = true;
   document.getElementById( "opcionesNuevaTarjeta").hidden = false;
@@ -23,21 +24,42 @@ function modificarTotales(precio) {
   }
 }
 
-function agregar(idproducto, precio) {
+function agregar(idproducto, precio,nombre,descripcion) {
+ 
+
   concatenado = "cantidad" + idproducto;
   document.getElementById(concatenado).value++;
   modificartotal = "total" + idproducto;
-  document.getElementById(modificartotal).value = parseFloat(document.getElementById(modificartotal).value) + parseFloat(precio);
+  precio_total_productos=document.getElementById(modificartotal).value = parseFloat(document.getElementById(modificartotal).value) + parseFloat(precio);
+  
+  var productos=JSON.parse($("#productos").val())
+
+  productos[nombre]={"precio":precio,"id": idproducto,"totalProducto":precio_total_productos,"cantidad":document.getElementById(concatenado).value };
+ 
+  document.getElementById("productos").value = JSON.stringify(productos);
+
   document.getElementById("totalProductos").value = parseFloat(document.getElementById("totalProductos").value) + parseFloat(precio);
   modificarTotales(precio);
+  
+
 }
 
-function substraer(idproducto, precio) {
+function substraer(idproducto, precio,nombre) {
   concatenado = "cantidad" + idproducto;
   if (document.getElementById(concatenado).value > 0) {
     document.getElementById(concatenado).value--;
     modificartotal = "total" + idproducto;
-    document.getElementById(modificartotal).value = parseFloat(document.getElementById(modificartotal).value) - parseFloat(precio);
+    precio_total_productos=document.getElementById(modificartotal).value = parseFloat(document.getElementById(modificartotal).value) - parseFloat(precio);
+    var productos=JSON.parse($("#productos").val())
+    
+    if(document.getElementById(concatenado).value == 0){
+      delete(productos[nombre]);
+     }
+    else{
+    
+    productos[nombre]={"precio":precio,"id": idproducto,"totalProducto":precio_total_productos,"cantidad":document.getElementById(concatenado).value };
+  
+  }
     document.getElementById("totalProductos").value = parseFloat(document.getElementById("totalProductos").value) - parseFloat(precio);
     modificarTotales("-" + precio);
   }

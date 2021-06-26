@@ -54,6 +54,7 @@
         @else
         <input hidden id="gold" value="0">
         @endif
+        <input hidden id="productos" name="productos" value="{}">
 
 
         <div class=" max-w-7x100 mx-auto  w-full sm:max-w-screen-lg
