@@ -1,4 +1,5 @@
-<x-app-layout>
+<div style="background-color: rgb(66, 97, 114)">
+    <x-app-layout>
 
     @if (session()->has('popup'))
         <div class="alert alert-success" role="alert">
@@ -14,11 +15,9 @@
 
     @if (session()->has('usuarioSinPasaje'))
 
-
-        <div class="alert alert-warning alert-dismissable" role="alert" <i class="fa fa-text-width" aria-hidden="true"></i>
-            <button type="button" class="close" data-dismiss="alert">
-                <span > Debes haber viajado al menos una vez para comentar en la pagina </span> &times;</button>
-        </div>
+    <div class="alert alert-success text-center" role="alert">
+        <span>Debes haber viajado al menos una vez para comentar en la Pagina!</span>
+    </div>
 
 
     @endif
@@ -110,10 +109,23 @@
     </script>
 
 
+<br>
 
 
-    <hr {border: 0; height: 2px; border-top: 1px dashed black; border-bottom: 1px dashed black;}>
-    <hr border: 0; height: 2px; border-top: 1px dashed black; border-bottom: 1px dashed black;}>
-    @include('entidades.comentarios.vista');
+    @include('entidades.comentarios.vista')
+
+
+
 
 </x-app-layout>
+
+
+<footer class="page-footer font-small white">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2021 Copyright:
+      <a href="https://www.google.com" style="color:whitesmoke"> COMBI19.com</a>
+    </div>
+  </footer>
+
+  </div>
