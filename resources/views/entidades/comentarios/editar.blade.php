@@ -22,12 +22,9 @@
                     <div class="">
 
                         <x-label for="contenido " :value="__('Contenido del mensaje')" />
-                        <textarea name="contenido" id="contenido" rows="4" cols="30"></textarea>
-                        {{-- noseq  va aca --}}
 
+                        <textarea name="contenido" id="contenido" rows="4" cols="30" >{{ $comentario->contenido}} </textarea>
                     </div>
-
-                    {{-- faltaria actualizar la fecha de edition, o sea cambiarle la fecha de created at:( q nose si no se actualiza solo.. ??) --}}
 
                     <div class="flex items-center justify-end mt-4">
 

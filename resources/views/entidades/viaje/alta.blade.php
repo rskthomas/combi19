@@ -1,4 +1,5 @@
-<x-app-layout>
+<div style="background-color: rgb(66, 97, 114)">
+    <x-app-layout>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <link id="bs-css" href="{{ asset('css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
@@ -12,7 +13,7 @@
             {{ __('Crear Viaje') }}
         </h2>
     </x-slot>
-  
+
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Content starts -->
@@ -46,9 +47,9 @@
                         <div class="col-12">
                             <select aria-label=".form-select-sm example"  id="ruta" name="ruta" :value="old('ruta')" required class="btn-lg btn-block text-sm text-gray-700 mt-2 justify-end rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" >
                             <option selected disabled hidden> ----RUTA ----</option>
-                               
+
                                 @foreach ($rutas as $ruta)
-                                
+
                                 <option value="{{$ruta->id}}" class="mr-2 text-sm text-gray-700">{{$ruta->salida->nombre}}-{{$ruta->llegada->nombre}}(combi{{$ruta->combi->id}})</option>
                                 @endforeach
                             </select>
@@ -131,3 +132,17 @@
 
 
 </x-app-layout>
+
+<footer class="page-footer font-small white">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2021 Copyright:
+      <a href="https://www.google.com" style="color:whitesmoke"> COMBI19.com</a>
+    </div>
+  </footer>
+
+  </div>
+
+
+
+
