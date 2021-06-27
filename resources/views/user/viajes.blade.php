@@ -26,7 +26,8 @@
 
             <tbody id='pasajes' align="center">
                 <tr class="te">
-                    <td>{{ $pasaje->viaje->salida_formatted() }}
+                    <td>{{$pasaje->viaje->ruta->salida->nombre}} -
+                        {{ $pasaje->viaje->salida_formatted() }}
                     </br>
                     {{ $pasaje->viaje->hora_salida }} hs</td>
 

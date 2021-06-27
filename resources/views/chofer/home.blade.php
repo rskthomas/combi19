@@ -47,10 +47,10 @@
                                 </a>
                             </td>
                             <td>{{ $viaje->salida_formatted()}}
-                            @if(! Date::createFromFormat("d-m-Y", $viaje->fecha_salida) == Date::today() )
-                            <br>
-                            <p class="text-color-red"> Hoy! </p>
-                            @endif
+                                @if(! Date::createFromFormat("d-m-Y", $viaje->fecha_salida) == Date::today() )
+                                <br>
+                                <p class="text-color-red"> Hoy! </p>
+                                @endif
 
                             </td>
                             <td>{{ $viaje->hora_salida}}</td>
@@ -59,11 +59,11 @@
 
                             <td>
                                 <!-- Iniciar Viaje -->
-                                <a href="#">
+                                <a href="{{route('viaje.iniciar', ['viaje'=> $viaje])}}">
                                     <button type="button" class="btn btn-dark" title="IniciarViaje">
                                         Iniciar Viaje
                                     </button>
-                                    <a/>
+                                <a/>
                                     <!-- BOTON VER -->
                                     <a href="{{ route('viaje.info', ['viaje' => $viaje]) }}">
                                         <button type="button" class="btn btn-info" title="Ver Viaje">
@@ -77,7 +77,7 @@
                                             </svg>
 
                                         </button>
-                                        <a />
+                                    <a/>
 
 
                             </td>

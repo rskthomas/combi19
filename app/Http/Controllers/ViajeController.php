@@ -198,5 +198,11 @@ class ViajeController extends Controller
     }
 
 
+    public function iniciar(Viaje $viaje){
 
+        $pasajes = $viaje->pasajes()->paginate(10);
+
+        return view('entidades.viaje.iniciar')->with(['viaje'=> $viaje,
+                                                      'pasajes'=> $pasajes] );
+    }
 }

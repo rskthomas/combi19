@@ -284,7 +284,11 @@ Route::name('viaje.')
         Route::delete('{viaje}/delete', 'ViajeController@destroy')
             ->name('delete');
 
-
+        //-------------------------------------------------------------------------------------//
+        Route::get('{viaje}/iniciar', 'ViajeController@iniciar')
+            ->name('iniciar')
+            ->withoutmiddleware('role:administrator')
+            ->middleware('role:chofer');
 
         //-------------------------------------------------------------------------------------//
         Route::get('{viaje}/edit', 'ViajeController@edit')

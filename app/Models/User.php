@@ -53,11 +53,7 @@ class User extends Authenticatable
     {
         if ($this->hasRole('administrator')) return view('administrator.home');
 
-        else if ($this->hasRole('chofer')){
-
-            $viajes = $this->combi->ruta->viajes->where('fecha_salida')
-            return view('chofer.home')->with('viajes', );
-        }
+        else if ($this->hasRole('chofer')) return view('chofer.home')->with('viajes', $this->combi->ruta->viajes);
 
         else return view('user.search');
     }
