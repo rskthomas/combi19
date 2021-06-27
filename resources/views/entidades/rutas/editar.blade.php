@@ -1,3 +1,4 @@
+<div style="background-color: rgb(66, 97, 114)">
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
@@ -106,15 +107,20 @@
 
 
             </div>
-
-
-
             </form>
         </div>
     </div>
+</x-app-layout>
 
+<footer class="page-footer font-small white">
 
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2021 Copyright:
+      <a href="https://www.google.com" style="color:whitesmoke"> COMBI19.com</a>
+    </div>
+  </footer>
 
+  </div>
 
 
 </x-app-layout>

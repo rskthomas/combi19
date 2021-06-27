@@ -46,9 +46,9 @@ class PasajeController extends Controller
             'productos' => $productos, 'viaje' => $viaje
         ];
         if ($tarjeta) {
-           
+
         }
-   
+
         return view('entidades.pasaje.alta',$data);
     }
 
@@ -62,10 +62,10 @@ class PasajeController extends Controller
     {
         //
         $id =   Auth::user()->id;
-     
+
 
         if (  !User::find($id)->isGold() || Auth::user()->tarjeta->vencida() ) {
-           
+
             $request->validate([
                 'number' => 'required|string|max:17|min:13|unique:tarjetas',
                 'name' => 'required|string|max:55',
@@ -97,7 +97,8 @@ class PasajeController extends Controller
             $usuario =   User::find(Auth::id());
 
             $usuario->pasajes()->save($pasaje);
-        }
+            $usuario->asignarPasaje();
+            }
 
         return redirect()->to(RouteServiceProvider::HOME)->with('pasajeComprado', 'open');
     }

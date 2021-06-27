@@ -1,4 +1,6 @@
-<x-app-layout>
+<div style="background-color: rgb(66, 97, 114)">
+
+    <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
             {{ __('Crear un nuevo Producto') }}
@@ -76,3 +78,17 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
     integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous">
 </script>
+
+
+<footer class="page-footer font-small white">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2021 Copyright:
+      <a href="https://www.google.com" style="color:whitesmoke"> COMBI19.com</a>
+    </div>
+  </footer>
+
+  </div>
+
+
+

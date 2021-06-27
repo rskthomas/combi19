@@ -1,4 +1,5 @@
-<x-app-layout>
+<div style="background-color: rgb(66, 97, 114)">
+    <x-app-layout>
 
     @if (session()->has('popup'))
         <div class="alert alert-success" role="alert">
@@ -10,6 +11,15 @@
         <div class="alert alert-success text-center" role="alert">
             <span>Se ha comprado exitosamente el pasaje!</span>
         </div>
+    @endif
+
+    @if (session()->has('usuarioSinPasaje'))
+
+    <div class="alert alert-success text-center" role="alert">
+        <span>Debes haber viajado al menos una vez para comentar en la Pagina!</span>
+    </div>
+
+
     @endif
 
 
@@ -29,21 +39,23 @@
 
             <div class="form-group ">
                 <x-label for="departure" :value="__('Lugar de salida')" />
-                <input oninput="this.value = this.value.toUpperCase()" id="search" type="text" name="departure" placeholder="Busque el lugar de origen" :value="old('departure')"
+                <input oninput="this.value = this.value.toUpperCase()" id="search" type="text" name="departure"
+                    placeholder="Busque el lugar de origen" :value="old('departure')"
                     class="typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     required />
             </div>
 
             <div class="form-group">
                 <x-label for="destination" :value="__('Lugar de destino')" />
-                <input oninput="this.value = this.value.toUpperCase()" id="search" type="text" name="destination" placeholder="Busque el lugar de destino" :value="old('destination')"
+                <input oninput="this.value = this.value.toUpperCase()" id="search" type="text" name="destination"
+                    placeholder="Busque el lugar de destino" :value="old('destination')"
                     class=" w-auto typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     required />
             </div>
 
             <div class="form-group">
                 <x-label for="fecha_salida" :value="__('Fecha de Salida')" />
-                <x-datepicker :name="'fecha_salida'"  >
+                <x-datepicker :name="'fecha_salida'">
                 </x-datepicker>
             </div>
 
@@ -98,4 +110,24 @@
 
     </script>
 
+
+<br>
+
+
+    @include('entidades.comentarios.vista')
+
+
+
+
 </x-app-layout>
+
+
+<footer class="page-footer font-small white">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2021 Copyright:
+      <a href="https://www.google.com" style="color:whitesmoke"> COMBI19.com</a>
+    </div>
+  </footer>
+
+  </div>

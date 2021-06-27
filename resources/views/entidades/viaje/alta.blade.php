@@ -1,4 +1,5 @@
-<x-app-layout>
+<div style="background-color: rgb(66, 97, 114)">
+    <x-app-layout>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <link id="bs-css" href="{{ asset('css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
@@ -71,8 +72,6 @@
                     </div>
 
 
-
-
                     <br>
                     <x-label for="salida" :value="__('Dia de salida')" />
 
@@ -82,9 +81,6 @@
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
-
-
-
 
                     <div class="mt-3">
                         <x-label for="hora_salida" :value="__('Hora de salida')" />
@@ -112,11 +108,7 @@
                     </div>
 
 
-
-
                     <!--javascript code which enables the datepicker -->
-
-
 
 
                     <script type="text/javascript">
@@ -146,3 +138,17 @@
 
 
 </x-app-layout>
+
+<footer class="page-footer font-small white">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2021 Copyright:
+      <a href="https://www.google.com" style="color:whitesmoke"> COMBI19.com</a>
+    </div>
+  </footer>
+
+  </div>
+
+
+
+

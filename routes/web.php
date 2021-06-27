@@ -2,13 +2,13 @@
 
 //this line below imports routes from auth.php
 require __DIR__ . '/auth.php';
-
+use App\Models\Comentario;
+use App\Models\Producto;
 use App\Models\Role;
 use App\Models\Ruta;
 use App\Models\User;
 use App\Models\Combi;
 use App\Models\Lugar;
-use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RutaController;
@@ -115,6 +115,47 @@ Route::name('combi.')
         Route::delete('/{combi}/delete', 'CombiController@destroy')
             ->name('delete');
     });
+
+    //Rutas para los viajeros
+
+    //----------------COMENTARIOS---------------------
+
+Route::name('comentario.')
+->prefix('/comentario')
+->middleware('role:user')
+->group(function () {
+
+    //-------------------------------------------------------------//
+    Route::get('/alta', 'ComentarioController@create')
+        ->name('create');
+
+    //------------------------------------------------------------//
+
+    Route::post('/alta/store', 'ComentarioController@store')
+        ->name('store');
+
+
+    //------------------------------------------------------------//
+    Route::get('/listar', 'ComentarioController@index')
+        ->name('index');
+
+    //-------------------------------------------------------------//
+    Route::get('/{comentario}', 'ComentarioController@show')
+        ->name('info');
+
+    //-------------------------------------------------------------------------------------//
+    Route::delete('{comentario}/delete', 'ComentarioController@destroy')
+        ->name('delete');
+
+
+    //-------------------------------------------------------------------------------------//
+    Route::get('{comentario}/edit', 'ComentarioController@edit')
+        ->name('edit');
+
+    //-------------------------------------------------------------------------------------//
+    Route::put('{comentario}/update', 'ComentarioController@update')
+        ->name('update');
+});
 
 //Rutas para los choferes
 
