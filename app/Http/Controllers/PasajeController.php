@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
+use DateTimeZone;
 use App\Models\User;
 use App\Models\Viaje;
 use App\Models\Pasaje;
@@ -169,6 +171,19 @@ class PasajeController extends Controller
      */
     public function destroy(Pasaje $pasaje)
     {
-        //
-    }
+        $fecha=date_create_from_format('d-m-Y H:i',$pasaje->viaje->fecha_salida.' '.$pasaje->viaje->hora_salida);
+                    $dtz=new DateTimeZone('America/Argentina/Buenos_Aires');
+                    
+                    if(!date_modify($fecha,"+48 hour") > new DateTime('now',$dtz)){
+                        $mensaje= "Su pasaje ha sido eliminado y se le ha devuelto el 50% del pasaje (".(($pasaje->total_compra)/2).")";
+                    }else{
+                        $mensaje= "Su pasaje ha sido eliminado y se le ha devuelto el valor del pasaje ($".$pasaje->total_compra.")";
+                    }
+           
+
+        $pasaje->delete();
+
+        return redirect()->to(route('user.viajes',['user'=>Auth::user()]))
+        ->with('mensaje',$mensaje);
+}
 }
