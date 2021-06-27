@@ -187,6 +187,7 @@ Route::name('chofer.')
         //-----------------------------------------------------//
         Route::delete('/{chofer}/delete', 'ChoferesController@destroy')
             ->name('delete');
+
     });
 
 
