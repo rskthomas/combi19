@@ -51,12 +51,13 @@ class User extends Authenticatable
 
     public function home()
     {
-
         if ($this->hasRole('administrator')) return view('administrator.home');
 
-        //if ($this->hasRole('administrator')) return view('user.search');
+        else if ($this->hasRole('chofer')){
 
-        else if ($this->hasRole('chofer'))  return view('chofer.home');
+            $viajes = $this->combi->ruta->viajes->where('fecha_salida')
+            return view('chofer.home')->with('viajes', );
+        }
 
         else return view('user.search');
     }
