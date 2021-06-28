@@ -1,6 +1,7 @@
 
 <div style="background-color: rgb(66, 97, 114)">
     <x-app-layout>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
             {{ __('Listar combis') }}
@@ -20,11 +21,12 @@
     @endif
 
     @if($resultado->isEmpty())
-    <div class="alert alert-success text-center" role="alert">
-        <span>No hay combis disponibles, pruebe agregando una </span>
-    </div>
 
-    @else
+        <div class="alert alert-success text-center" role="alert">
+        <span>No hay combis disponibles, pruebe agregando una </span>
+        </div>
+
+     @else
 
     <div class="mt-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -95,21 +97,16 @@
                     @endforeach
                 </table>
 
-
                 <div class="container">
                     {{ $resultado->links() }}
                 </div>
             </div>
 
-
         </div>
-
     </div>
-    @endif
+@endif
+
 </x-app-layout>
-
-
-
     <footer class="page-footer font-small white">
 
         <!-- Copyright -->
@@ -117,5 +114,4 @@
           <a href="https://www.google.com" style="color:whitesmoke"> COMBI19.com</a>
         </div>
       </footer>
-
       </div>
