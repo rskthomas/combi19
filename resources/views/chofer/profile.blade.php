@@ -82,6 +82,7 @@
     <div class="footer-copyright text-center py-3">© 2021 Copyright:
       <a href="https://www.google.com" style="color:whitesmoke"> COMBI19.com</a>
     </div>
+
   </footer>
 
   </div>
