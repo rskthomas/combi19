@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comentario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 
@@ -17,7 +18,7 @@ class ComentarioController extends Controller
     public function index()
     {
         //$resultado = Comentario::paginate(5);
-        $resultado = \ DB::table('comentarios')->select('comentarios.*')->where('autor','=' ,Auth::user()->name)->paginate(5);
+        $resultado = DB::table('comentarios')->select('comentarios.*')->where('autor','=' ,Auth::user()->name)->paginate(5);
 
         return view('entidades.comentarios.listar')->with('resultado', $resultado);
     }
