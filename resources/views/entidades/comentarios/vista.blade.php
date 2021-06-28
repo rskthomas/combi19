@@ -4,8 +4,8 @@
         <table style="font-family: Arial, Helvetica, sans-serif">
         <tbody id='comentario'>
             <tr>
-                <td > {{ $comentario->autor }} Comento: </td>
-                <td style="font-family:Italica" >{{  $comentario->contenido }}  </td>
+                <td >  <b> {{ $comentario->autor }} </b> Comento: </td>
+                <td style="font-family:Italica" > <em>{{  $comentario->contenido }} </em> </td>
                 <td> {{ $comentario->created_at }}</td>
             </tr>
         </tbody>
