@@ -52,7 +52,7 @@
 
                             <td>
                                 @isset($combi->chofer)
-                                <a href="{{ route('chofer.info', ['chofer' => $combi->chofer]) }}">
+                                <a href="{{ route('user.info', ['user' => $combi->chofer]) }}">
                                     {{ $combi->chofer->name }}
                                     @else
                                     Libre

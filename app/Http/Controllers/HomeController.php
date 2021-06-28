@@ -16,13 +16,14 @@ class HomeController extends Controller
 
     public function create()
 
-    {    $comentarios =  DB::table('comentarios')->select('comentarios.*')->orderBy('created_at','DESC')->paginate(5);
+    {    $comentarios = DB::table('comentarios')->select('comentarios.*')->orderBy('created_at','DESC')->paginate(5);
 
         if (Auth::guest()) return view('user.search')->with('comentarios', $comentarios);
 
         else {
 
             $user = User::find(auth()->user()->id);
+
             return $user->home()->with('comentarios',$comentarios);
         }
     }
