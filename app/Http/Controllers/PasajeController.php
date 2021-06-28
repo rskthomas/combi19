@@ -50,7 +50,7 @@ class PasajeController extends Controller
 
         }*/
 
-        return view('entidades.pasaje.alta',$data);
+        return view('entidades.pasaje.alta', $data);
     }
 
     /**
@@ -63,11 +63,11 @@ class PasajeController extends Controller
     {
         //
         $id =   Auth::user()->id;
-      
-      
+
+
         if (!User::find($id)->isGold() || Auth::user()->tarjeta->vencida() || isset($request->nuevaTarjetaAgregada)) {
 
-           
+
             $request->validate([
                 'number' => 'required|string|max:17|min:13|unique:tarjetas',
                 'name' => 'required|string|max:55',
@@ -83,7 +83,7 @@ class PasajeController extends Controller
                 return Redirect::back()->withErrors("La tarjeta se encuentra vencida, por favor ingrese otra tarjeta ");
             }
             if (isset($request->serGold)) {
-                
+
 
                 if (User::find($id)->isGold()) {
                     User::find($id)->tarjeta->delete();
@@ -95,12 +95,11 @@ class PasajeController extends Controller
                     'cvc' => $request->cvc,
                     'expiration_year' => $request->expiration_year,
                     'expiration_month' => $request->expiration_month,
-                   
+
 
                 ]);
 
                 Auth::user()->asignarTarjeta($tarjeta);
-              
             }
         }
 
@@ -113,7 +112,7 @@ class PasajeController extends Controller
                 'total_productos' => $request->totalProductos,
                 'total_pasaje' => $request->totalPasaje,
                 'total_descuentos' => $request->totalDescuentos,
-                'productos'=>$request->productos,
+                'productos' => $request->productos,
                 'viaje_id' => $viaje->id,
                 'user_id' => $id,
 
@@ -124,7 +123,7 @@ class PasajeController extends Controller
 
             $usuario->pasajes()->save($pasaje);
             $usuario->asignarPasaje();
-            }
+        }
 
         return redirect()->to(RouteServiceProvider::HOME)->with('pasajeComprado', 'open');
     }
@@ -139,7 +138,7 @@ class PasajeController extends Controller
     {
         //
 
-        return view('entidades.pasaje.info', ['pasaje' => $pasaje,'productos'=>json_decode($pasaje->productos,true)]);
+        return view('entidades.pasaje.info', ['pasaje' => $pasaje, 'productos' => json_decode($pasaje->productos, true)]);
     }
 
     /**
@@ -173,19 +172,20 @@ class PasajeController extends Controller
      */
     public function destroy(Pasaje $pasaje)
     {
-        $fecha=date_create_from_format('d-m-Y H:i',$pasaje->viaje->fecha_salida.' '.$pasaje->viaje->hora_salida);
-                    $dtz=new DateTimeZone('America/Argentina/Buenos_Aires');
-                    
-                    if(!date_modify($fecha,"+48 hour") > new DateTime('now',$dtz)){
-                        $mensaje= "Su pasaje ha sido eliminado y se le ha devuelto el 50% del pasaje (".(($pasaje->total_compra)/2).")";
-                    }else{
-                        $mensaje= "Su pasaje ha sido eliminado y se le ha devuelto el valor del pasaje ($".$pasaje->total_compra.")";
-                    }
-           
+        $fecha = date_create_from_format('d-m-Y H:i', $pasaje->viaje->fecha_salida . ' ' . $pasaje->viaje->hora_salida);
+        $dtz = new DateTimeZone('America/Argentina/Buenos_Aires');
+        $fecha_actual = new DateTime('now', $dtz);
+
+        if (date_modify($fecha_actual, "+48 hour") > ($fecha)) {
+            $mensaje = "Su pasaje ha sido eliminado y se le ha devuelto el 50% del pasaje (" . (($pasaje->total_compra) / 2) . ")";
+        } else {
+            $mensaje = "Su pasaje ha sido eliminado y se le ha devuelto el valor del pasaje ($" . $pasaje->total_compra . ")";
+        }
+
 
         $pasaje->delete();
 
-        return redirect()->to(route('user.viajes',['user'=>Auth::user()]))
-        ->with('mensaje',$mensaje);
-}
+        return redirect()->to(route('user.viajes', ['user' => Auth::user()]))
+            ->with('mensaje', $mensaje);
+    }
 }

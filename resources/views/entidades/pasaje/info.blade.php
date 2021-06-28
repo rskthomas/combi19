@@ -159,9 +159,11 @@
                     <?php
                     $fecha=date_create_from_format('d-m-Y H:i',$pasaje->viaje->fecha_salida.' '.$pasaje->viaje->hora_salida);
                     $dtz=new DateTimeZone('America/Argentina/Buenos_Aires');
-                    
-                    if(!date_modify($fecha,"+48 hour") > new DateTime('now',$dtz)){
+                    $fecha_actual= new DateTime('now',$dtz);
+                  
+                    if(date_modify($fecha_actual,"+48 hour")>($fecha)){
                         echo "Su viaje esta proximo a realizarse, se le devolvera el 50% del valor del pasaje($".(($pasaje->total_compra)/2).")";
+                     
                     }else{
                         echo "Se le devolvera  el valor del pasaje ($".$pasaje->total_compra.")";
                     }
