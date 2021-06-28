@@ -26,5 +26,6 @@ class Tarjeta extends Model
     {
         return ($this->expiration_year < Date("Y",time()) ||(($this->expiration_year == Date("Y",time()) && ($this->expiration_month > Date("m",time()))))) ;
     }
+   
 
 }

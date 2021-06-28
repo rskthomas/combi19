@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
+use DateTimeZone;
 use App\Models\User;
 use App\Models\Viaje;
 use App\Models\Pasaje;
@@ -11,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\TarjetaController;
 
 class PasajeController extends Controller
 {
@@ -35,17 +38,15 @@ class PasajeController extends Controller
      */
     public function create(Viaje $viaje)
     {
-      if(isset(Auth::user()->bloqueado)){
-            return Redirect::back()->with(['bloqueado','true']);
-
-
+        if (isset(Auth::user()->bloqueado)) {
+            return Redirect::back()->with(['bloqueado', 'true']);
         }
         $productos = Producto::all();
         $tarjeta = Auth::user()->tarjeta;
         $data = [
             'productos' => $productos, 'viaje' => $viaje
         ];
-        if ($tarjeta) {
+        if ($tarjeta) { //??????????????????
 
         }
 
@@ -62,10 +63,11 @@ class PasajeController extends Controller
     {
         //
         $id =   Auth::user()->id;
+      
+      
+        if (!User::find($id)->isGold() || Auth::user()->tarjeta->vencida() || isset($request->nuevaTarjetaAgregada)) {
 
-
-        if (  !User::find($id)->isGold() || Auth::user()->tarjeta->vencida() ) {
-
+           
             $request->validate([
                 'number' => 'required|string|max:17|min:13|unique:tarjetas',
                 'name' => 'required|string|max:55',
@@ -74,10 +76,31 @@ class PasajeController extends Controller
                 'expiration_year' => 'required|string|max:4',
                 'expiration_month' => 'required|string|max:2',
             ]);
-            if($request->expiration_year < Date("Y",time()) ||
-            (($request->expiration_year == Date("Y",time()) && ($request->expiration_month < Date("m",time())))))
-            {
+            if (
+                $request->expiration_year < Date("Y", time()) ||
+                (($request->expiration_year == Date("Y", time()) && ($request->expiration_month < Date("m", time()))))
+            ) {
                 return Redirect::back()->withErrors("La tarjeta se encuentra vencida, por favor ingrese otra tarjeta ");
+            }
+            if (isset($request->serGold)) {
+                
+
+                if (User::find($id)->isGold()) {
+                    User::find($id)->tarjeta->delete();
+                }
+
+                $tarjeta = Tarjeta::create([
+                    'name' => $request->name,
+                    'number' => $request->number,
+                    'cvc' => $request->cvc,
+                    'expiration_year' => $request->expiration_year,
+                    'expiration_month' => $request->expiration_month,
+                   
+
+                ]);
+
+                Auth::user()->asignarTarjeta($tarjeta);
+              
             }
         }
 
@@ -86,11 +109,14 @@ class PasajeController extends Controller
             $pasaje = Pasaje::create([
                 'asiento' => $viaje->siguienteAsiento(),
                 'estado' => 'pendiente',
-                'total_pasaje' => $request->totalCompra,
+                'total_compra' => $request->totalCompra,
                 'total_productos' => $request->totalProductos,
-                'productos' => "{}",
+                'total_pasaje' => $request->totalPasaje,
+                'total_descuentos' => $request->totalDescuentos,
+                'productos'=>$request->productos,
                 'viaje_id' => $viaje->id,
                 'user_id' => $id,
+
 
 
             ]);
@@ -113,7 +139,7 @@ class PasajeController extends Controller
     {
         //
 
-        return view('entidades.pasaje.info', ['pasaje' => $pasaje]);
+        return view('entidades.pasaje.info', ['pasaje' => $pasaje,'productos'=>json_decode($pasaje->productos,true)]);
     }
 
     /**
@@ -147,6 +173,19 @@ class PasajeController extends Controller
      */
     public function destroy(Pasaje $pasaje)
     {
-        //
-    }
+        $fecha=date_create_from_format('d-m-Y H:i',$pasaje->viaje->fecha_salida.' '.$pasaje->viaje->hora_salida);
+                    $dtz=new DateTimeZone('America/Argentina/Buenos_Aires');
+                    
+                    if(!date_modify($fecha,"+48 hour") > new DateTime('now',$dtz)){
+                        $mensaje= "Su pasaje ha sido eliminado y se le ha devuelto el 50% del pasaje (".(($pasaje->total_compra)/2).")";
+                    }else{
+                        $mensaje= "Su pasaje ha sido eliminado y se le ha devuelto el valor del pasaje ($".$pasaje->total_compra.")";
+                    }
+           
+
+        $pasaje->delete();
+
+        return redirect()->to(route('user.viajes',['user'=>Auth::user()]))
+        ->with('mensaje',$mensaje);
+}
 }

@@ -51,9 +51,10 @@
         @csrf
         @if(Auth::user()->isGold() && !Auth::user()->tarjeta->vencida() )
         <input hidden id="gold" value="1">
-        @else 
+        @else
         <input hidden id="gold" value="0">
         @endif
+        <input hidden id="productos" name="productos" value="{}">
 
 
         <div class=" max-w-7x100 mx-auto  w-full sm:max-w-screen-lg
@@ -151,19 +152,38 @@
                     <hr>
                     <!-- Si el usuario es gold, usar la tarjeta guardada-->
                     @if (Auth::user()->isGold() && !Auth::user()->tarjeta->vencida())
+                    <div class="container" id="tarjetaprecargada">
+                        <x-label for="tarjeta" class="text-1x1 " :value="__('Tarjeta a utilizar:')" />
 
-                    <x-label for="tarjeta" class="text-1x1 " :value="__('Tarjeta a utilizar:')" />
 
-                    <div class=" w-50 max-w-1xl sm:px-2 lg:px-0 w-50 sm:max-w-screen-lg
+                        <div class=" w-50 max-w-1xl sm:px-2 lg:px-0 w-50 sm:max-w-screen-lg
                      bg-white shadow-md overflow-hidden sm:rounded-lg text-secondary">
 
-                        <p class="mt-6 text-3xl text-center ">{{ '**** **** **** ' . substr(Auth::user()->tarjeta->number , -4) }}</p>
-                        <p class="mt-6 text-1xl text-center">{{strtoupper(Auth::user()->name) }}</p>
+                            <p class="mt-6 text-3xl text-center ">{{ '**** **** **** ' . substr(Auth::user()->tarjeta->number , -4) }}</p>
+                            <p class="mt-6 text-1xl text-center">{{strtoupper(Auth::user()->tarjeta->name) }}</p>
 
+
+
+                        </div>
+                        <div class="flex items-center justify-end mt-4">
+
+
+                            <x-button type="button" onclick="addTarjeta()">
+                                {{ __('Elegir otra tarjeta') }}
+                            </x-button>
+                        </div>
 
                     </div>
-
-
+                    @include('/entidades/pasaje/pagarPasaje')
+                    <SCRIPT type="text/javascript">
+                        
+                        document.getElementById("nuevaTarjeta").disabled = true;
+                        document.getElementById("nuevaTarjeta").hidden = true;
+                        document.getElementById("name").required= false;
+                        document.getElementById("number").required = false;
+                       
+                        
+                    </script>
                 </div>
                 @else
                 @if(Auth::user()->isGold() && Auth::user()->tarjeta->vencida())
@@ -172,7 +192,6 @@
                     <span>Su tarjeta se encuentra vencida, por favor ingrese una nueva tarjeta </span>
                 </div>
                 @endif
-
 
                 @include('/entidades/pasaje/pagarPasaje')
 

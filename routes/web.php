@@ -75,6 +75,8 @@ Route::name('user.')
         ->name('viajes')
         ->withoutMiddleware('role:administrator')
         ->middleware('auth');
+
+        
     });
 
 

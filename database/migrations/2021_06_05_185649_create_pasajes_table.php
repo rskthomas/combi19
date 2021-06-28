@@ -19,8 +19,10 @@ class CreatePasajesTable extends Migration
             $table->integer("asiento");
             $table->string("estado");
             $table->json("productos");
-            $table->double("total_pasaje");
+            $table->double("total_compra");
             $table->double("total_productos");
+            $table->double("total_descuentos");
+            $table->double("total_pasaje");
             $table->foreignId('viaje_id')
             ->nullable()
             ->onDelete('SET NULL')

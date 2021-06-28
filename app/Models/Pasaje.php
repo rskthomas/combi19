@@ -11,7 +11,7 @@ class Pasaje extends Model
     use HasFactory;
     protected $fillable = [
         'asiento','estado','productos','total_pasaje','total_productos',
-        'viaje_id'
+        'viaje_id','total_descuentos','total_compra'
     ];
     public function viaje()
     {
