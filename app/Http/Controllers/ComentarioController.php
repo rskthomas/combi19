@@ -21,6 +21,9 @@ class ComentarioController extends Controller
         $resultado = DB::table('comentarios')->select('comentarios.*')->where('autor','=' ,Auth::user()->name)->paginate(5);
 
         return view('entidades.comentarios.listar')->with('resultado', $resultado);
+
+
+
     }
 
     /**
