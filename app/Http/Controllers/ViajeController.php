@@ -143,7 +143,7 @@ class ViajeController extends Controller
         }
 
 
-        if (Viaje::seSuperpone($request->fecha_salida, $request->hora_salida, $request->ruta))
+        if (Viaje::seSuperpone($request->fecha_salida, $request->hora_salida, $request->ruta,$viaje->id))
         return redirect()->to(route('viaje.info', ['viaje' => $viaje->id]))->with('combiOcupada', 'open');
 
 
