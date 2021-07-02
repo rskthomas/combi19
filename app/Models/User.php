@@ -121,7 +121,7 @@ class User extends Authenticatable
 
     public function misViajes(){
 
-        if (isSet ($this->combi)){
+        if (isSet ($this->combi->ruta)){
 
             return $this->combi->ruta->viajes->where('estado', 'pendiente');
 
