@@ -50,22 +50,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function home()
-    {
-        if ($this->hasRole('administrator')) return view('administrator.home');
-
-        else if ($this->hasRole('chofer')){
-
-            if (isSet($this->combi)){
-                $viajes = $this->combi->ruta->viajes;
-            }else $viajes = null;
-
-
-            return view('chofer.home')->with('viajes',$viajes );
-        }
-
-        else return view('user.search');
-    }
 
     public function profile()
     {
@@ -133,5 +117,16 @@ class User extends Authenticatable
     public function pasajes()
     {
         return $this->hasMany(Pasaje::class);
+    }
+
+    public function misViajes(){
+
+        if (isSet ($this->combi)){
+
+            return $this->combi->ruta->viajes;
+
+        }else return null;
+
+
     }
 }

@@ -37,13 +37,12 @@ Route::name('home')
     ->group(function () {
 
         //--------------------------Home for all users----------------------------------------------------//
-        Route::get('/', 'HomeController@create');
+        Route::get('', 'HomeController@create');
 
         //--------------------------autocomplete API----------------------------------------------------//
         Route::get('api/lugares/find', 'HomeController@getAutocompleteData')
             ->name('.autocomplete');
-        //--------------------------search for debug----------------------------------------------------//
-        Route::get('/', 'HomeController@create');
+
     });
 
 
@@ -433,6 +432,11 @@ Route::name('pasaje.')
 
         //-------------------------------------------------------------------------------------//
         Route::put('{pasaje}/update', [PasajeController::class, 'update'])->name('update');
+
+        //-------------------------------------------------------------------------------------//
+        Route::get('/{pasaje}/cuestionario', 'PasajeController@getCuestionario')
+            ->name('cuestionario')
+            ->withoutMiddleware('role:chofer');
     });
 
 //--------------TARJETA-------------------
