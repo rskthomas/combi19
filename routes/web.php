@@ -76,7 +76,7 @@ Route::name('user.')
         ->withoutMiddleware('role:administrator')
         ->middleware('auth');
 
-        
+
     });
 
 
@@ -124,17 +124,18 @@ Route::name('combi.')
 
 Route::name('comentario.')
 ->prefix('/comentario')
-->middleware('role:user')
 ->group(function () {
 
     //-------------------------------------------------------------//
     Route::get('/alta', 'ComentarioController@create')
-        ->name('create');
+        ->name('create')
+        ->middleware('role:user');
 
     //------------------------------------------------------------//
 
     Route::post('/alta/store', 'ComentarioController@store')
-        ->name('store');
+        ->name('store')
+        ->middleware('role:user');
 
 
     //------------------------------------------------------------//
@@ -147,6 +148,7 @@ Route::name('comentario.')
 
     //-------------------------------------------------------------------------------------//
     Route::delete('{comentario}/delete', 'ComentarioController@destroy')
+        ->middleware('auth')
         ->name('delete');
 
 
