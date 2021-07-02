@@ -182,7 +182,7 @@ class PasajeController extends Controller
             $mensaje = "Su pasaje ha sido eliminado y se le ha devuelto el valor del pasaje ($" . $pasaje->total_compra . ")";
         }
 
-
+        // setear en cancelado!!!!!!!!!!!!!!!!!!!!
         $pasaje->delete();
 
         return redirect()->to(route('user.viajes', ['user' => Auth::user()]))

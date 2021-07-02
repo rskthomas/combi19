@@ -40,7 +40,7 @@
                     <td >{{ $pasaje->viaje->ruta->llegada->nombre }}</td>
                     <td class="font-black " >{{ $pasaje->asiento }}</td>
                     <td >{{ $pasaje->estado }} </td>
-                    <td class="table-success text-center">{{ $pasaje->total_pasaje }}</td>
+                    <td class="table-success text-center">{{ $pasaje->total_compra }}</td>
                 </tr>
             </tbody>
 
