@@ -48,9 +48,13 @@
                             <td>
 
                                 <!-- Tomar cuestionarip -->
-                             <button href="#" type="button" class="btn btn-dark" title="IniciarViaje">
-                                   Iniciar Cuestionario
-                              </button>
+                                 <!-- Iniciar Viaje -->
+                                 <a href="{{route('pasaje.cuestionario', ['pasaje'=> $viaje])}}">
+                                    <button type="button" class="btn btn-dark" title="IniciarViaje">
+                                        Iniciar Cuestionario
+                                    </button>
+                                </a>
+
 
                                 <!-- BOTON VER -->
                                 <a href="{{ route('user.info', ['user' => $pasaje->usuario]) }}">

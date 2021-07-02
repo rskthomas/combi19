@@ -37,7 +37,7 @@ Route::name('home')
     ->group(function () {
 
         //--------------------------Home for all users----------------------------------------------------//
-        Route::get('', 'HomeController@create');
+        Route::get('/', 'HomeController@create');
 
         //--------------------------autocomplete API----------------------------------------------------//
         Route::get('api/lugares/find', 'HomeController@getAutocompleteData')

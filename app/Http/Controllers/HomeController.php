@@ -18,7 +18,7 @@ class HomeController extends Controller
         $comentarios = DB::table('comentarios')->select('comentarios.*')->orderBy('created_at', 'DESC')->paginate(5);
         if (Auth::check()) {
 
-            $user = Auth::user();
+            $user = User::find(Auth::id());
             switch ($user->roles[0]->name) {
                 case 'administrator':
                     return view('administrator.home');

@@ -188,4 +188,10 @@ class PasajeController extends Controller
         return redirect()->to(route('user.viajes', ['user' => Auth::user()]))
             ->with('mensaje', $mensaje);
     }
+
+    public function getCuestionario(Pasaje $pasaje){
+
+        return view('entidades.pasaje.cuestionario')->with('pasaje', $pasaje);
+
+    }
 }

@@ -30,7 +30,7 @@ class ChoferesController extends Controller
     public function destroy(User $chofer)
     {
 
-        if (isset($chofer->combi)) {
+    if (isset($chofer->combi)) {
             $key = 'tienecombi';
         } else {
 
