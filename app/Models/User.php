@@ -123,7 +123,7 @@ class User extends Authenticatable
 
         if (isSet ($this->combi)){
 
-            return $this->combi->ruta->viajes;
+            return $this->combi->ruta->viajes->where('estado', 'pendiente');
 
         }else return null;
 

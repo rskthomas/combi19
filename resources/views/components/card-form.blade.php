@@ -18,13 +18,13 @@
 <div  id="nuevaTarjeta">
 <form method="POST" action="{{ route('tarjeta.store') }}" name="formularioTarjeta" >
     @csrf
- 
+
 
 
     <div class="row card p-3" >
 
         <x-auth-validation-errors class="mb-4 justify-center" :errors="$errors" class=" pl-4 "/>
-       
+
 
 
         <div class="col-sm-12 mt-3">
@@ -73,11 +73,11 @@
         </div>
         <div class="align-self-end" id="opcionesNuevaTarjeta" hidden  >
             <input hidden id="nuevaTarjetaAgregada" name="nuevaTarjetaAgregada">
-       
-       
+
+
             <input class="form-check-input" type="checkbox"  id="serGold" name="serGold"  value="1" checked>
             <label class="form-check-label" for="flexCheckDefault">
-                Quiero guardar esta tarjeta para futuras compras
+                ¿Queres ser gold y ahorrar en tu proxima compra?
             </label>
             <x-button type="button" id="botonCancelar" hidden >
                 {{ __('Cancelar') }}
