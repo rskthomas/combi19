@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Pasaje;
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use phpDocumentor\Reflection\Types\Integer;
@@ -127,6 +128,10 @@ class User extends Authenticatable
 
         }else return null;
 
+    }
 
+    public function bloquear(){
+
+        $this->bloqueado = Carbon::now()->addDays(15);
     }
 }

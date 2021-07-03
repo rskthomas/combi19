@@ -437,6 +437,14 @@ Route::name('pasaje.')
         Route::get('/{pasaje}/cuestionario', 'PasajeController@getCuestionario')
             ->name('cuestionario')
             ->withoutMiddleware('role:chofer');
+
+        //-------------------------------------------------------------------------------------//
+        Route::post('/pasaje/subir/{pasaje}', 'PasajeController@subir')
+            ->name('subir');
+
+        //-------------------------------------------------------------------------------------//
+        Route::post('/pasaje/ausente/{pasaje}', 'PasajeController@ausente')
+            ->name('ausente');
     });
 
 //--------------TARJETA-------------------
