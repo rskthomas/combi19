@@ -188,7 +188,7 @@ class PasajeController extends Controller
         }
 
         // setear en cancelado!!!!!!!!!!!!!!!!!!!!
-        $pasaje-> update (["estado"=>"cancelado por el usuario"]);
+        $pasaje-> update (["estado"=>"cancelado por el usuario",'viaje_id'=>null]);
 
         return redirect()->to(route('user.viajes', ['user' => Auth::user()]))
             ->with('mensaje', $mensaje);

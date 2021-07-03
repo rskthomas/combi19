@@ -6,7 +6,10 @@ use Exception;
 use App\Models\Ruta;
 use App\Models\Lugar;
 use App\Models\Viaje;
+use App\Models\Pasaje;
+use App\Models\LogViaje;
 use Illuminate\Http\Request;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Database\Eloquent\Collection;
 
 
@@ -204,5 +207,35 @@ class ViajeController extends Controller
 
         return view('entidades.viaje.iniciar')->with(['viaje'=> $viaje,
                                                       'pasajes'=> $pasajes] );
+    }
+
+
+    public function finalizar(Viaje $viaje){
+
+        $log = LogViaje::create([
+            'nombre' => $viaje->nombre,
+            'descripcion' => $viaje->descripcion,
+            'fecha_salida' => $viaje->fecha_salida,
+            'hora_salida' => $viaje->hora_salida,
+            'precio' => $viaje->precio,
+            'estado' => "realizado",
+            'cant_asientos' => $viaje->cant_asientos,
+            'pasajes_vendidos'=>($viaje->cant_asientos - $viaje->pasajesLibres()),
+            'salida' => $viaje->ruta->salida->nombre,
+            'llegada' => $viaje->ruta->llegada->nombre,
+            'nombre_chofer' => $viaje->ruta->combi->chofer->name,
+            'id_chofer' => $viaje->ruta->combi->chofer->id,
+            'mail_chofer' => $viaje->ruta->combi->chofer->email,
+        ]);
+        $pasajes = Pasaje::where('viaje_id','=',$viaje->id)->update(['viaje_id'=>null]);
+        $pasajes = Pasaje::where('estado','=','pendiente')->where('viaje_id','=',$viaje->id)->update(['estado'=>'ausente']);
+
+        $pasajes = Pasaje::where('estado','=','abordo')->where('viaje_id','=',$viaje->id)->update(['estado'=>'finalizado']);
+
+        $viaje->delete();
+        return redirect()->to(RouteServiceProvider::HOME)->with('viajefinalizado', 'open');
+
+
+
     }
 }
