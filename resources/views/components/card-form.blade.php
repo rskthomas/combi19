@@ -76,8 +76,15 @@
 
 
             <input class="form-check-input" type="checkbox"  id="serGold" name="serGold"  value="1" checked>
-            <label class="form-check-label" for="flexCheckDefault">
-                ¿Queres ser gold y ahorrar en tu proxima compra?
+            <label class="form-check-label" for="flexCheckDefault"  >
+            @if (Auth::user()->isGold())
+                Guardar esta tarjeta y seguir siendo gold
+        
+            
+            @else
+                Quiero ser gold para la proxima compra
+            
+            @endif
             </label>
             <x-button type="button" id="botonCancelar" hidden >
                 {{ __('Cancelar') }}

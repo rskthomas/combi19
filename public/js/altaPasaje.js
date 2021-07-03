@@ -4,6 +4,8 @@ $(document).ready(function () {
 
   document.getElementById("botonContinuar").hidden = true;
   document.getElementById( "opcionesNuevaTarjeta").hidden = false;
+  document.getElementById( "labelsergold").innerHTML = 'ok';
+  
   
 });
 
