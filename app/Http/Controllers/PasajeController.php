@@ -104,7 +104,7 @@ class PasajeController extends Controller
         }
 
         if ($request->cantPasajes <= $viaje->pasajesLibres()) {
-          
+
             $pasaje = Pasaje::create([
                 'asiento' => $viaje->siguienteAsiento(),
                 'estado' => 'pendiente',
@@ -115,12 +115,12 @@ class PasajeController extends Controller
                 'productos' => $request->productos,
                 'viaje_id' => $viaje->id,
                 'user_id' => $id,
-                'nombre'=>$viaje->nombre,
-                'descripcion'=>$viaje->descripcion,
-                'fecha_salida'=>$viaje->fecha_salida,
-                'salida'=>$viaje->ruta->salida->nombre,
-                'llegada'=>$viaje->ruta->llegada->nombre,
-                'hora_salida'=>$viaje->hora_salida
+                'nombre' => $viaje->nombre,
+                'descripcion' => $viaje->descripcion,
+                'fecha_salida' => $viaje->fecha_salida,
+                'salida' => $viaje->ruta->salida->nombre,
+                'llegada' => $viaje->ruta->llegada->nombre,
+                'hora_salida' => $viaje->hora_salida
 
 
             ]);
@@ -189,7 +189,7 @@ class PasajeController extends Controller
         }
 
         // setear en cancelado!!!!!!!!!!!!!!!!!!!!
-        $pasaje-> update (["estado"=>"cancelado por el usuario",'viaje_id'=>null]);
+        $pasaje->update(["estado" => "cancelado por el usuario", 'viaje_id' => null]);
 
         return redirect()->to(route('user.viajes', ['user' => Auth::user()]))
             ->with('mensaje', $mensaje);
@@ -203,7 +203,7 @@ class PasajeController extends Controller
 
     public function subir(Request $request, Pasaje $pasaje)
     {
-       //dd($request);
+        //dd($request);
         $request->validate([
             'temperatura' => 'required|numeric',
         ]);
@@ -212,17 +212,18 @@ class PasajeController extends Controller
         if ((isset($request->preg) and  sizeOf($request->preg) > 1)  || $request->temperatura > '37.9') {
             $pasaje->usuario->bloquear();
             $pasaje->estado = 'rechazado';
-            $key = 'pasaje_rechazado';
-            $route = 'viaje.iniciar';
+            $pasaje->save();
+
+
+            return redirect()->to(route('viaje.iniciar', ['viaje' => $pasaje->viaje]))
+                ->with('pasaje_rechazado', $pasaje);
         } else {
             $pasaje->estado = 'activo';
-            $key = 'pasaje_activo';
-            $route = 'pasaje.vianda';
-        }
-        $pasaje->save();
+            $pasaje->save();
 
-        return redirect()->to(route($route, ['viaje' => $pasaje->viaje]))
-            ->with($key, $pasaje);
+            return redirect()->to(route('pasaje.vianda', ['pasaje' => $pasaje]))
+                ->with('pasaje_activo', $pasaje);
+        }
     }
 
     public function ausente(Pasaje $pasaje)
@@ -235,12 +236,9 @@ class PasajeController extends Controller
     }
 
 
-    public function showVianda(Pasaje $pasaje){
+    public function showVianda(Pasaje $pasaje)
+    {
 
-
-        return view('pasaje.vianda', ['pasaje' => $pasaje]);
-
-
-
+        return view('entidades.pasaje.vianda', ['pasaje' => $pasaje, 'productos' => json_decode($pasaje->productos, true)]);
     }
 }

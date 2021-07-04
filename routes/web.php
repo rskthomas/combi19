@@ -79,7 +79,7 @@ Route::name('user.')
     });
 
 
- 
+
 
 
 
@@ -463,7 +463,7 @@ Route::name('pasaje.')
             ->name('ausente');
 
         //-------------------------------------------------------------------------------------//
-        Route::get('/{viaje}/vianda', 'PasajeController@create')
+        Route::get('/{pasaje}/vianda', 'PasajeController@showVianda')
             ->name('vianda')
             ->middleware('role:chofer');
     });

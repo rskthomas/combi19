@@ -84,7 +84,8 @@ class User extends Authenticatable
 
     public function isGold(): bool
     {
-        return $this->isGold;
+
+        return $this->isGold == true;
     }
 
     public function asignarTarjeta($tarjeta)
@@ -131,8 +132,8 @@ class User extends Authenticatable
     }
 
     public function bloquear(){
-      
+
         $this->update(['bloqueado' => Carbon::now()->addDays(15)]);
-       
+
     }
 }
