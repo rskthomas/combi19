@@ -37,7 +37,7 @@ Route::name('home')
     ->group(function () {
 
         //--------------------------Home for all users----------------------------------------------------//
-        Route::get('', 'HomeController@create');
+        Route::get('/', 'HomeController@create');
 
         //--------------------------autocomplete API----------------------------------------------------//
         Route::get('api/lugares/find', 'HomeController@getAutocompleteData')
@@ -79,7 +79,7 @@ Route::name('user.')
     });
 
 
- 
+
 
 
 
@@ -342,11 +342,17 @@ Route::name('viaje.')
             ->name('iniciar')
             ->withoutmiddleware('role:administrator')
             ->middleware('role:chofer');
-
+        ///------------------------------------------------------------------------//
             Route::get('{viaje}/finalizar', 'ViajeController@finalizar')
             ->name('finalizar')
             ->withoutmiddleware('role:administrator')
             ->middleware('role:chofer');
+
+        /////------------------------------------------------------------------------//
+        Route::get('{viaje}/cancelar', 'ViajeController@cancelar')
+        ->name('cancelar')
+        ->withoutmiddleware('role:administrator');
+
 
         //-------------------------------------------------------------------------------------//
         Route::get('{viaje}/edit', 'ViajeController@edit')
@@ -411,11 +417,9 @@ Route::name('pasaje.')
             ->withoutMiddleware('role:administrator');
 
 
-
         //-------------------------------------------------------------------------------------//
         Route::post('/alta/store/{viaje}', 'PasajeController@store')
             ->name('store');
-
 
 
         //-------------------------------------------------------------------------------------//
@@ -442,7 +446,6 @@ Route::name('pasaje.')
             ->middleware('role:administrator');
 
 
-
         //-------------------------------------------------------------------------------------//
         Route::put('{pasaje}/update', [PasajeController::class, 'update'])->name('update');
 
@@ -450,6 +453,19 @@ Route::name('pasaje.')
         Route::get('/{pasaje}/cuestionario', 'PasajeController@getCuestionario')
             ->name('cuestionario')
             ->withoutMiddleware('role:chofer');
+
+        //-------------------------------------------------------------------------------------//
+        Route::post('/{pasaje}/subir', 'PasajeController@subir')
+            ->name('subir');
+
+        //-------------------------------------------------------------------------------------//
+        Route::post('/{pasaje}/ausente', 'PasajeController@ausente')
+            ->name('ausente');
+
+        //-------------------------------------------------------------------------------------//
+        Route::get('/{pasaje}/vianda', 'PasajeController@showVianda')
+            ->name('vianda')
+            ->middleware('role:chofer');
     });
 
 //--------------TARJETA-------------------

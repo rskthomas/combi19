@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Pasaje;
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use phpDocumentor\Reflection\Types\Integer;
@@ -83,7 +84,8 @@ class User extends Authenticatable
 
     public function isGold(): bool
     {
-        return $this->isGold;
+
+        return $this->isGold == true;
     }
 
     public function asignarTarjeta($tarjeta)
@@ -127,6 +129,11 @@ class User extends Authenticatable
 
         }else return null;
 
+    }
+
+    public function bloquear(){
+
+        $this->update(['bloqueado' => Carbon::now()->addDays(15)]);
 
     }
 }
