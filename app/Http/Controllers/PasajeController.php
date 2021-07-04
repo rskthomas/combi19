@@ -202,7 +202,7 @@ class PasajeController extends Controller
 
     public function subir(Request $request, Pasaje $pasaje)
     {
-
+       //dd($request);
         $request->validate([
             'temperatura' => 'required|numeric',
         ]);

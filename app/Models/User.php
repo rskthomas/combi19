@@ -131,7 +131,8 @@ class User extends Authenticatable
     }
 
     public function bloquear(){
-
-        $this->bloqueado = Carbon::now()->addDays(15);
+      
+        $this->update(['bloqueado' => Carbon::now()->addDays(15)]);
+       
     }
 }

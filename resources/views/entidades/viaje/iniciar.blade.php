@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-            {{ __('Viajeros del viaje') }}
+            {{ __('Pasajeros del viaje') }}
         </h2>
 
     </x-slot>
@@ -10,14 +10,14 @@
 @if(session()->has('pasajero_rechazado'))
 
     <div class="alert alert-warning text-center" role="alert">
-        <span>El pasajero {{session()->get('pasajero_ausente')->user->name}} presenta sintomas de COVID-19 y se marca como rechazado </span>
-        <p> Se le han devuelto {{session()->get('pasajero_ausente')->monto_total}} ARS</p>
+        <span>El pasajero {{session()->get('pasajero_rechazado')->usuario->name}} presenta sintomas de COVID-19 y se marca como rechazado </span>
+        <p> Se le han devuelto {{session()->get('pasajero_rechazado')->total_compra}} ARS</p>
     </div>
 @endif
 @if(session()->has('pasajero_ausente'))
 
     <div class="alert alert-warning text-center" role="alert">
-        <span>El pasajero {{session()->get('pasajero_ausente')->user->name}} no se ha presentado </span>
+        <span>El pasajero {{session()->get('pasajero_ausente')->usuario->name}} no se ha presentado </span>
         <p> No se le devuelve el monto del pasaje</p>
     </div>
 @endif
@@ -25,8 +25,7 @@
 @if(session()->has('pasajero_activo'))
 
     <div class="alert alert-warning text-center" role="alert">
-        <span>El pasajero {{session()->get('pasajero_activo')->user->name}} no se ha presentado </span>
-        <p> No se le devuelve el monto del pasaje</p>
+        <span>El pasajero {{session()->get('pasajero_activo')->usuario->name}}  ha subido a la combi </span>  
     </div>
 @endif
 
@@ -114,6 +113,11 @@
 
         </div>
 
+    </div>
+    <div class="flex items-center justify-center mt-6 btn-lg ">
+    <a class="btn btn-info btn-dark" role="button"  title="finalizar" href="{{ route('viaje.finalizar', ['viaje' => $viaje]) }}">
+    Finalizar Viaje
+            </a>
     </div>
     @endif
 </x-app-layout>

@@ -14,6 +14,11 @@
             <span>Su viaje ha concluido! :)</span>
         </div>
     @endif
+    @if (session()->has('viajecancelado'))
+        <div class="alert alert-success text-center" role="alert">
+            <span>Se ha cancelado el viaje y se le ha devuelto el dinero a los pasajeros </span>
+        </div>
+    @endif
 
     @if (!isset($viajes) or $viajes->isEmpty())
         <div class="alert alert-warning text-center mt-10" role="alert">
@@ -66,6 +71,12 @@
                                     <a href="{{ route('viaje.iniciar', ['viaje' => $viaje]) }}">
                                         <button type="button" class="btn btn-dark" title="IniciarViaje">
                                             Iniciar Viaje
+                                        </button>
+                                        <a />
+
+                                        <a href="{{ route('viaje.cancelar', ['viaje' => $viaje]) }}">
+                                        <button type="button" class="btn btn-dark" title="IniciarViaje">
+                                            Cancelar viaje 
                                         </button>
                                         <a />
                                         <!-- BOTON VER -->

@@ -2,12 +2,12 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-                {{ __('Listar Viajes') }}
+                {{ __('VIAJES FINALIZADOS') }}
             </h2>
 
         </x-slot>
 
-        @if(!isset($resultado))
+        @if (!isset($resultado) or $resultado->isEmpty())
         <div class="alert alert-success text-center" role="alert">
             <span>No hay viajes disponibles </span>
         </div>
@@ -28,7 +28,6 @@
                                 <th scope="col">Fecha de salida </th>
                                 <th scope="col">Hora de salida</th>
                                 <th scope="col">Estado </th>
-                                <th scope="col">Pasajes Vendidos </th>
 
 
                             </tr>
@@ -43,7 +42,7 @@
                                 <td>{{ $viaje->fecha_salida}}</td>
                                 <td>{{ $viaje->hora_salida}}</td>
                                 <td>{{ $viaje->estado}}</td>
-                                <td>{{ $viaje->pasajes_vendidos}}</td>
+                                
                                 <td></td>
 
                                 <td>
