@@ -37,7 +37,7 @@ Route::name('home')
     ->group(function () {
 
         //--------------------------Home for all users----------------------------------------------------//
-        Route::get('', 'HomeController@create');
+        Route::get('/', 'HomeController@create');
 
         //--------------------------autocomplete API----------------------------------------------------//
         Route::get('api/lugares/find', 'HomeController@getAutocompleteData')
@@ -450,6 +450,14 @@ Route::name('pasaje.')
         Route::get('/{pasaje}/cuestionario', 'PasajeController@getCuestionario')
             ->name('cuestionario')
             ->withoutMiddleware('role:chofer');
+
+        //-------------------------------------------------------------------------------------//
+        Route::post('/pasaje/subir/{pasaje}', 'PasajeController@subir')
+            ->name('subir');
+
+        //-------------------------------------------------------------------------------------//
+        Route::post('/pasaje/ausente/{pasaje}', 'PasajeController@ausente')
+            ->name('ausente');
     });
 
 //--------------TARJETA-------------------

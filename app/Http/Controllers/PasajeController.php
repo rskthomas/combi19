@@ -193,4 +193,41 @@ class PasajeController extends Controller
         return redirect()->to(route('user.viajes', ['user' => Auth::user()]))
             ->with('mensaje', $mensaje);
     }
+
+    public function getCuestionario(Pasaje $pasaje)
+    {
+
+        return view('entidades.pasaje.cuestionario')->with('pasaje', $pasaje);
+    }
+
+    public function subir(Request $request, Pasaje $pasaje)
+    {
+
+        $request->validate([
+            'temperatura' => 'required|numeric',
+        ]);
+
+
+        if ((isset($request->preg) and  sizeOf($request->preg) > 1)  || $request->temperatura > '37.9') {
+            $pasaje->usuario->bloquear();
+            $pasaje->estado = 'rechazado';
+            $key = 'pasajero_rechazado';
+        } else {
+            $pasaje->estado = 'activo';
+            $key = 'pasajero_activo';
+        }
+        $pasaje->save();
+
+        return redirect()->to(route('viaje.iniciar', ['viaje' => $pasaje->viaje]))
+            ->with($key, $pasaje);
+    }
+
+    public function ausente(Pasaje $pasaje)
+    {
+        $pasaje->estado = 'ausente';
+        $pasaje->save();
+
+        return redirect()->to(route('viaje.iniciar', ['viaje' => $pasaje->viaje]))
+            ->with('pasajero_ausente', $pasaje);
+    }
 }
