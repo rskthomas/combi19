@@ -14,7 +14,7 @@
 
         <div class="alert alert-warning text-center" role="alert">
             <span>El pasajero {{ session()->get('pasaje_ausente')->usuario->name }} presenta sintomas de COVID-19 y se
-                marca como rechazado </span>
+                marca como rechazado por 15 dias</span>
             <p> Se le han devuelto {{ session()->get('pasaje_ausente')->monto_total }} ARS</p>
         </div>
     @endif

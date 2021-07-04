@@ -15,7 +15,9 @@
         <div class="alert alert-success text-center" role="alert">
             <span>El pasajero {{ session()->get('pasaje_activo')->usuario->name }} puede subir a la combi </span>
             <br>
+            @if ($pasaje->productos <> '{}')
             <span>Por favor, entregue su vianda </span>
+            @endif
         </div>
     @endif
 
