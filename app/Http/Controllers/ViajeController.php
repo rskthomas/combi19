@@ -252,7 +252,7 @@ class ViajeController extends Controller
             'fecha_salida' => $viaje->fecha_salida,
             'hora_salida' => $viaje->hora_salida,
             'precio' => $viaje->precio,
-            'estado' => "realizado",
+            'estado' => "cancelado",
             'cant_asientos' => $viaje->cant_asientos,
             'pasajes_vendidos' => ($viaje->cant_asientos - $viaje->pasajesLibres()),
             'salida' => $viaje->ruta->salida->nombre,
