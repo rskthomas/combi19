@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Hash;
 class UsuariosController extends Controller
 {
 
-    public function show(User $user){
+    public function show(User $user)
+    {
 
-        $user = User::find(auth()->user()->id);
-            return $user->profile()->with('user', $user);
+        if ($user->hasRole('chofer')) $view_name = 'chofer.profile';
+        else $view_name = 'user.profile';
 
+        return view($view_name)->with('user', $user);
     }
 
     public function update(Request $request)

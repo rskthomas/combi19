@@ -24,61 +24,61 @@
         <div class="alert alert-warning text-center mt-10" role="alert">
             <span> No hay ningun viaje asignado</span>
         </div>
-@else
+    @else
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-3 ">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
 
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Ruta</th>
-                            <th scope="col">Fecha de salida </th>
-                            <th scope="col">Hora de salida</th>
-                            <th scope="col">Estado </th>
-                            <th scope="col">Asientos libres</th>
-                            <th scope="col"> </th>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-3 ">
 
 
-                        </tr>
-                    </thead>
-                    @foreach ($viajes as $viaje)
-
-                        <tbody id='viaje'>
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
+                                <th scope="col">Ruta</th>
+                                <th scope="col">Fecha de salida </th>
+                                <th scope="col">Hora de salida</th>
+                                <th scope="col">Estado </th>
+                                <th scope="col">Asientos libres</th>
+                                <th scope="col"> </th>
 
-                                <td>
-                                    <a href="{{ route('ruta.info', [$viaje->ruta]) }}">{{ $viaje->ruta->salida->nombre }}-{{ $viaje->ruta->llegada->nombre }}
-                                    </a>
-                                </td>
-                                <td>{{ $viaje->salida_formatted() }}
-                                    @if (!Date::createFromFormat('d-m-Y', $viaje->fecha_salida) == Date::today())
-                                        <br>
-                                        <p class="text-color-red"> Hoy! </p>
-                                    @endif
 
-                                </td>
-                                <td>{{ $viaje->hora_salida }}</td>
-                                <td>{{ $viaje->estado }}</td>
-                                <td>{{ $viaje->pasajesLibres() }}</td>
+                            </tr>
+                        </thead>
+                        @foreach ($viajes as $viaje)
 
-                                <td>
-                                    <!-- Iniciar Viaje -->
-                                    <a href="{{ route('viaje.iniciar', ['viaje' => $viaje]) }}">
-                                        <button type="button" class="btn btn-dark" title="IniciarViaje">
-                                            Iniciar Viaje
-                                        </button>
-                                        <a />
+                            <tbody id='viaje'>
+                                <tr>
+
+                                    <td>
+                                        <a href="{{ route('ruta.info', [$viaje->ruta]) }}">{{ $viaje->ruta->salida->nombre }}-{{ $viaje->ruta->llegada->nombre }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $viaje->salida_formatted() }}
+                                        @if (!Date::createFromFormat('d-m-Y', $viaje->fecha_salida) == Date::today())
+                                            <br>
+                                            <p class="text-color-red"> Hoy! </p>
+                                        @endif
+
+                                    </td>
+                                    <td>{{ $viaje->hora_salida }}</td>
+                                    <td>{{ $viaje->estado }}</td>
+                                    <td>{{ $viaje->pasajesLibres() }}</td>
+
+                                    <td>
+                                        <!-- Iniciar Viaje -->
+                                        <a href="{{ route('viaje.iniciar', ['viaje' => $viaje]) }}">
+                                            <button type="button" class="btn btn-dark" title="IniciarViaje">
+                                                Iniciar Viaje
+                                            </button>
+                                        </a>
 
                                         <a href="{{ route('viaje.cancelar', ['viaje' => $viaje]) }}">
-                                        <button type="button" class="btn btn-dark" title="IniciarViaje">
-                                            Cancelar viaje 
-                                        </button>
-                                        <a />
+                                            <button type="button" class="btn btn-danger" title="IniciarViaje">
+                                                Cancelar viaje
+                                            </button>
+                                        </a>
                                         <!-- BOTON VER -->
                                         <a href="{{ route('viaje.info', ['viaje' => $viaje]) }}">
                                             <button type="button" class="btn btn-info" title="Ver Viaje">
@@ -92,22 +92,22 @@
                                                 </svg>
 
                                             </button>
-                                            
+
                                             <a />
 
 
-                                </td>
+                                    </td>
 
-                            </tr>
-                        </tbody>
-                    @endforeach
-                </table>
+                                </tr>
+                            </tbody>
+                        @endforeach
+                    </table>
 
+                </div>
             </div>
+
+
         </div>
-
-
-    </div>
 
     @endif
 </x-app-layout>
