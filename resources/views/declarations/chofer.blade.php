@@ -4,6 +4,9 @@
         <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
             {{ __('Home') }}
         </x-nav-link>
+        <x-nav-link :href="route('chofer.log',)" :active="request()->routeIs('log')">
+            {{ __('Viajes Realizados') }}
+        </x-nav-link>
     </div>
 
 

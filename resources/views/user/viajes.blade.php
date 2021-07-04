@@ -33,12 +33,12 @@
 
             <tbody id='pasajes' align="center">
                 <tr class="te">
-                    <td>{{$pasaje->viaje->ruta->salida->nombre}} -
-                        {{ $pasaje->viaje->salida_formatted() }}
+                    <td>{{$pasaje->nombre}} -
+                        {{ $pasaje->fecha_salida }}
                     </br>
-                    {{ $pasaje->viaje->hora_salida }} hs</td>
+                    {{ $pasaje->hora_salida }} hs</td>
 
-                    <td >{{ $pasaje->viaje->ruta->llegada->nombre }}</td>
+                    <td >{{ $pasaje->llegada }}</td>
                     <td class="font-black " >{{ $pasaje->asiento }}</td>
                     <td >{{ $pasaje->estado }} </td>
                     <td >

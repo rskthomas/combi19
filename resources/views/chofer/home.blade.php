@@ -9,6 +9,11 @@
         {{ __('Mis Proximos Viajes') }}
         <hr>
     </h2>
+    @if (session()->has('viajefinalizado'))
+        <div class="alert alert-success text-center" role="alert">
+            <span>Su viaje ha concluido! :)</span>
+        </div>
+    @endif
 
     @if (!isset($viajes) or $viajes->isEmpty())
         <div class="alert alert-warning text-center mt-10" role="alert">
@@ -76,6 +81,7 @@
                                                 </svg>
 
                                             </button>
+                                            
                                             <a />
 
 
