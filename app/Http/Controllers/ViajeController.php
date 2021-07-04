@@ -6,7 +6,10 @@ use Exception;
 use App\Models\Ruta;
 use App\Models\Lugar;
 use App\Models\Viaje;
+use App\Models\Pasaje;
+use App\Models\LogViaje;
 use Illuminate\Http\Request;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Database\Eloquent\Collection;
 
 
@@ -70,7 +73,7 @@ class ViajeController extends Controller
 
 
         if (Viaje::seSuperpone($request->fecha_salida, $request->hora_salida, $request->ruta))
-                return redirect()->to(route('viaje.create'))->with('combiOcupada', 'open');
+            return redirect()->to(route('viaje.create'))->with('combiOcupada', 'open');
 
 
         $viaje = Viaje::create([
@@ -143,8 +146,8 @@ class ViajeController extends Controller
         }
 
 
-        if (Viaje::seSuperpone($request->fecha_salida, $request->hora_salida, $request->ruta))
-        return redirect()->to(route('viaje.info', ['viaje' => $viaje->id]))->with('combiOcupada', 'open');
+        if (Viaje::seSuperpone($request->fecha_salida, $request->hora_salida, $request->ruta, $viaje->id))
+            return redirect()->to(route('viaje.info', ['viaje' => $viaje->id]))->with('combiOcupada', 'open');
 
 
         $viaje->update($request->all());
@@ -198,11 +201,74 @@ class ViajeController extends Controller
     }
 
 
-    public function iniciar(Viaje $viaje){
+    public function iniciar(Viaje $viaje)
+    {
 
         $pasajes = $viaje->pasajes()->paginate(10);
 
-        return view('entidades.viaje.iniciar')->with(['viaje'=> $viaje,
-                                                      'pasajes'=> $pasajes] );
+        return view('entidades.viaje.iniciar')->with([
+            'viaje' => $viaje,
+            'pasajes' => $pasajes
+        ]);
+    }
+
+
+    public function finalizar(Viaje $viaje)
+    {
+
+        $log = LogViaje::create([
+            'nombre' => $viaje->nombre,
+            'descripcion' => $viaje->descripcion,
+            'fecha_salida' => $viaje->fecha_salida,
+            'hora_salida' => $viaje->hora_salida,
+            'precio' => $viaje->precio,
+            'estado' => "realizado",
+            'cant_asientos' => $viaje->cant_asientos,
+            'pasajes_vendidos' => ($viaje->cant_asientos - $viaje->pasajesLibres()),
+            'salida' => $viaje->ruta->salida->nombre,
+            'llegada' => $viaje->ruta->llegada->nombre,
+            'nombre_chofer' => $viaje->ruta->combi->chofer->name,
+            'id_chofer' => $viaje->ruta->combi->chofer->id,
+            'mail_chofer' => $viaje->ruta->combi->chofer->email,
+        ]);
+
+        $pasajes = Pasaje::where('estado', '=', 'pendiente')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'ausente']);
+
+        $pasajes = Pasaje::where('estado', '=', 'activo')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'finalizado']);
+
+        $pasajes = Pasaje::where('viaje_id', '=', $viaje->id)->update(['viaje_id' => null]);
+        $viaje->delete();
+        return redirect()->to(RouteServiceProvider::HOME)->with('viajefinalizado', 'open');
+    }
+
+
+    public function cancelar(Viaje $viaje)
+    {
+
+
+        $log = LogViaje::create([
+            'nombre' => $viaje->nombre,
+            'descripcion' => $viaje->descripcion,
+            'fecha_salida' => $viaje->fecha_salida,
+            'hora_salida' => $viaje->hora_salida,
+            'precio' => $viaje->precio,
+            'estado' => "realizado",
+            'cant_asientos' => $viaje->cant_asientos,
+            'pasajes_vendidos' => ($viaje->cant_asientos - $viaje->pasajesLibres()),
+            'salida' => $viaje->ruta->salida->nombre,
+            'llegada' => $viaje->ruta->llegada->nombre,
+            'nombre_chofer' => $viaje->ruta->combi->chofer->name,
+            'id_chofer' => $viaje->ruta->combi->chofer->id,
+            'mail_chofer' => $viaje->ruta->combi->chofer->email,
+        ]);
+        $pasajes = Pasaje::where('estado', '=', 'pendiente')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'cancelado', 'dinero_devuelto' => '1']);
+        Pasaje::where('viaje_id', '=', $viaje->id)->update(['viaje_id' => null]);
+
+
+
+
+        $viaje->delete();
+
+        return redirect()->to(RouteServiceProvider::HOME)->with('viajecancelado', 'open');
     }
 }

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-            {{ __('Viajeros del viaje') }}
+            {{ __('Pasajeros del viaje') }}
         </h2>
 
     </x-slot>
@@ -113,6 +113,11 @@
 
         </div>
 
+    </div>
+    <div class="flex items-center justify-center mt-6 btn-lg ">
+    <a class="btn btn-info btn-dark" role="button"  title="finalizar" href="{{ route('viaje.finalizar', ['viaje' => $viaje]) }}">
+    Finalizar Viaje
+            </a>
     </div>
     @endif
 </x-app-layout>

@@ -104,7 +104,7 @@ class PasajeController extends Controller
         }
 
         if ($request->cantPasajes <= $viaje->pasajesLibres()) {
-
+          
             $pasaje = Pasaje::create([
                 'asiento' => $viaje->siguienteAsiento(),
                 'estado' => 'pendiente',
@@ -115,7 +115,12 @@ class PasajeController extends Controller
                 'productos' => $request->productos,
                 'viaje_id' => $viaje->id,
                 'user_id' => $id,
-
+                'nombre'=>$viaje->nombre,
+                'descripcion'=>$viaje->descripcion,
+                'fecha_salida'=>$viaje->fecha_salida,
+                'salida'=>$viaje->ruta->salida->nombre,
+                'llegada'=>$viaje->ruta->llegada->nombre,
+                'hora_salida'=>$viaje->hora_salida
 
 
             ]);
@@ -173,18 +178,18 @@ class PasajeController extends Controller
      */
     public function destroy(Pasaje $pasaje)
     {
-        $fecha = date_create_from_format('d-m-Y H:i', $pasaje->viaje->fecha_salida . ' ' . $pasaje->viaje->hora_salida);
+        $fecha = date_create_from_format('d-m-Y H:i', $pasaje->fecha_salida . ' ' . $pasaje->hora_salida);
         $dtz = new DateTimeZone('America/Argentina/Buenos_Aires');
         $fecha_actual = new DateTime('now', $dtz);
 
         if (date_modify($fecha_actual, "+48 hour") > ($fecha)) {
-            $mensaje = "Su pasaje ha sido eliminado y se le ha devuelto el 50% del pasaje (" . (($pasaje->total_compra) / 2) . ")";
+            $mensaje = "Su pasaje ha sido cancelado y se le ha devuelto el 50% del pasaje (" . (($pasaje->total_compra) / 2) . ")";
         } else {
-            $mensaje = "Su pasaje ha sido eliminado y se le ha devuelto el valor del pasaje ($" . $pasaje->total_compra . ")";
+            $mensaje = "Su pasaje ha sido cancelado y se le ha devuelto el valor del pasaje ($" . $pasaje->total_compra . ")";
         }
 
-
-        $pasaje->delete();
+        // setear en cancelado!!!!!!!!!!!!!!!!!!!!
+        $pasaje-> update (["estado"=>"cancelado por el usuario",'viaje_id'=>null]);
 
         return redirect()->to(route('user.viajes', ['user' => Auth::user()]))
             ->with('mensaje', $mensaje);
@@ -198,7 +203,7 @@ class PasajeController extends Controller
 
     public function subir(Request $request, Pasaje $pasaje)
     {
-
+       //dd($request);
         $request->validate([
             'temperatura' => 'required|numeric',
         ]);

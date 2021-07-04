@@ -122,16 +122,17 @@ class User extends Authenticatable
 
     public function misViajes(){
 
-        if (isSet ($this->combi)){
+        if (isSet ($this->combi->ruta)){
 
-            return $this->combi->ruta->viajes;
+            return $this->combi->ruta->viajes->where('estado', 'pendiente');
 
         }else return null;
 
     }
 
     public function bloquear(){
-
-        $this->bloqueado = Carbon::now()->addDays(15);
+      
+        $this->update(['bloqueado' => Carbon::now()->addDays(15)]);
+       
     }
 }

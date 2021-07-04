@@ -18,18 +18,26 @@ class CreatePasajesTable extends Migration
             $table->timestamps();
             $table->integer("asiento");
             $table->string("estado");
+            $table->string('nombre')->nullable();
+            $table->string('descripcion')->nullable();
+            $table->date('fecha_salida');
+            $table->time('hora_salida');
+            $table->string('salida');
+            $table->string('llegada');
             $table->json("productos");
             $table->double("total_compra");
             $table->double("total_productos");
             $table->double("total_descuentos");
             $table->double("total_pasaje");
+            $table->double("dinero_devuelto")->nullable();
             $table->foreignId('viaje_id')
+            ->unsigned()
             ->nullable()
-            ->onDelete('SET NULL')
+            ->onDelete('set null')
             ->constrained('viajes');
             $table->foreignId('user_id')
             ->nullable()
-            ->onDelete('SET NULL')
+            ->onDelete('set null')
             ->constrained('users');
 
         });

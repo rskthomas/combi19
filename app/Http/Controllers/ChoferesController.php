@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\LogViaje;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
@@ -67,6 +69,14 @@ class ChoferesController extends Controller
     public function edit(User $chofer)
     {
         return view('user.modificarperfil', ['user' => $chofer]);
+    }
+    public function logviajes()
+    {
+        $resultado = LogViaje::where('id_chofer','=',Auth::user()->id)->paginate(6);;
+
+        return view('chofer.listar-viajes-realizados')
+        ->with('resultado', $resultado);
+      
     }
 
     public function show(User $chofer)

@@ -79,6 +79,11 @@ Route::name('user.')
     });
 
 
+ 
+
+
+
+
 
 //-----------------------COMBI-------------------------------
 Route::name('combi.')
@@ -191,6 +196,9 @@ Route::name('chofer.')
         Route::delete('/{chofer}/delete', 'ChoferesController@destroy')
             ->name('delete');
 
+            Route::get('/log', 'ChoferesController@logviajes')
+            ->withoutMiddleware('role:administrator')
+            ->name('log');
     });
 
 
@@ -334,6 +342,17 @@ Route::name('viaje.')
             ->name('iniciar')
             ->withoutmiddleware('role:administrator')
             ->middleware('role:chofer');
+        ///------------------------------------------------------------------------//
+            Route::get('{viaje}/finalizar', 'ViajeController@finalizar')
+            ->name('finalizar')
+            ->withoutmiddleware('role:administrator')
+            ->middleware('role:chofer');
+
+        /////------------------------------------------------------------------------//
+        Route::get('{viaje}/cancelar', 'ViajeController@cancelar')
+        ->name('cancelar')
+        ->withoutmiddleware('role:administrator');
+
 
         //-------------------------------------------------------------------------------------//
         Route::get('{viaje}/edit', 'ViajeController@edit')
