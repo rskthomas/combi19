@@ -61,8 +61,8 @@ class PasajeController extends Controller
      */
     public function store(Request $request, Viaje $viaje)
     {
-        //
-        $id =   Auth::user()->id;
+
+        $id = Auth::user()->id;
 
 
         if (!User::find($id)->isGold() || Auth::user()->tarjeta->vencida() || isset($request->nuevaTarjetaAgregada)) {
@@ -119,11 +119,12 @@ class PasajeController extends Controller
 
 
             ]);
-            $usuario =   User::find(Auth::id());
+            $usuario = User::find(Auth::id());
 
             $usuario->pasajes()->save($pasaje);
             $usuario->asignarPasaje();
         }
+        $pasaje->save();
 
         return redirect()->to(RouteServiceProvider::HOME)->with('pasajeComprado', 'open');
     }
@@ -206,14 +207,16 @@ class PasajeController extends Controller
         if ((isset($request->preg) and  sizeOf($request->preg) > 1)  || $request->temperatura > '37.9') {
             $pasaje->usuario->bloquear();
             $pasaje->estado = 'rechazado';
-            $key = 'pasajero_rechazado';
+            $key = 'pasaje_rechazado';
+            $route = 'viaje.iniciar';
         } else {
             $pasaje->estado = 'activo';
-            $key = 'pasajero_activo';
+            $key = 'pasaje_activo';
+            $route = 'pasaje.vianda';
         }
         $pasaje->save();
 
-        return redirect()->to(route('viaje.iniciar', ['viaje' => $pasaje->viaje]))
+        return redirect()->to(route($route, ['viaje' => $pasaje->viaje]))
             ->with($key, $pasaje);
     }
 
@@ -223,6 +226,16 @@ class PasajeController extends Controller
         $pasaje->save();
 
         return redirect()->to(route('viaje.iniciar', ['viaje' => $pasaje->viaje]))
-            ->with('pasajero_ausente', $pasaje);
+            ->with('pasaje_ausente', $pasaje);
+    }
+
+
+    public function showVianda(Pasaje $pasaje){
+
+
+        return view('pasaje.vianda', ['pasaje' => $pasaje]);
+
+
+
     }
 }

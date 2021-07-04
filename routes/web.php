@@ -398,11 +398,9 @@ Route::name('pasaje.')
             ->withoutMiddleware('role:administrator');
 
 
-
         //-------------------------------------------------------------------------------------//
         Route::post('/alta/store/{viaje}', 'PasajeController@store')
             ->name('store');
-
 
 
         //-------------------------------------------------------------------------------------//
@@ -429,7 +427,6 @@ Route::name('pasaje.')
             ->middleware('role:administrator');
 
 
-
         //-------------------------------------------------------------------------------------//
         Route::put('{pasaje}/update', [PasajeController::class, 'update'])->name('update');
 
@@ -439,12 +436,17 @@ Route::name('pasaje.')
             ->withoutMiddleware('role:chofer');
 
         //-------------------------------------------------------------------------------------//
-        Route::post('/pasaje/subir/{pasaje}', 'PasajeController@subir')
+        Route::post('/{pasaje}/subir', 'PasajeController@subir')
             ->name('subir');
 
         //-------------------------------------------------------------------------------------//
-        Route::post('/pasaje/ausente/{pasaje}', 'PasajeController@ausente')
+        Route::post('/{pasaje}/ausente', 'PasajeController@ausente')
             ->name('ausente');
+
+        //-------------------------------------------------------------------------------------//
+        Route::get('/{viaje}/vianda', 'PasajeController@create')
+            ->name('vianda')
+            ->middleware('role:chofer');
     });
 
 //--------------TARJETA-------------------
