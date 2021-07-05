@@ -142,4 +142,11 @@ class User extends Authenticatable
         return ( isSet($this->bloqueado)  and  (! Carbon::create($this->bloqueado)->isPast() ));
 
     }
+    public function fecha_desbloqueo(){
+
+
+        $date = Carbon::create($this->bloqueado);
+        setlocale(LC_TIME, "es_ES.UTF-8");
+        return strftime("%A %d %B %R",$date->getTimestamp());
+    }
 }

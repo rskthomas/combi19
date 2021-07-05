@@ -36,7 +36,7 @@
                             <td>{{ $usuario->name }}</td>
                             <td>{{ $usuario->email }}</td>
                             <td>rechazado</td>
-                            <td>{{ $usuario->bloqueado }}</td>
+                            <td>{{ $usuario->fecha_desbloqueo() }} hs</td>
 
                         </tr>
                     </tbody>
