@@ -136,4 +136,10 @@ class User extends Authenticatable
         $this->update(['bloqueado' => Carbon::now()->addDays(15)]);
 
     }
+
+    public function estoyBloqueado(): bool{
+
+        return ( isSet($this->bloqueado)  and  (! Carbon::create($this->bloqueado)->isPast() ));
+
+    }
 }

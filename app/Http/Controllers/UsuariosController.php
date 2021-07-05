@@ -68,6 +68,17 @@ class UsuariosController extends Controller
         $resultado = $user->pasajes()->paginate(5);
         return view('user.viajes') ->with('resultado', $resultado);
 
+    }
 
+    public function getRechazados(){
+
+        $collection = User::all();
+
+        $resultado = $collection->filter(function ($value, $key) {
+
+            return $value->estoyBloqueado();
+        });
+
+        return view('user.rechazados', ['resultado'=>$resultado]);
     }
 }
