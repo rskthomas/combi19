@@ -14,9 +14,9 @@
         </div>
 
         @endif
-        @if(isset(Auth::user()->bloqueado))
+        @if(Auth::user()->estoybloqueado())
 
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-warning text-center" role="alert">
             <span> Por el momento usted no puede comprar pasajes ya que se encuentra bloqueado. Para mas informacion
                 comuniquese con el administrador </span>
         </div>
@@ -43,7 +43,7 @@
                                 <th scope="col">Fecha de salida </th>
                                 <th scope="col">Hora de salida</th>
                                 <th scope="col">Estado </th>
-                                <th scope="col"> precio</th>
+                                <th scope="col"> Precio</th>
                                 <th scope="col"> Asientos libres</th>
                                 <th scope="col"> </th>
 
@@ -72,7 +72,7 @@
                                     @if($viaje->pasajesLibres() != 0)
 
                                     <a href="{{ route('pasaje.create', ['viaje' => $viaje]) }}">
-                                        <button type="button" class="btn btn-primary" title="Comprar">
+                                        <button type="button" class="btn btn-success" title="Comprar">
 
                                             Comprar Pasaje!
                                         </button></a>

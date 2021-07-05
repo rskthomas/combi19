@@ -12,11 +12,11 @@
 
     @if (session()->has('pasaje_rechazado'))
 
-    <div class="alert alert-warning text-center" role="alert">
-        <span>El pasajero {{ session()->get('pasaje_ausente')->usuario->name }} presenta sintomas de COVID-19 y se
-            marca como rechazado </span>
-        <p> Se le han devuelto {{ session()->get('pasaje_ausente')->monto_total }} ARS</p>
-    </div>
+        <div class="alert alert-warning text-center" role="alert">
+            <span>El pasajero {{ session()->get('pasaje_rechazado')->usuario->name }} presenta sintomas de COVID-19 y se
+                marca como rechazado por 15 dias</span>
+            <p> Se le han devuelto {{ session()->get('pasaje_rechazado')->total_compra }} ARS</p>
+        </div>
     @endif
     @if (session()->has('pasaje_ausente'))
 

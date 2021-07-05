@@ -2,6 +2,7 @@
 
 //this line below imports routes from auth.php
 require __DIR__ . '/auth.php';
+
 use App\Models\Comentario;
 use App\Models\Producto;
 use App\Models\Role;
@@ -42,7 +43,6 @@ Route::name('home')
         //--------------------------autocomplete API----------------------------------------------------//
         Route::get('api/lugares/find', 'HomeController@getAutocompleteData')
             ->name('.autocomplete');
-
     });
 
 
@@ -54,7 +54,9 @@ Route::name('user.')
     ->middleware('role:administrator')
     ->group(function () {
 
-
+        //-----------------------------------------------------//
+        Route::get('/bloqueados', 'UsuariosController@getBloqueados')
+            ->name('bloqueados');
         //--------------------------perfil----------------------------------------------------//
         Route::get('/{user}', 'UsuariosController@show')
             ->name('info')
@@ -71,11 +73,9 @@ Route::name('user.')
 
         //--------------------------perfil----------------------------------------------------//
         Route::get('/{user}/viajes', 'UsuariosController@misViajes')
-        ->name('viajes')
-        ->withoutMiddleware('role:administrator')
-        ->middleware('auth');
-
-
+            ->name('viajes')
+            ->withoutMiddleware('role:administrator')
+            ->middleware('auth');
     });
 
 
@@ -122,48 +122,48 @@ Route::name('combi.')
             ->name('delete');
     });
 
-    //Rutas para los viajeros
+//Rutas para los viajeros
 
-    //----------------COMENTARIOS---------------------
+//----------------COMENTARIOS---------------------
 
 Route::name('comentario.')
-->prefix('/comentario')
-->group(function () {
+    ->prefix('/comentario')
+    ->group(function () {
 
-    //-------------------------------------------------------------//
-    Route::get('/alta', 'ComentarioController@create')
-        ->name('create')
-        ->middleware('role:user');
+        //-------------------------------------------------------------//
+        Route::get('/alta', 'ComentarioController@create')
+            ->name('create')
+            ->middleware('role:user');
 
-    //------------------------------------------------------------//
+        //------------------------------------------------------------//
 
-    Route::post('/alta/store', 'ComentarioController@store')
-        ->name('store')
-        ->middleware('role:user');
-
-
-    //------------------------------------------------------------//
-    Route::get('/listar', 'ComentarioController@index')
-        ->name('index');
-
-    //-------------------------------------------------------------//
-    Route::get('/{comentario}', 'ComentarioController@show')
-        ->name('info');
-
-    //-------------------------------------------------------------------------------------//
-    Route::delete('{comentario}/delete', 'ComentarioController@destroy')
-        ->middleware('auth')
-        ->name('delete');
+        Route::post('/alta/store', 'ComentarioController@store')
+            ->name('store')
+            ->middleware('role:user');
 
 
-    //-------------------------------------------------------------------------------------//
-    Route::get('{comentario}/edit', 'ComentarioController@edit')
-        ->name('edit');
+        //------------------------------------------------------------//
+        Route::get('/listar', 'ComentarioController@index')
+            ->name('index');
 
-    //-------------------------------------------------------------------------------------//
-    Route::put('{comentario}/update', 'ComentarioController@update')
-        ->name('update');
-});
+        //-------------------------------------------------------------//
+        Route::get('/{comentario}', 'ComentarioController@show')
+            ->name('info');
+
+        //-------------------------------------------------------------------------------------//
+        Route::delete('{comentario}/delete', 'ComentarioController@destroy')
+            ->middleware('auth')
+            ->name('delete');
+
+
+        //-------------------------------------------------------------------------------------//
+        Route::get('{comentario}/edit', 'ComentarioController@edit')
+            ->name('edit');
+
+        //-------------------------------------------------------------------------------------//
+        Route::put('{comentario}/update', 'ComentarioController@update')
+            ->name('update');
+    });
 
 //Rutas para los choferes
 
@@ -196,7 +196,7 @@ Route::name('chofer.')
         Route::delete('/{chofer}/delete', 'ChoferesController@destroy')
             ->name('delete');
 
-            Route::get('/log', 'ChoferesController@logviajes')
+        Route::get('/log', 'ChoferesController@logviajes')
             ->withoutMiddleware('role:administrator')
             ->name('log');
     });
@@ -274,7 +274,7 @@ Route::name('ruta.')
         //-------------------------------------------------------------------------------------//
         Route::get('/{ruta}', 'RutaController@show')
             ->name('info')
-             ->withoutMiddleware('role:administrator');
+            ->withoutMiddleware('role:administrator');
 
 
 
@@ -343,15 +343,15 @@ Route::name('viaje.')
             ->withoutmiddleware('role:administrator')
             ->middleware('role:chofer');
         ///------------------------------------------------------------------------//
-            Route::get('{viaje}/finalizar', 'ViajeController@finalizar')
+        Route::get('{viaje}/finalizar', 'ViajeController@finalizar')
             ->name('finalizar')
             ->withoutmiddleware('role:administrator')
             ->middleware('role:chofer');
 
         /////------------------------------------------------------------------------//
         Route::get('{viaje}/cancelar', 'ViajeController@cancelar')
-        ->name('cancelar')
-        ->withoutmiddleware('role:administrator');
+            ->name('cancelar')
+            ->withoutmiddleware('role:administrator');
 
 
         //-------------------------------------------------------------------------------------//
@@ -499,5 +499,4 @@ Route::name('tarjeta.')
         //-------------------------------------------------------------------------------------//
         Route::post('/alta/store', 'TarjetaController@store')
             ->name('store');
-
     });
