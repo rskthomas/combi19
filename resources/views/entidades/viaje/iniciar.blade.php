@@ -15,7 +15,7 @@
         <div class="alert alert-warning text-center" role="alert">
             <span>El pasajero {{ session()->get('pasaje_rechazado')->usuario->name }} presenta sintomas de COVID-19 y se
                 marca como rechazado por 15 dias</span>
-            <p> Se le han devuelto {{ session()->get('pasaje_rechazado')->monto_total }} ARS</p>
+            <p> Se le han devuelto {{ session()->get('pasaje_rechazado')->total_compra }} ARS</p>
         </div>
     @endif
     @if (session()->has('pasaje_ausente'))
@@ -69,7 +69,7 @@
                                     <td>
 
                                         <!-- Tomar cuestionarip -->
-                                        @if ($pasaje->estado == 'pendiente')    
+                                        @if ($pasaje->estado == 'pendiente')
                                             <a href="{{ route('pasaje.cuestionario', ['pasaje' => $pasaje]) }}">
                                                 <button type="button" class="btn btn-dark" title="IniciarViaje">
                                                     Iniciar Cuestionario

@@ -70,7 +70,7 @@ class UsuariosController extends Controller
 
     }
 
-    public function getRechazados(){
+    public function getBloqueados(){
 
         $collection = User::all();
 

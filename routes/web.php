@@ -55,8 +55,8 @@ Route::name('user.')
     ->group(function () {
 
         //-----------------------------------------------------//
-        Route::get('/rechazados', 'UsuariosController@getRechazados')
-            ->name('rechazados');
+        Route::get('/bloqueados', 'UsuariosController@getBloqueados')
+            ->name('bloqueados');
         //--------------------------perfil----------------------------------------------------//
         Route::get('/{user}', 'UsuariosController@show')
             ->name('info')

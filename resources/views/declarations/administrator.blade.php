@@ -299,8 +299,8 @@
             </form>
 
 
-            <x-dropdown-link :href="route('user.rechazados')">
-                {{ __('Listar rechazados') }}
+            <x-dropdown-link :href="route('user.bloqueados')">
+                {{ __('Listar bloqueados') }}
             </x-dropdown-link>
 
 

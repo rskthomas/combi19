@@ -8,7 +8,7 @@
 
     @if (!isset($resultado) or $resultado->isEmpty())
     <div class="alert alert-success text-center" role="alert">
-        <span>No hay choferes rechazados </span>
+        <span>No hay usuarios bloqueados </span>
     </div>
 
     @else
@@ -25,7 +25,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Mail</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Rechazado hasta</th>
+                            <th scope="col">Bloqueado hasta</th>
 
                         </tr>
                     </thead>
@@ -35,7 +35,7 @@
                         <tr>
                             <td>{{ $usuario->name }}</td>
                             <td>{{ $usuario->email }}</td>
-                            <td>Rechazado</td>
+                            <td>rechazado</td>
                             <td>{{ $usuario->bloqueado }}</td>
 
                         </tr>
