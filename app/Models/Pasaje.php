@@ -22,6 +22,11 @@ class Pasaje extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function devolverDinero()
+    {
+        $this->update(["dinero_devuelto"=>$this->total_compra]);
+
+    }
 
 
 }

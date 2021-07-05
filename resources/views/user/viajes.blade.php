@@ -41,7 +41,10 @@
 
                     <td>{{ $pasaje->llegada }}</td>
                     <td class="font-black ">{{ $pasaje->asiento }}</td>
-                    <td>{{ $pasaje->estado }} </td>
+                    <td> Viaje {{ $pasaje->estado }} 
+                    @if($pasaje->estado == 'cancelado'||$pasaje->estado == 'cancelado por el usuario'|| $pasaje->estado == 'rechazado' )
+                    se le han devuelto ${{$pasaje->dinero_devuelto}}
+                        @endif</td>
                     <td>
 
                         <!--Boton info -->

@@ -99,7 +99,7 @@
                                         </button>
                                         @if (Auth::user()->hasRole('administrator'))
                                         <a href="{{ route('viaje.cancelar', ['viaje' => $viaje]) }}">
-                                            <button type="button" class="btn btn-dark" title="IniciarViaje">
+                                            <button type="button" class="btn btn-dark" title="CancelarViaje">
                                                 Cancelar viaje
                                             </button>
                                             @endif

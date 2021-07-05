@@ -4,6 +4,23 @@
             {{ __('Pasaje- ') }} {{ $pasaje->salida}} - {{ $pasaje->llegada }}
         </h2>
     </x-slot>
+
+    @if($pasaje->estado == 'cancelado')
+
+    <div class="alert alert-danger text-center" role="alert">
+        <span>Su pasaje ha sido cancelado. Lamentamos el inconveniente. Se le han devuelto ${{$pasaje->dinero_devuelto}}</span>
+    </div>
+
+    @elseif($pasaje->estado == 'cancelado por el usuario')
+        <div class="alert alert-warning text-center" role="alert">
+        <span>Ha cancelado el pasaje, se le han devuelto  ${{$pasaje->dinero_devuelto}}</span>
+    </div>
+    @elseif($pasaje->estado == 'rechazado')
+        <div class="alert alert-warning text-center" role="alert">
+        <span>Su pasaje ha sido rechazado por haber presentado sintomas compatibles con COVID, se le han devuelto ${{$pasaje->dinero_devuelto}}</span>
+    </div>
+    @endif
+
     <div class=" max-w-7x100 mx-auto  w-full sm:max-w-screen-lg
              bg-white shadow-md overflow-hidden sm:rounded-lg">
         <div class="card-header">
@@ -31,6 +48,7 @@
                 </div>
                 <div class="col-6 mt-2">
                     <x-label for="estado" :value="__('Estado del viaje: ')" /> {{$pasaje->estado }}
+
 
                 </div>
             </div>
@@ -175,7 +193,7 @@
                         <form method="POST" action="{{ route( 'pasaje.delete', [ 'pasaje' => $pasaje] ) }}">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-danger">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Cancelar Pasaje</button>
                         </form>
                     </div>
                 </div>

@@ -203,7 +203,7 @@ class ViajeController extends Controller
 
     public function iniciar(Viaje $viaje)
     {
-
+        $viaje->update(['estado'=>'activo']);
         $pasajes = $viaje->pasajes()->paginate(10);
 
         return view('entidades.viaje.iniciar')->with([
@@ -261,7 +261,16 @@ class ViajeController extends Controller
             'id_chofer' => $viaje->ruta->combi->chofer->id,
             'mail_chofer' => $viaje->ruta->combi->chofer->email,
         ]);
-        $pasajes = Pasaje::where('estado', '=', 'pendiente')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'cancelado', 'dinero_devuelto' => '1']);
+        $pasajes = Pasaje::where('estado', '=', 'pendiente')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'cancelado']);
+
+        $pasajes = Pasaje::where('viaje_id', '=', $viaje->id)->get();
+       
+        foreach ($pasajes as $pasaje) {
+           
+            $pasaje->update(["dinero_devuelto"=>$pasaje->total_compra]);
+
+        }
+
         Pasaje::where('viaje_id', '=', $viaje->id)->update(['viaje_id' => null]);
 
 
@@ -271,4 +280,6 @@ class ViajeController extends Controller
 
         return redirect()->to(RouteServiceProvider::HOME)->with('viajecancelado', 'open');
     }
+
+
 }

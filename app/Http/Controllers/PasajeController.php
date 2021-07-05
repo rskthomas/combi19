@@ -61,7 +61,7 @@ class PasajeController extends Controller
      */
     public function store(Request $request, Viaje $viaje)
     {
-
+     
         $id = Auth::user()->id;
 
 
@@ -183,13 +183,16 @@ class PasajeController extends Controller
         $fecha_actual = new DateTime('now', $dtz);
 
         if (date_modify($fecha_actual, "+48 hour") > ($fecha)) {
-            $mensaje = "Su pasaje ha sido cancelado y se le ha devuelto el 50% del pasaje (" . (($pasaje->total_compra) / 2) . ")";
+            $devolucion= (($pasaje->total_compra) / 2) ;
+            $mensaje = "Su pasaje ha sido cancelado y se le ha devuelto el 50% del pasaje (" . $devolucion . ")";
+            
         } else {
-            $mensaje = "Su pasaje ha sido cancelado y se le ha devuelto el valor del pasaje ($" . $pasaje->total_compra . ")";
+            $devolucion= ($pasaje->total_compra) ;
+            $mensaje = "Su pasaje ha sido cancelado y se le ha devuelto el valor del pasaje ($" . $devolucion. ")";
         }
 
         // setear en cancelado!!!!!!!!!!!!!!!!!!!!
-        $pasaje->update(["estado" => "cancelado por el usuario", 'viaje_id' => null]);
+        $pasaje->update(["estado" => "cancelado por el usuario", 'viaje_id' => null,"dinero_devuelto"=>$devolucion]);
 
         return redirect()->to(route('user.viajes', ['user' => Auth::user()]))
             ->with('mensaje', $mensaje);
