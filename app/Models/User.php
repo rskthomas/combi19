@@ -75,6 +75,10 @@ class User extends Authenticatable
         return isset($this->tarjeta);
     }
 
+    public function realizoPasaje(){
+
+        $this->comproPasaje = true;
+    }
 
     public function comproPasaje(): bool
     {
@@ -101,7 +105,6 @@ class User extends Authenticatable
     {
 
         //setear la relacion 1-1 --
-        $this->comproPasaje = true;
         $this->save();
     }
 
@@ -125,7 +128,7 @@ class User extends Authenticatable
 
         if (isSet ($this->combi->ruta)){
 
-            return $this->combi->ruta->viajes;
+            return $this->combi->ruta->viajes->where('estado', 'pendiente');
 
         }else return null;
 
