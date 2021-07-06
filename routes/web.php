@@ -71,7 +71,7 @@ Route::name('user.')
         Route::put('/update', 'UsuariosController@update')
             ->name('update');
 
-        //--------------------------perfil----------------------------------------------------//
+        //--------------------------viajes------------------------------//
         Route::get('/{user}/viajes', 'UsuariosController@misViajes')
             ->name('viajes')
             ->withoutMiddleware('role:administrator')

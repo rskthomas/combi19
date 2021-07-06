@@ -3,7 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
             {{ __('Pasajeros del viaje') }}
             <a class="btn btn-dark ml-4" role="button" title="express" href="#">
-                Sacar pasaje express
+                Vender pasaje express
             </a>
         </h2>
 

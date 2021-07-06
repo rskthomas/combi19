@@ -75,13 +75,13 @@
                                         <!-- Iniciar Viaje -->
                                         @if ($viaje->estado == 'pendiente')
                                             <a href="{{ route('viaje.iniciar', ['viaje' => $viaje]) }}">
-                                                <button type="button" class="btn btn-dark" title="IniciarViaje">
+                                                <button type="button" class="btn btn-dark" title="Iniciar Cuestionario">
                                                     Iniciar Cuestionarios
                                                 </button>
                                             </a>
                                         @else
                                             <a href="#ventanaModal" style="text-decoration:none" data-toggle="modal">
-                                                <button type="button" class="btn btn-dark" title="IniciarViaje">
+                                                <button type="button" class="btn btn-dark" title="Finalizar Viaje">
                                                     Finalizar
                                                 </button>
                                             </a>
@@ -90,9 +90,9 @@
 
                                         <a href="{{ route('viaje.cancelar', ['viaje' => $viaje]) }}">
                                             @if ($viaje->estado == 'pendiente')
-                                                <button type="button" class="btn btn-danger" title="IniciarViaje">
+                                                <button type="button" class="btn btn-danger" title="Cancelar Viaje">
                                                 @else
-                                                    <button type="button" class="btn btn-danger" title="IniciarViaje"
+                                                    <button type="button" class="btn btn-danger" title="Cancelar Viaje"
                                                         disabled>
                                             @endif
                                             Cancelar

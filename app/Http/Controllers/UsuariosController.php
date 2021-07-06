@@ -65,7 +65,7 @@ class UsuariosController extends Controller
 
     public function misViajes(User $user){
 
-        $resultado = $user->pasajes()->paginate(5);
+        $resultado = $user->pasajes()->orderBy('created_at', 'DESC')->paginate(5);
         return view('user.viajes') ->with('resultado', $resultado);
 
     }
