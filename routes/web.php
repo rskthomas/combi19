@@ -339,7 +339,7 @@ Route::name('viaje.')
             ->name('delete');
 
         //-------------------------------------------------------------------------------------//
-        Route::get('{viaje}/iniciar', 'ViajeController@iniciar')
+        Route::get('{viaje}/iniciar', 'ViajeController@getIniciar')
             ->name('iniciar')
             ->withoutmiddleware('role:administrator')
             ->middleware('role:chofer');
@@ -363,6 +363,12 @@ Route::name('viaje.')
 
         //-------------------------------------------------------------------------------------//
         Route::put('{viaje}/update', [ViajeController::class, 'update'])->name('update');
+
+        //-------------------------------------------------------------------------------------//
+        Route::put('{viaje}/iniciar', 'ViajeController@iniciar')
+            ->name('iniciar')
+            ->withoutmiddleware('role:administrator')
+            ->middleware('role:chofer');
     });
 
 

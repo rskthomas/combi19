@@ -138,8 +138,8 @@ class ViajeController extends Controller
         ]);
         // dd($request);
         $ruta = Ruta::where("id", "=", $request->ruta)->first();
-        
- 
+
+
 
         if ($ruta->combi['asientos'] < $request->cant_asientos) {
             //$parametros=['error'=>'la cantidad de asientos elegida es mayor a la disponible ','request'=>$request]
@@ -202,17 +202,24 @@ class ViajeController extends Controller
     }
 
 
-    public function iniciar(Viaje $viaje)
+    public function getIniciar(Viaje $viaje)
     {
-        $viaje->update(['estado' => 'activo']);
-        $pasajes = $viaje->pasajes()->paginate(10);
 
+        $pasajes = $viaje->pasajes()->paginate(10);
         return view('entidades.viaje.iniciar')->with([
             'viaje' => $viaje,
             'pasajes' => $pasajes
         ]);
     }
 
+    public function iniciar(Viaje $viaje)
+    {
+
+        $viaje->update(['estado' => 'activo']);
+        Pasaje::where('estado', '=', 'pendiente')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'ausente']);
+
+        return redirect()->to(RouteServiceProvider::HOME)->with('viajeiniciado', 'open');
+    }
 
     public function finalizar(Viaje $viaje)
     {
@@ -237,15 +244,9 @@ class ViajeController extends Controller
             ->each(function ($pasaje, $key) {
                 $pasaje->usuario->comproPasaje = true;
                 $pasaje->usuario->save();
-
             });
 
-        $pasajes = Pasaje::where('estado', '=', 'pendiente')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'ausente']);
-
         $pasajes = Pasaje::where('estado', '=', 'activo')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'finalizado']);
-
-
-
         $pasajes = Pasaje::where('viaje_id', '=', $viaje->id)->update(['viaje_id' => null]);
 
 
