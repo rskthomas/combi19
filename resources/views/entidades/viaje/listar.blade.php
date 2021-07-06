@@ -97,7 +97,7 @@
                                             </svg>
 
                                         </button>
-                                        @if (Auth::user()->hasRole('administrator'))
+                                        @if (Auth::user()->hasRole('administrator')&&  ($viaje->estado == 'pendiente'))
                                         <a href="{{ route('viaje.cancelar', ['viaje' => $viaje]) }}">
                                             <button type="button" class="btn btn-dark" title="CancelarViaje">
                                                 Cancelar viaje

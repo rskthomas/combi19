@@ -9,6 +9,7 @@ use App\Models\Viaje;
 use App\Models\Pasaje;
 use App\Models\LogViaje;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -23,7 +24,10 @@ class ViajeController extends Controller
     public function index()
     {
         //
-        $resultado = Viaje::where('estado','=','pendiente')->paginate(10);
+        if(Auth::user()->hasRole('administrator')){
+            $resultado = Viaje::paginate(10);
+        }else{ 
+        $resultado = Viaje::where('estado','=','pendiente')->paginate(10);}
         return view('entidades.viaje.listar', ['resultado' => $resultado]);
     }
 
