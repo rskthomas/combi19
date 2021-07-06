@@ -132,8 +132,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            El viaje sera dado por finalizado, los pasajeros que no se encuentran activos seran marcados
-                            como "ausente"
+                            El viaje sera dado por finalizado
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
