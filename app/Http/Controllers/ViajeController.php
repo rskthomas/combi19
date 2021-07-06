@@ -231,17 +231,19 @@ class ViajeController extends Controller
             'id_chofer' => $viaje->ruta->combi->chofer->id,
             'mail_chofer' => $viaje->ruta->combi->chofer->email,
         ]);
-    //chequear esta condicion de los comentarios con el viaje finalizado porque no esta andando
-        $viaje->pasajes()->where('estado', '=', 'activo')->where('viaje_id', '=', $viaje->id)
-              ->each(function ($pasaje, $key) {
-            $pasaje->usuario->realizoPasaje();
-        });
+        //chequear esta condicion de los comentarios con el viaje finalizado porque no esta andando
+        $viaje->pasajes->where('estado', '=', 'activo')
+            ->each(function ($pasaje, $key) {
+                $pasaje->usuario->comproPasaje = true;
+                $pasaje->usuario->save();
+
+            });
 
         $pasajes = Pasaje::where('estado', '=', 'pendiente')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'ausente']);
 
         $pasajes = Pasaje::where('estado', '=', 'activo')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'finalizado']);
 
-        
+
 
         $pasajes = Pasaje::where('viaje_id', '=', $viaje->id)->update(['viaje_id' => null]);
 

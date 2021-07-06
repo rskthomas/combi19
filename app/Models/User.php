@@ -75,15 +75,12 @@ class User extends Authenticatable
         return isset($this->tarjeta);
     }
 
-    public function realizoPasaje(){
-
-        $this->comproPasaje = true;
-    }
 
     public function comproPasaje(): bool
     {
-
-        return $this->comproPasaje;
+        if ($this->comproPasaje == null)
+             return false;
+        else return $this->comproPasaje;
     }
 
     public function isGold(): bool
