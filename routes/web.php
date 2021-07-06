@@ -144,6 +144,7 @@ Route::name('comentario.')
 
         //------------------------------------------------------------//
         Route::get('/listar', 'ComentarioController@index')
+            ->middleware('auth')
             ->name('index');
 
         //-------------------------------------------------------------//
