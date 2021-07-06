@@ -18,7 +18,7 @@ class ComentarioController extends Controller
     public function index()
     {
         if(Auth::user()->hasRole('administrator'))
-            $resultado = Comentario::pinate(5);
+            $resultado = Comentario::paginate(5);
         else
             $resultado = DB::table('comentarios')->select('comentarios.*')->where('autor', '=', Auth::user()->name)->paginate(5);
 
