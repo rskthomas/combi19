@@ -215,6 +215,7 @@ class PasajeController extends Controller
         if ((isset($request->preg) and  sizeOf($request->preg) > 1)  || $request->temperatura > '37.9') {
             $pasaje->usuario->bloquear();
             $pasaje->estado = 'rechazado';
+            $pasaje->dinero_devuelto = $pasaje->total_compra;
             $pasaje->save();
 
 
