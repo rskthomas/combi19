@@ -87,9 +87,15 @@
                                             </a>
                                         @endif
 
+
                                         <a href="{{ route('viaje.cancelar', ['viaje' => $viaje]) }}">
-                                            <button type="button" class="btn btn-danger" title="IniciarViaje">
-                                                Cancelar
+                                            @if ($viaje->estado == 'pendiente')
+                                                <button type="button" class="btn btn-danger" title="IniciarViaje">
+                                                @else
+                                                    <button type="button" class="btn btn-danger" title="IniciarViaje"
+                                                        disabled>
+                                            @endif
+                                            Cancelar
                                             </button>
                                         </a>
                                         <!-- BOTON VER -->
