@@ -65,6 +65,7 @@ class Viaje extends Model
 
 public static function seSuperpone(String $fecha_salida, String $hora_salida,String $ruta, $id= 0):bool{
 
+    
     $v_mismoDia  = Viaje::where('ruta_id', '=', $ruta)->where('fecha_salida' , '=', $fecha_salida)->where('id' , '!=', $id)->get();
 
         $fecha_viaje = new Carbon($fecha_salida . $hora_salida);
