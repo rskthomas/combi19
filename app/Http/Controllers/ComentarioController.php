@@ -17,13 +17,12 @@ class ComentarioController extends Controller
      */
     public function index()
     {
-        //$resultado = Comentario::paginate(5);
-        $resultado = DB::table('comentarios')->select('comentarios.*')->where('autor','=' ,Auth::user()->name)->paginate(5);
+        if(Auth::user()->hasRole('administrator'))
+            $resultado = Comentario::pinate(5);
+        else
+            $resultado = DB::table('comentarios')->select('comentarios.*')->where('autor', '=', Auth::user()->name)->paginate(5);
 
         return view('entidades.comentarios.listar')->with('resultado', $resultado);
-
-
-
     }
 
     /**
@@ -35,11 +34,10 @@ class ComentarioController extends Controller
 
     {
 
-        if (Auth::user()->comproPasaje) {
+        if (Auth::user()->comproPasaje()) {
 
             return view('entidades.comentarios.alta');
-        }
-        else return redirect()->to(RouteServiceProvider::HOME)->with('usuarioSinPasaje', 'open');
+        } else return redirect()->to(RouteServiceProvider::HOME)->with('usuarioSinPasaje', 'open');
     }
 
 

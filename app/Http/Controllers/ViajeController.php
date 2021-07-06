@@ -204,7 +204,7 @@ class ViajeController extends Controller
 
     public function iniciar(Viaje $viaje)
     {
-        $viaje->update(['estado'=>'activo']);
+        $viaje->update(['estado' => 'activo']);
         $pasajes = $viaje->pasajes()->paginate(10);
 
         return view('entidades.viaje.iniciar')->with([
@@ -232,13 +232,26 @@ class ViajeController extends Controller
             'id_chofer' => $viaje->ruta->combi->chofer->id,
             'mail_chofer' => $viaje->ruta->combi->chofer->email,
         ]);
+        //chequear esta condicion de los comentarios con el viaje finalizado porque no esta andando
+        $viaje->pasajes->where('estado', '=', 'activo')
+            ->each(function ($pasaje, $key) {
+                $pasaje->usuario->comproPasaje = true;
+                $pasaje->usuario->save();
+
+            });
 
         $pasajes = Pasaje::where('estado', '=', 'pendiente')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'ausente']);
 
         $pasajes = Pasaje::where('estado', '=', 'activo')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'finalizado']);
 
+
+
         $pasajes = Pasaje::where('viaje_id', '=', $viaje->id)->update(['viaje_id' => null]);
+
+
+
         $viaje->delete();
+
         return redirect()->to(RouteServiceProvider::HOME)->with('viajefinalizado', 'open');
     }
 
@@ -265,11 +278,10 @@ class ViajeController extends Controller
         $pasajes = Pasaje::where('estado', '=', 'pendiente')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'cancelado']);
 
         $pasajes = Pasaje::where('viaje_id', '=', $viaje->id)->get();
-       
-        foreach ($pasajes as $pasaje) {
-           
-            $pasaje->update(["dinero_devuelto"=>$pasaje->total_compra]);
 
+        foreach ($pasajes as $pasaje) {
+
+            $pasaje->update(["dinero_devuelto" => $pasaje->total_compra]);
         }
 
         Pasaje::where('viaje_id', '=', $viaje->id)->update(['viaje_id' => null]);
@@ -281,6 +293,4 @@ class ViajeController extends Controller
 
         return redirect()->to(RouteServiceProvider::HOME)->with('viajecancelado', 'open');
     }
-
-
 }

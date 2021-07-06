@@ -291,7 +291,7 @@
 
 
         <x-slot name="content">
-            <form method="GET" action="{{ route('comentario.index') }}">
+            <form method="GET" action="{{ route('comentario.index')}}">
                 <x-dropdown-link :href="route('comentario.index')" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     {{ __('Listar comentarios') }}

@@ -104,8 +104,8 @@
              bg-white shadow-md overflow-hidden sm:rounded-lg">
             <div class="card-header">
                 <div class="mb-3 row">
-                    <button type="button" class="btn btn-light" title="agregarproductos" id="addproductos"> AGREGAR
-                        PRODUCTOS
+                    <button type="button" class="btn btn-light" title="agregarproductos" id="addproductos" > <strong style="color: blue">AGREGAR
+                        PRODUCTOS </strong>
                     </button>
                 </div>
 
