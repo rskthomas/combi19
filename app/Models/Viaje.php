@@ -49,7 +49,7 @@ class Viaje extends Model
     public function pasajesLibres(){
         if( isset($this->pasajes)){
            return $this->cant_asientos-count($this->pasajes->where('estado','=' ,'pendiente')
-                                            ->where('estado','=' ,'activo'));
+                                            ->orwhere('estado','=' ,'activo'));
         }
 
 
