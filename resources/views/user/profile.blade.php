@@ -75,6 +75,16 @@
                 <hr />
                 @endif
 
+                @if ($user->estoyBloqueado())
+                <x-row>
+                    <x-slot name="type">
+                        Bloqueado hasta
+                    </x-slot>
+                    {{ $user->fecha_desbloqueo() }}
+                </x-row>
+                <hr />
+                @endif
+
                 <!-- a row -->
                     <x-row>
                         <x-slot name="type">
