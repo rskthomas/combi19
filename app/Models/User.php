@@ -125,8 +125,7 @@ class User extends Authenticatable
 
         if (isSet ($this->combi->ruta)){
 
-            return $this->combi->ruta->viajes;
-
+            return $this->combi->ruta->viajes->sortBy('fecha_salida');
         }else return null;
 
     }

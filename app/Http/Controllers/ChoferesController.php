@@ -72,11 +72,11 @@ class ChoferesController extends Controller
     }
     public function logviajes()
     {
-        $resultado = LogViaje::where('id_chofer','=',Auth::user()->id)->paginate(6);;
+        $resultado = LogViaje::where('id_chofer','=',Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(6);;
 
         return view('chofer.listar-viajes-realizados')
         ->with('resultado', $resultado);
-      
+
     }
 
     public function show(User $chofer)
