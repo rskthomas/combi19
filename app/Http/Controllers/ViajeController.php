@@ -23,7 +23,7 @@ class ViajeController extends Controller
     public function index()
     {
         //
-        $resultado = Viaje::paginate(10);
+        $resultado = Viaje::where('estado','=','pendiente')->paginate(10);
         return view('entidades.viaje.listar', ['resultado' => $resultado]);
     }
 

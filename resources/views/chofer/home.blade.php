@@ -81,12 +81,13 @@
                                     </button>
                                 </a>
                                 @endif
-
+                                @if($viaje->estado == 'pendiente')
                                 <a href="{{ route('viaje.cancelar', ['viaje' => $viaje]) }}">
                                     <button type="button" class="btn btn-danger" title="IniciarViaje">
                                         Cancelar viaje
                                     </button>
                                 </a>
+                                @endif
                                 <!-- BOTON VER -->
                                 <a href="{{ route('viaje.info', ['viaje' => $viaje]) }}">
                                     <button type="button" class="btn btn-info" title="Ver Viaje">
