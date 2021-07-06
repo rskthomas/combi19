@@ -95,7 +95,7 @@
 
                     <div class="mt-4 mb-4">
                         <x-label for="cant_asientos" :value="__('Cantidad de asientos')" />
-                        <x-input id="cant_asientos" class="block mt-1 w-full" type="number" name="cant_asientos" :value="old('precio')" :min="0" placeholder="0" required />
+                        <x-input id="cant_asientos" class="block mt-1 w-full" type="number" name="cant_asientos" :value="old('cant_asientos')" :min="0" placeholder="0" required />
 
                     </div>
 

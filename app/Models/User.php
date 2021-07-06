@@ -125,7 +125,7 @@ class User extends Authenticatable
 
         if (isSet ($this->combi->ruta)){
 
-            return $this->combi->ruta->viajes->where('estado', 'pendiente');
+            return $this->combi->ruta->viajes;
 
         }else return null;
 

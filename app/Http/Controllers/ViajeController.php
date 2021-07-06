@@ -138,7 +138,8 @@ class ViajeController extends Controller
         ]);
         // dd($request);
         $ruta = Ruta::where("id", "=", $request->ruta)->first();
-
+        
+ 
 
         if ($ruta->combi['asientos'] < $request->cant_asientos) {
             //$parametros=['error'=>'la cantidad de asientos elegida es mayor a la disponible ','request'=>$request]
