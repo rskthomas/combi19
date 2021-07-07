@@ -90,7 +90,7 @@
                     <option value="administrator">Administrador</option>
                 </select>
             </div>
-              -->        
+              -->
 
         </form>
     </x-auth-card>

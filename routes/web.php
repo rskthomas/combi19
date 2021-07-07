@@ -473,6 +473,17 @@ Route::name('pasaje.')
         Route::get('/{pasaje}/vianda', 'PasajeController@showVianda')
             ->name('vianda')
             ->middleware('role:chofer');
+
+        //-------------------------------------------------------------------------------------//
+        Route::get('/{viaje}/altaexpress', 'PasajeController@getExpress')
+            ->name('express')
+            ->middleware('role:chofer');
+
+         //-------------------------------------------------------------------------------------//
+         Route::post('/{viaje}/altaexpress', 'PasajeController@express')
+         ->name('express')
+         ->middleware('role:chofer');;
+
     });
 
 //--------------TARJETA-------------------

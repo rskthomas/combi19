@@ -2,14 +2,44 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-100 leading-tight">
             {{ __('Pasajeros del viaje') }}
-            <a class="btn btn-dark ml-4" role="button" title="express" href="#">
-                Vender pasaje express
-            </a>
+
+            @if ($viaje->pasajesLibres() > 0)
+
+                <a class="btn btn-dark ml-4" role="button" title="express"
+                    href="{{ route('pasaje.express', ['viaje' => $viaje]) }}">
+                    Vender pasaje express
+                </a>
+
+            @else
+
+                <button class="btn btn-dark ml-4" role="button" title="express" disabled ">
+                    Vender pasaje express
+                </button>
+            <p class="text-red-900"> La combi está llena! </p>
+            @endif
         </h2>
 
     </x-slot>
 
 
+    @if (session()->has('pasaje_express_rechazado'))
+
+        <div class="alert alert-warning text-center" role="alert">
+            <span> {{ session()->get('pasaje_express_rechazado') }} presenta sintomas de COVID-19
+                y no puede subir a la combi </span>
+
+        </div>
+    @endif
+    @if (session()->has('pasaje_express_exitoso'))
+
+        <div class="alert alert-success text-center" role="alert">
+            <span> El pasajero {{ session()->get('pasaje_express_exitoso') }} puede subir a la combi </span>
+            <br>
+            <span> La contraseña de su nueva cuenta será enviada al email ingresado </span>
+            <br>
+            <span> Se le han cobrado {{ $viaje->precio }} ARS </span>
+        </div>
+    @endif
     @if (session()->has('pasaje_rechazado'))
 
         <div class="alert alert-warning text-center" role="alert">
@@ -121,41 +151,41 @@
 
             <a href="#ventanaModal" style="text-decoration:none" data-toggle="modal">
                 <button type="button" class="btn btn-success" title="IniciarViaje">
-                   Iniciar Viaje
+                    Iniciar Viaje
                 </button>
             </a>
 
 
 
 
-        <div class="modal fade" id="ventanaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">¿Esta seguro que desea iniciar el
-                            viaje?</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body text-sm">
-                        El viaje pasa a estar activo, y los pasajeros que no se encuentran activos seran marcados
-                        como "ausente"
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
-                        <form method="POST" action="{{ route('viaje.iniciar', ['viaje' => $viaje]) }}">
-                            @csrf
-                            @method('put')
-                            <button type="submit" class="btn btn-success">Iniciar Viaje</button>
-                        </form>
+            <div class="modal fade" id="ventanaModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">¿Esta seguro que desea iniciar el
+                                viaje?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-sm">
+                            El viaje pasa a estar activo, y los pasajeros que no se encuentran activos seran marcados
+                            como "ausente"
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+                            <form method="POST" action="{{ route('viaje.iniciar', ['viaje' => $viaje]) }}">
+                                @csrf
+                                @method('put')
+                                <button type="submit" class="btn btn-success">Iniciar Viaje</button>
+                            </form>
 
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     @endif
 </x-app-layout>

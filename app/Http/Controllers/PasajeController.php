@@ -11,6 +11,7 @@ use App\Models\Tarjeta;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\TarjetaController;
@@ -61,7 +62,7 @@ class PasajeController extends Controller
      */
     public function store(Request $request, Viaje $viaje)
     {
-     
+
         $id = Auth::user()->id;
 
 
@@ -185,7 +186,7 @@ class PasajeController extends Controller
         if (date_modify($fecha_actual, "+48 hour") > ($fecha)) {
             $devolucion= (($pasaje->total_compra) / 2) ;
             $mensaje = "Su pasaje ha sido cancelado y se le ha devuelto el 50% del pasaje (" . $devolucion . ")";
-            
+
         } else {
             $devolucion= ($pasaje->total_compra) ;
             $mensaje = "Su pasaje ha sido cancelado y se le ha devuelto el valor del pasaje ($" . $devolucion. ")";
@@ -245,4 +246,68 @@ class PasajeController extends Controller
 
         return view('entidades.pasaje.vianda', ['pasaje' => $pasaje, 'productos' => json_decode($pasaje->productos, true)]);
     }
+
+    public function getExpress(Viaje $viaje)
+    {
+
+        return view('entidades.pasaje.express')->with('viaje', $viaje);
+    }
+
+    public function express(Request $request, Viaje $viaje)
+    {
+        if ((isset($request->preg) and  sizeOf($request->preg) > 1)  || $request->temperatura > '37.9') {
+
+            return redirect()->to(route('viaje.iniciar', ['viaje' => $viaje]))
+                ->with('pasaje_express_rechazado', $request->name);
+        }
+        else{
+
+        $request->validate([
+            'temperatura' => 'required|numeric',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users'
+        ]);
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                //this password is "sent" to the user's email
+                'password' => Hash::make('12345678'),
+                'birthdate'=> '16/06/1995',
+                'isGold' => false,
+            ]);
+            $user->attachRole('user');
+
+            if ($request->cantPasajes <= $viaje->pasajesLibres()) {
+
+                $pasaje = Pasaje::create([
+                    'asiento' => $viaje->siguienteAsiento(),
+                    'estado' => 'activo',
+                    'total_compra' => $viaje->precio,
+                    'total_productos' => '0.0',
+                    'total_pasaje' => $viaje->precio,
+                    'total_descuentos' => '0.0',
+                    'productos' => '{}',
+                    'viaje_id' => $viaje->id,
+                    'user_id' => $user->id,
+                    'nombre' => $viaje->nombre,
+                    'descripcion' => $viaje->descripcion,
+                    'fecha_salida' => $viaje->fecha_salida,
+                    'salida' => $viaje->ruta->salida->nombre,
+                    'llegada' => $viaje->ruta->llegada->nombre,
+                    'hora_salida' => $viaje->hora_salida
+
+                ]);
+
+                $user->pasajes()->save($pasaje);
+                $user->asignarPasaje();
+            }
+            $user->save();
+            $pasaje->save();
+
+            return redirect()->to(route('viaje.iniciar', ['viaje' => $viaje]))
+                ->with('pasaje_express_exitoso', $user->name);
+        }
+    }
+
 }
