@@ -324,12 +324,14 @@ Route::name('viaje.')
             ->withoutMiddleware('role:administrator');
 
 
+      
 
-        //-----------------------------  Busqueda de viajes  --------------------------------//
+
+        //-----------------------------   --------------------------------//
 
         Route::post('/busqueda', 'ViajeController@search')
-            ->name('search')
-            ->withoutMiddleware('role:administrator');
+            ->name('search');
+           
 
 
 
@@ -370,6 +372,31 @@ Route::name('viaje.')
             ->withoutmiddleware('role:administrator')
             ->middleware('role:chofer');
     });
+
+    Route::name('logviaje.')
+    ->prefix('/logviaje')
+    ->middleware('role:administrator')
+    ->group(function () {
+        
+        //-----------------------------  Busqueda de viajes realizados (Reporte) --------------------------------//
+
+        Route::post('/search', 'LogViajeController@search')
+            ->name('search');
+                  
+        //------------------------Ver reporte (viajes realizados)------------------------------------------//
+        Route::get('/index', 'LogViajeController@index')
+        ->name('index');
+        
+        
+        
+        });
+           
+
+
+
+
+
+    
 
 
 //----------------PRODUCTOS---------------------
