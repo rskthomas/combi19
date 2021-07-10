@@ -221,6 +221,14 @@
                     {{ __('Listar Viajes') }}
                 </x-dropdown-link>
             </form>
+            
+            <form method="GET" action="{{ route('logviaje.index') }}">
+
+                <x-dropdown-link :href="route('logviaje.index')" onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                    {{ __('Reporte de Viajes') }}
+                </x-dropdown-link>
+            </form>
 
         </x-slot>
 
