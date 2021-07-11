@@ -39,6 +39,18 @@
 
                         </div>
                         <div class="row">
+                            <div class="form-group col-6 ">
+                                <x-label for="nombre" :value="__('Nombre del chofer')" />
+                                <input oninput="this.value = this.value.toUpperCase()" id="nombre" type="text" name="nombre" placeholder="Busque por nombre del chofer" :value="old('nombre')" class="typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+                            </div>
+
+                            <div class="form-group col-6">
+                                <x-label for="mail" :value="__('Mail del chofer')" />
+                                <input oninput="this.value = this.value.toUpperCase()" id="mail" type="text" name="mail" placeholder="Busque por mail del chofer" :value="old('mail')" class=" w-auto typeahead form-control rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+                            </div>
+
+                        </div>
+                        <div class="row">
 
 
                             <div class="form-group col-6">
@@ -79,6 +91,8 @@
                                     <th scope="col">Fecha de salida </th>
                                     <th scope="col">Hora de salida</th>
                                     <th scope="col">Estado </th>
+                                    <th scope="col">Nombre del Chofer</th>
+                                    <th scope="col">Mail del Chofer</th>
 
 
                                 </tr>
@@ -93,6 +107,8 @@
                                     <td>{{ $viaje->fecha_salida}}</td>
                                     <td>{{ $viaje->hora_salida}}</td>
                                     <td>{{ $viaje->estado}}</td>
+                                    <td>{{ $viaje->nombre_chofer}}</td>
+                                    <td>{{ $viaje->mail_chofer}}</td>
 
                                     <td></td>
 
