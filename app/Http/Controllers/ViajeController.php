@@ -280,7 +280,7 @@ class ViajeController extends Controller
             'id_chofer' => $viaje->ruta->combi->chofer->id,
             'mail_chofer' => $viaje->ruta->combi->chofer->email,
         ]);
-        $pasajes = Pasaje::where('estado', '=', 'pendiente')->where('viaje_id', '=', $viaje->id)->update(['estado' => 'cancelado']);
+        $pasajes = Pasaje::where('viaje_id', '=', $viaje->id)->update(['estado' => 'cancelado']);
 
         $pasajes = Pasaje::where('viaje_id', '=', $viaje->id)->get();
 
