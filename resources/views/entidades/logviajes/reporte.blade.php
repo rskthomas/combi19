@@ -14,12 +14,14 @@
         @endif
 
 
-        @if (!isset($resultado) or $resultado->isEmpty())
+        @if (!isset($resultado) or $resultado->isEmpty()&& !isset($busqueda))
         <div class="alert alert-success text-center" role="alert">
             <span>No hay viajes </span>
         </div>
 
         @else
+
+
         <div class="mt-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-3 ">
@@ -81,7 +83,13 @@
             <div class="mt-4">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-3 ">
+                        @if (!isset($resultado) or $resultado->isEmpty() )
+                        <div class="alert alert-success text-center" role="alert">
+                            <span>No hay coincidencias </span>
+                        </div>
 
+
+                        @else
 
                         <table class="table table-hover">
                             <thead>
@@ -119,7 +127,9 @@
                             </tbody>
 
                             @endforeach
+
                         </table>
+                        @endif
 
 
 
